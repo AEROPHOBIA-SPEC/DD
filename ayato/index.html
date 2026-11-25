@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>iPhone Pro Max Black Titanium :: 쿠제 아야토 (久世 綾人)</title>
+<style>
+  :root {
+    --bg-obsidian: #0a0a0c;
+    --bg-home-gray: #1c1c1e;
+    --bg-card: #161618;
+    --bg-card-elevated: #222226;
+    --bg-card-hover: #2c2c30;
+    --accent-wine: #9f1239;
+    --accent-wine-soft: rgba(159, 18, 57, 0.22);
+    --accent-crimson: #e11d48;
+    --accent-gold: #d6c5a3;
+    --accent-silver: #e5e5ea;
+    --text-main: #f5f5f7;
+    --text-sub: #a1a1aa;
+    --text-muted: #71717a;
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-wine: rgba(225, 29, 72, 0.38);
+    --line-green: #06c755;
+    --ios-blue: #0a84ff;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  body {
+    background: radial-gradient(circle at 50% 25%, #1c1b20 0%, #050507 100%);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Hiragino Sans", "Noto Sans KR", sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  /* 생폰 블랙 티타늄 외형 (케이스·필름·스트랩 일절 없음, 흠집 하나 없는 매끈한 마감) */
+  .device-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 406px;
+    height: 830px;
+    max-height: 94dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phone-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #2a2a2e 0%, #111113 48%, #222226 100%);
+    border-radius: 52px;
+    padding: 9px;
+    box-shadow:
+      0 28px 65px rgba(0, 0, 0, 0.9),
+      0 0 0 1.5px #3f3f46,
+      inset 0 0 4px rgba(255, 255, 255, 0.16);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* 블랙 티타늄 헤어라인 광택 장식 (터치 통과) */
+  .titanium-sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: 52px;
+    background: linear-gradient(125deg, rgba(255,255,255,0.06) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.04) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .screen-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-home-gray);
+    border-radius: 44px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+  }
+
+  /* 상단 상태 표시줄 + 다이내믹 아일랜드 */
+  .status-bar {
+    position: relative;
+    height: 44px;
+    padding: 10px 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-main);
+    z-index: 50;
+    flex-shrink: 0;
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 108px;
+    height: 26px;
+    background: #000000;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+
+  .island-dnd {
+    font-size: 10px;
+    color: #c084fc;
+  }
+
+  .island-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #1e293b;
+  }
+
+  .status-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-silver);
+  }
+
+  .battery-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    color: #f4f4f5;
+  }
+
+  .battery-box {
+    width: 22px;
+    height: 11px;
+    border: 1.5px solid rgba(255, 255, 255, 0.65);
+    border-radius: 3.5px;
+    padding: 1.5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .battery-fill {
+    width: 74%;
+    height: 100%;
+    background: #f4f4f5;
+    border-radius: 1.5px;
+  }
+
+  /* 화면 스택 영역 */
+  .screens-viewport {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-obsidian);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(22px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  .screen.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    z-index: 20;
+  }
+
+  /* 잠금화면 (11월 15일 축제 밤, 연회색 동백 무늬 유카타 영정 사진) */
+  #screen-lock {
+    background:
+      radial-gradient(circle at 50% 44%, rgba(251, 191, 36, 0.14) 0%, transparent 45%),
+      radial-gradient(circle at 30% 65%, rgba(225, 29, 72, 0.14) 0%, transparent 50%),
+      linear-gradient(180deg, #090a0f 0%, #151722 48%, #09090b 100%);
+    justify-content: space-between;
+    padding: 8px 18px 14px;
+    transform: scale(1.015);
+  }
+
+  #screen-lock.active {
+    transform: scale(1);
+  }
+
+  .lock-clock-area {
+    text-align: center;
+    margin-top: 2px;
+    z-index: 3;
+  }
+
+  .lock-date {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e4e4e7;
+    letter-spacing: 0.2px;
+  }
+
+  .lock-clock {
+    font-size: 56px;
+    font-weight: 300;
+    letter-spacing: -1.5px;
+    color: #ffffff;
+    line-height: 1.02;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.65);
+  }
+
+  /* 영정 이마를 가리지 않도록 하단에 배치된 축제 사진 프레임 */
+  .lock-photo-stage {
+    position: relative;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(24, 24, 32, 0.72) 0%, rgba(12, 12, 16, 0.88) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 10px 12px;
+    margin: 6px 0;
+  }
+
+  .goldfish-scene {
+    height: 108px;
+    border-radius: 13px;
+    background:
+      radial-gradient(circle at 75% 22%, rgba(253, 224, 71, 0.28) 0%, transparent 34%),
+      radial-gradient(circle at 22% 28%, rgba(244, 63, 94, 0.24) 0%, transparent 32%),
+      linear-gradient(180deg, #131826 0%, #0e293d 68%, #0a1926 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 10px;
+    margin-bottom: 7px;
+  }
+
+  .festival-lanterns {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #fde68a;
+    opacity: 0.9;
+  }
+
+  .ei-subject-card {
+    background: rgba(10, 10, 14, 0.68);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    padding: 6px 10px;
+    text-align: center;
+  }
+
+  .ei-subject-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #f4f4f5;
+  }
+
+  .ei-subject-sub {
+    font-size: 10.5px;
+    color: #fda4af;
+    margin-top: 2px;
+  }
+
+  /* 잠금화면 하단 미확인 시스템 알림 2개 (영정 사진 아래 조용히 겹쳐짐) */
+  .lock-notifications {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 4;
+  }
+
+  .lock-noti-item {
+    background: rgba(28, 28, 32, 0.88);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+    min-height: 52px;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .lock-noti-item:active {
+    transform: scale(0.98);
+    background: rgba(44, 44, 50, 0.95);
+  }
+
+  .noti-app-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: #27272a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .lock-bottom-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .unlock-pill-btn {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .unlock-pill-btn:active {
+    transform: scale(0.97);
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  /* 홈 화면 (순정 어두운 회색 단색 배경, 페이지 1 & 페이지 2 전환) */
+  #screen-home {
+    background: #1c1c1e;
+    padding: 8px 18px 14px;
+    justify-content: space-between;
+  }
+
+  .home-pages-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .home-page {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .home-page.active {
+    display: flex;
+  }
+
+  .widgets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .ios-widget {
+    background: #2c2c2e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 13px 14px;
+    min-height: 128px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .ios-widget:active {
+    transform: scale(0.97);
+    background: #3a3a3c;
+  }
+
+  .widget-top-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .widget-big-num {
+    font-size: 28px;
+    font-weight: 300;
+    color: #ffffff;
+    letter-spacing: -0.8px;
+    margin: 4px 0 2px;
+  }
+
+  .widget-desc {
+    font-size: 11.5px;
+    color: #d4d4d8;
+    line-height: 1.35;
+  }
+
+  /* 첫 페이지 하단 여백: 아무 아이콘도 올리지 않는 순정 회색 공간 */
+  .home-minimal-space {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px;
+    pointer-events: none;
+  }
+
+  .scent-note-pill {
+    font-size: 11px;
+    color: #71717a;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 6px 12px;
+    border-radius: 99px;
+  }
+
+  /* 2페이지: 대충 묶어둔 폴더 3개 */
+  .page2-folders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 8px;
+  }
+
+  .folder-tile {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    touch-action: manipulation;
+    min-height: 92px;
+    padding: 4px;
+    border-radius: 16px;
+    transition: transform 0.12s ease;
+  }
+
+  .folder-tile:active {
+    transform: scale(0.94);
+  }
+
+  .folder-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+    background: rgba(44, 44, 46, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    padding: 8px;
+    place-items: center;
+    font-size: 15px;
+  }
+
+  .folder-title-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #e4e4e7;
+    white-space: nowrap;
+  }
+
+  .red-badge {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    background: #ff3b30;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 99px;
+    border: 1.5px solid #1c1c1e;
+    pointer-events: none;
+  }
+
+  .page2-extra-tools {
+    margin-top: 20px;
+    background: #2c2c2e;
+    border-radius: 18px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .mini-tool-btn {
+    background: #1c1c1e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 13px;
+    min-height: 56px;
+    color: #f4f4f5;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .mini-tool-btn:active {
+    transform: scale(0.95);
+    background: #3a3a3c;
+  }
+
+  /* 페이지 인디케이터 도트 (1페이지 ↔ 2페이지 전환 버튼) */
+  .page-dots-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 6px 0 8px;
+  }
+
+  .page-switch-btn {
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(44, 44, 46, 0.85);
+    color: #e4e4e7;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .page-switch-btn:active {
+    transform: scale(0.96);
+  }
+
+  .dot-ind {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #52525b;
+  }
+
+  .dot-ind.active {
+    background: #ffffff;
+  }
+
+  /* 하단 독 (카메라, 사진, 라인, 전화 딱 4개) */
+  .ios-dock {
+    background: rgba(44, 44, 46, 0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .dock-app-btn {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: #f4f4f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 62px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease;
+  }
+
+  .dock-app-btn:active {
+    transform: scale(0.92);
+  }
+
+  .dock-icon-sq {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .dock-label {
+    font-size: 10.5px;
+    color: #e4e4e7;
+    font-weight: 500;
+  }
+
+  /* 폴더 모달 팝업 */
+  .folder-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+    z-index: 40;
+  }
+
+  .folder-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .folder-sheet {
+    width: 100%;
+    background: #242426;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 26px;
+    padding: 18px;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85);
+  }
+
+  .folder-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .folder-sheet-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .close-circle-btn {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: #3a3a3c;
+    color: #f4f4f5;
+    font-size: 15px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .folder-items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .folder-item-btn {
+    position: relative;
+    background: #1c1c1e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 12px 6px;
+    min-height: 86px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #f4f4f5;
+    text-align: center;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .folder-item-btn:active {
+    transform: scale(0.95);
+    background: #2c2c30;
+  }
+
+  /* 공통 앱 상단 헤더 및 스크롤 영역 */
+  .app-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: rgba(18, 18, 20, 0.96);
+    border-bottom: 1px solid var(--border-subtle);
+    min-height: 50px;
+    flex-shrink: 0;
+  }
+
+  .back-link-btn {
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: none;
+    color: var(--ios-blue);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .back-link-btn:active {
+    background: rgba(10, 132, 255, 0.14);
+  }
+
+  .app-nav-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .app-scroll-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-scroll-body::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .app-scroll-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 99px;
+  }
+
+  .sec-heading {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-sub);
+    letter-spacing: 0.4px;
+    margin: 12px 0 7px;
+  }
+
+  .sec-heading:first-child {
+    margin-top: 0;
+  }
+
+  .card-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 15px;
+    padding: 12px 14px;
+    margin-bottom: 9px;
+  }
+
+  .card-box.wine-accent {
+    border-color: var(--border-wine);
+    background: linear-gradient(145deg, rgba(42, 16, 24, 0.75), rgba(20, 20, 22, 0.95));
+  }
+
+  .action-row-btn {
+    width: 100%;
+    text-align: left;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 15px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    min-height: 54px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .action-row-btn:active {
+    transform: scale(0.98);
+    background: var(--bg-card-hover);
+  }
+
+  .pill-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e4e4e7;
+  }
+
+  .pill-tag.wine {
+    background: var(--accent-wine-soft);
+    color: #fda4af;
+  }
+
+  .pill-tag.green {
+    background: rgba(6, 199, 85, 0.18);
+    color: #86efac;
+  }
+
+  /* 라인(LINE) 메신저 */
+  .line-profile-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .default-gray-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #3f3f46;
+    color: #a1a1aa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .chat-list-btn {
+    width: 100%;
+    text-align: left;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 15px;
+    padding: 11px 12px;
+    margin-bottom: 8px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--text-main);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .chat-list-btn.pinned {
+    border-color: var(--border-wine);
+    background: rgba(159, 18, 57, 0.12);
+  }
+
+  .chat-list-btn:active {
+    transform: scale(0.98);
+    background: var(--bg-card-hover);
+  }
+
+  .chat-room-feed {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #111113;
+  }
+
+  .date-chip {
+    align-self: center;
+    font-size: 11px;
+    color: var(--text-sub);
+    background: #27272a;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin: 4px 0;
+  }
+
+  .bubble-wrap {
+    display: flex;
+    flex-direction: column;
+    max-width: 82%;
+  }
+
+  .bubble-wrap.other {
+    align-self: flex-start;
+  }
+
+  .bubble-wrap.me {
+    align-self: flex-end;
+    align-items: flex-end;
+  }
+
+  .bubble-sender {
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-bottom: 3px;
+    padding-left: 4px;
+  }
+
+  .bubble-box {
+    padding: 10px 13px;
+    border-radius: 17px;
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
+
+  .bubble-wrap.other .bubble-box {
+    background: #27272a;
+    color: #f4f4f5;
+    border-top-left-radius: 4px;
+  }
+
+  .bubble-wrap.me .bubble-box {
+    background: #881337;
+    color: #ffffff;
+    border-top-right-radius: 4px;
+  }
+
+  .bubble-media {
+    margin-top: 6px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 11.5px;
+    color: #fecdd3;
+  }
+
+  .bubble-meta {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .sticker-tray {
+    background: #18181b;
+    border-top: 1px solid var(--border-subtle);
+    padding: 8px 12px;
+    flex-shrink: 0;
+  }
+
+  .sticker-row {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    margin-top: 5px;
+  }
+
+  .sticker-chip {
+    background: #27272a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f4f4f5;
+    font-size: 11.5px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    min-height: 36px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .sticker-chip:active {
+    transform: scale(0.95);
+    border-color: var(--accent-crimson);
+  }
+
+  /* 갤러리 탭 & 생체 잠금 */
+  .seg-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: #1c1c1e;
+    padding: 4px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+
+  .seg-btn {
+    min-height: 38px;
+    border-radius: 9px;
+    border: none;
+    background: transparent;
+    color: var(--text-sub);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .seg-btn.active {
+    background: #3a3a3c;
+    color: #ffffff;
+  }
+
+  .photo-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .photo-card:active {
+    transform: scale(0.98);
+  }
+
+  .photo-preview-frame {
+    height: 92px;
+    border-radius: 11px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  /* 알람 스위치 */
+  .ios-switch {
+    width: 46px;
+    height: 27px;
+    border-radius: 99px;
+    background: #30d158;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .ios-switch.off {
+    background: #39393d;
+  }
+
+  .ios-switch-knob {
+    position: absolute;
+    top: 2.5px;
+    left: 21.5px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: left 0.2s ease;
+  }
+
+  .ios-switch.off .ios-switch-knob {
+    left: 2.5px;
+  }
+
+  /* 하단 홈 인디케이터 및 내비게이션 바 */
+  .bottom-nav-bar {
+    height: 46px;
+    background: rgba(14, 14, 16, 0.96);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr;
+    align-items: center;
+    padding: 0 14px;
+    z-index: 50;
+    flex-shrink: 0;
+  }
+
+  .nav-tap-btn {
+    min-height: 44px;
+    background: transparent;
+    border: none;
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    touch-action: manipulation;
+    border-radius: 12px;
+  }
+
+  .nav-tap-btn:active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .home-indicator-pill {
+    width: 118px;
+    height: 5px;
+    border-radius: 99px;
+    background: #e4e4e7;
+    opacity: 0.85;
+  }
+
+  /* 토스트 알림 */
+  .toast-banner {
+    position: absolute;
+    bottom: 58px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(34, 34, 38, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 99px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 80;
+    white-space: nowrap;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toast-banner.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="device-wrapper">
+  <div class="phone-frame">
+    <div class="titanium-sheen"></div>
+
+    <div class="screen-container">
+      <!-- 상단 상태 표시줄 -->
+      <div class="status-bar">
+        <span id="status-time">12:20</span>
+        <div class="dynamic-island">
+          <span class="island-dnd" title="방해 금지 모드: 映 전용 예외 허용">🌙</span>
+          <span class="island-dot"></span>
+        </div>
+        <div class="status-right">
+          <span>93GB/1TB</span>
+          <div class="battery-pill">
+            <span>74%</span>
+            <div class="battery-box"><div class="battery-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 화면 뷰포트 -->
+      <div class="screens-viewport">
+
+        <!-- 0. 잠금화면 -->
+        <section class="screen active" id="screen-lock">
+          <div class="lock-clock-area">
+            <div class="lock-date">12월 31일 · 방해 금지 모드 (映 전용 알림 허용)</div>
+            <div class="lock-clock" id="lock-clock">12:20</div>
+          </div>
+
+          <div class="lock-photo-stage">
+            <div class="goldfish-scene">
+              <div class="festival-lanterns">
+                <span>🏮 11월 15일 축제 밤</span>
+                <span>금붕어 잡기 수조</span>
+              </div>
+              <div class="ei-subject-card">
+                <div class="ei-subject-title">연회색 동백 무늬 유카타 · 映</div>
+                <div class="ei-subject-sub">봉투를 들고 어리둥절 올려다보던 순간 · 유리알 같은 하얀 눈동자와 붉은 귓바퀴</div>
+              </div>
+            </div>
+            <div style="font-size:10.5px; color:#a1a1aa; text-align:center;">
+              시계 숫자가 이마를 가리지 않도록 구도 조정됨 · 홈 화면에는 비공개
+            </div>
+          </div>
+
+          <!-- 가장 최근의 미확인 시스템 알림 2개 -->
+          <div class="lock-notifications">
+            <div class="lock-noti-item" data-nav="app-commerce" data-param="jr">
+              <div class="noti-app-badge">🚅</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; color:#ffffff;">
+                  <span>JR 큐슈 스마트 EX</span>
+                  <span style="font-size:10px; color:#a1a1aa;">10분 전</span>
+                </div>
+                <div style="font-size:11.5px; color:#e4e4e7; line-height:1.35; margin-top:2px;">
+                  하카타행 신칸센 특실 탑승 시간 50분 전 안내
+                </div>
+              </div>
+            </div>
+
+            <div class="lock-noti-item" data-nav="app-calls">
+              <div class="noti-app-badge">👔</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; color:#ffffff;">
+                  <span>다카하시 (비서실장)</span>
+                  <span style="font-size:10px; color:#a1a1aa;">3분 전</span>
+                </div>
+                <div style="font-size:11.5px; color:#e4e4e7; line-height:1.35; margin-top:2px;">
+                  가주님, 역 플랫폼 의전 차량 대기 완료했습니다. 후쿠오카 현지 기온이 낮으니 유의하십시오.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lock-bottom-controls">
+            <button type="button" class="unlock-pill-btn" data-action="unlock">
+              <span>🔓</span>
+              <span>Face ID 잠금 해제</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 1. 홈 화면 (순정 어두운 회색 단색 배경) -->
+        <section class="screen" id="screen-home">
+          <div class="home-pages-container">
+
+            <!-- 1페이지: 시계·날씨 위젯 + 여백 + 하단 독 4개 -->
+            <div class="home-page active" id="home-page-1">
+              <div class="widgets-grid">
+                <div class="ios-widget" data-nav="app-clock">
+                  <div class="widget-top-tag">
+                    <span>시계</span>
+                    <span>도쿄 / 후쿠오카</span>
+                  </div>
+                  <div class="widget-big-num" id="widget-clock">12:20</div>
+                  <div class="widget-desc">기상 알람 7개 전부 꺼짐<br>오전 11:00 약·식사 기록</div>
+                </div>
+
+                <div class="ios-widget" data-nav="app-safari" data-param="fukuoka">
+                  <div class="widget-top-tag">
+                    <span>날씨 · 이동</span>
+                    <span>후쿠오카</span>
+                  </div>
+                  <div class="widget-big-num">4°C</div>
+                  <div class="widget-desc">맑음 · 현지 기온 낮음<br>하카타행 특실 출발 50분 전</div>
+                </div>
+              </div>
+
+              <div class="home-minimal-space">
+                <div class="scent-note-pill">
+                  Black Titanium 1TB · 침향과 백단 체향 · 순정 다크 그레이 배경
+                </div>
+              </div>
+            </div>
+
+            <!-- 2페이지: 대충 묶인 폴더 세 개 -->
+            <div class="home-page" id="home-page-2">
+              <div class="sec-heading" style="margin-top:4px;">2페이지 · 분류 폴더 (SNS·게임 미설치)</div>
+              <div class="page2-folders-grid">
+                <button type="button" class="folder-tile" data-folder="hiragana_a">
+                  <span class="red-badge">4,812</span>
+                  <div class="folder-box">
+                    <span>💬</span><span>✉️</span><span>🧭</span><span>☁️</span>
+                  </div>
+                  <span class="folder-title-text">あ</span>
+                </button>
+
+                <button type="button" class="folder-tile" data-folder="untitled_finance">
+                  <div class="folder-box">
+                    <span>💳</span><span>🏦</span><span>🚅</span><span>📦</span>
+                  </div>
+                  <span class="folder-title-text">폴더</span>
+                </button>
+
+                <button type="button" class="folder-tile" data-folder="untitled_media">
+                  <div class="folder-box">
+                    <span>🎵</span><span>🎬</span><span>🅿️</span><span></span>
+                  </div>
+                  <span class="folder-title-text">폴더</span>
+                </button>
+              </div>
+
+              <div class="sec-heading" style="margin-top:18px;">기본 유틸리티</div>
+              <div class="page2-extra-tools">
+                <button type="button" class="mini-tool-btn" data-nav="app-notes">
+                  <span style="font-size:20px;">📝</span>
+                  <span>메모 (3)</span>
+                </button>
+                <button type="button" class="mini-tool-btn" data-nav="app-calendar">
+                  <span style="font-size:20px;">📅</span>
+                  <span>캘린더</span>
+                </button>
+                <button type="button" class="mini-tool-btn" data-nav="app-clock">
+                  <span style="font-size:20px;">⏰</span>
+                  <span>시계·알람</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 페이지 전환 도트 바 -->
+            <div class="page-dots-bar">
+              <button type="button" class="page-switch-btn" data-action="toggle-home-page">
+                <span class="dot-ind active" id="dot-p1"></span>
+                <span class="dot-ind" id="dot-p2"></span>
+                <span id="page-switch-label">1 / 2 페이지 (폴더 보기)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 하단 독: 카메라, 사진, 라인, 전화 딱 4개 -->
+          <div class="ios-dock">
+            <button type="button" class="dock-app-btn" data-nav="app-camera">
+              <div class="dock-icon-sq" style="background:linear-gradient(145deg,#3f3f46,#18181b);">📷</div>
+              <span class="dock-label">카메라</span>
+            </button>
+
+            <button type="button" class="dock-app-btn" data-nav="app-photos">
+              <div class="dock-icon-sq" style="background:linear-gradient(145deg,#f4f4f5,#d4d4d8);">🖼️</div>
+              <span class="dock-label">사진</span>
+            </button>
+
+            <button type="button" class="dock-app-btn" data-nav="app-line">
+              <span class="red-badge" style="right:4px; top:0;">1</span>
+              <div class="dock-icon-sq" style="background:linear-gradient(145deg,#06c755,#059669);">💬</div>
+              <span class="dock-label">LINE</span>
+            </button>
+
+            <button type="button" class="dock-app-btn" data-nav="app-calls">
+              <span class="red-badge" style="right:4px; top:0;">5</span>
+              <div class="dock-icon-sq" style="background:linear-gradient(145deg,#22c55e,#15803d);">📞</div>
+              <span class="dock-label">전화</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 폴더 팝업 오버레이 -->
+        <div class="folder-overlay" id="folder-overlay">
+          <div class="folder-sheet">
+            <div class="folder-sheet-head">
+              <span class="folder-sheet-title" id="folder-sheet-title">폴더</span>
+              <button type="button" class="close-circle-btn" data-action="close-folder">✕</button>
+            </div>
+            <div class="folder-items-grid" id="folder-items-grid"></div>
+          </div>
+        </div>
+
+        <!-- 2. LINE 메신저 목록 -->
+        <section class="screen" id="screen-app-line">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">LINE</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body">
+            <div class="line-profile-card">
+              <div class="default-gray-avatar">👤</div>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:14px; font-weight:700; color:#ffffff;">久世 綾人</div>
+                <div style="font-size:11px; color:#71717a; margin-top:2px;">기본 회색 실루엣 · 상태 메시지 비어 있음</div>
+              </div>
+            </div>
+
+            <div class="sec-heading">상단 고정 (핀 고정 1개)</div>
+            <button type="button" class="chat-list-btn pinned" data-nav="app-chat-room" data-chat="ei">
+              <div class="default-gray-avatar" style="background:#881337; color:#fecdd3; font-size:16px; font-weight:700;">映</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                  <span style="font-size:13.5px; font-weight:700; color:#ffffff;">📌 映 <span style="font-size:10.5px; font-weight:400; color:#fda4af;">(16일 지어준 새 이름)</span></span>
+                  <span style="font-size:10px; color:#fda4af;">12/24 밤</span>
+                </div>
+                <div style="font-size:12px; color:#e4e4e7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                  サイズぴったりじゃん。一生外さないでやるから感謝しろよ
+                </div>
+              </div>
+            </button>
+
+            <div class="sec-heading">방치된 대화 목록</div>
+            <button type="button" class="chat-list-btn" data-nav="app-chat-room" data-chat="ritsu">
+              <div class="default-gray-avatar" style="font-size:15px; font-weight:700; color:#e4e4e7;">律</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                  <span style="font-size:13px; font-weight:700;">律 (미나세 리츠)</span>
+                  <span style="font-size:10px; color:#71717a;">12/23</span>
+                </div>
+                <div style="font-size:12px; color:#a1a1aa; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                  うるさい、黙ってろ
+                </div>
+              </div>
+            </button>
+
+            <button type="button" class="chat-list-btn" data-nav="app-chat-room" data-chat="reika">
+              <div class="default-gray-avatar" style="font-size:13px; font-weight:700; color:#e4e4e7;">近衛</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                  <span style="font-size:13px; font-weight:700;">近衛 (코노에 레이카)</span>
+                  <span class="red-badge" style="position:static;">1</span>
+                </div>
+                <div style="font-size:12px; color:#a1a1aa; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                  久世様、一度お電話いただけますでしょうか。両家の手前、私も困っております
+                </div>
+              </div>
+            </button>
+
+            <button type="button" class="chat-list-btn" data-nav="app-chat-room" data-chat="office">
+              <div class="default-gray-avatar" style="font-size:15px;">🏢</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                  <span style="font-size:13px; font-weight:700;">쿠제 비서실·관리인 보고방 <span style="font-size:11px; color:#71717a;">🔕</span></span>
+                  <span style="font-size:10.5px; color:#71717a;">안 읽음 48</span>
+                </div>
+                <div style="font-size:12px; color:#71717a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                  알림 꺼짐 · 구두 요약 보고로 대체 중
+                </div>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- 2-1. LINE 대화방 상세 -->
+        <section class="screen" id="screen-app-chat-room">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 목록</button>
+            <div class="app-nav-title" id="chat-room-title">대화방</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="chat-room-feed" id="chat-room-feed"></div>
+          <div class="sticker-tray">
+            <div style="font-size:10px; color:#71717a;">최근 사용한 이모티콘 (사흘 전 영정 폰을 빼앗아 장난삼아 눌러본 기록 3개)</div>
+            <div class="sticker-row">
+              <button type="button" class="sticker-chip" data-toast="이모티콘 [고양이 발바닥] 선택됨">🐾 고양이 발바닥</button>
+              <button type="button" class="sticker-chip" data-toast="이모티콘 [검은 고양이] 선택됨">🐈‍⬛ 검은 고양이</button>
+              <button type="button" class="sticker-chip" data-toast="이모티콘 [약 올리는 얼굴] 선택됨">😜 약 올리는 얼굴</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. 전화 (통화 기록 & 수신 거절) -->
+        <section class="screen" id="screen-app-calls">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">전화</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" id="calls-body"></div>
+        </section>
+
+        <!-- 4. 사진첩 (카메라 롤 1,400여 장 / 가려진 항목 생체잠금 / 즐겨찾기 12장) -->
+        <section class="screen" id="screen-app-photos">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">사진 (1,418장 · 10월 중순 이후)</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body">
+            <div class="seg-tabs">
+              <button type="button" class="seg-btn active" data-photo-tab="recent">최근 항목</button>
+              <button type="button" class="seg-btn" data-photo-tab="fav">즐겨찾기 (12)</button>
+              <button type="button" class="seg-btn" data-photo-tab="hidden">🔒 가려진 항목</button>
+            </div>
+            <div id="photos-tab-content"></div>
+          </div>
+        </section>
+
+        <!-- 4-1. 카메라 앱 -->
+        <section class="screen" id="screen-app-camera">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">카메라</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="flex:1; border-radius:20px; background:radial-gradient(circle at center, #27272a 0%, #09090b 100%); border:1px solid rgba(255,255,255,0.12); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center;">
+              <div style="font-size:12px; color:#fda4af; font-weight:700; margin-bottom:8px;">무음 셔터 · 48MP ProRAW</div>
+              <div style="font-size:13.5px; color:#f4f4f5; line-height:1.55;">
+                10월 중순 영정을 별채에 들인 이후부터<br>본격적으로 사용되기 시작한 카메라.<br>저장된 1,400여 장 중 9할 이상이 영정의 일상이다.
+              </div>
+            </div>
+            <button type="button" class="action-row-btn" data-nav="app-photos" style="margin-top:12px; justify-content:center;">
+              <span style="font-size:13px; font-weight:700;">🖼️ 촬영된 카메라 롤 열기 (1,418장)</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 5. 사파리 검색·인터넷 -->
+        <section class="screen" id="screen-app-safari">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">Safari (기록 삭제 이력 0회)</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" id="safari-body"></div>
+        </section>
+
+        <!-- 6. 메모장 (단 3개의 메모) -->
+        <section class="screen" id="screen-app-notes">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">메모 (3)</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" id="notes-body"></div>
+        </section>
+
+        <!-- 7. 캘린더 -->
+        <section class="screen" id="screen-app-calendar">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">캘린더</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" id="calendar-body"></div>
+        </section>
+
+        <!-- 8. 시계·알람 -->
+        <section class="screen" id="screen-app-clock">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title">시계 · 알람</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" id="clock-body"></div>
+        </section>
+
+        <!-- 9. 금융·이동·쇼핑·미디어 상세 -->
+        <section class="screen" id="screen-app-commerce">
+          <div class="app-nav-header">
+            <button type="button" class="back-link-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-nav-title" id="commerce-title">상세 정보</div>
+            <div style="min-width:44px;"></div>
+          </div>
+          <div class="app-scroll-body" id="commerce-body"></div>
+        </section>
+
+      </div>
+
+      <!-- 토스트 배너 -->
+      <div class="toast-banner" id="toast-banner"></div>
+
+      <!-- 하단 홈 인디케이터 내비게이션 -->
+      <div class="bottom-nav-bar">
+        <button type="button" class="nav-tap-btn" data-action="back">‹ 뒤로</button>
+        <button type="button" class="nav-tap-btn" data-action="home" title="홈으로 이동">
+          <div class="home-indicator-pill"></div>
+        </button>
+        <button type="button" class="nav-tap-btn" data-action="lock">잠금</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const FOLDERS = {
+    hiragana_a: {
+      title: '📁 あ',
+      items: [
+        { emoji: '💬', label: 'LINE', screen: 'app-line', badge: '1' },
+        { emoji: '✉️', label: 'Gmail', screen: 'app-commerce', param: 'gmail', badge: '4,812' },
+        { emoji: '🧭', label: 'Safari', screen: 'app-safari', param: 'history' },
+        { emoji: '🗺️', label: '지도', screen: 'app-safari', param: 'fukuoka' },
+        { emoji: '☁️', label: '쿠제 보안클라우드', screen: 'app-commerce', param: 'cloud' }
+      ]
+    },
+    untitled_finance: {
+      title: '📁 폴더 (금융·이동·쇼핑)',
+      items: [
+        { emoji: '💳', label: 'Amex 센츄리온', screen: 'app-commerce', param: 'amex' },
+        { emoji: '🏦', label: '미즈호 PB', screen: 'app-commerce', param: 'mizuho' },
+        { emoji: '🚅', label: 'JR 큐슈·스마트EX', screen: 'app-commerce', param: 'jr' },
+        { emoji: '🏯', label: '이큐닷컴 플래티넘', screen: 'app-commerce', param: 'ikyu' },
+        { emoji: '📦', label: 'Amazon.co.jp', screen: 'app-commerce', param: 'amazon' }
+      ]
+    },
+    untitled_media: {
+      title: '📁 폴더 (미디어·기타)',
+      items: [
+        { emoji: '🎵', label: 'Spotify', screen: 'app-commerce', param: 'spotify' },
+        { emoji: '🎬', label: 'Netflix', screen: 'app-commerce', param: 'netflix' },
+        { emoji: '🅿️', label: '코인 파킹 정산', screen: 'app-commerce', param: 'parking' }
+      ]
+    }
+  };
+
+  const CHATS = {
+    ei: {
+      title: '映 (핀 고정)',
+      messages: [
+        { date: '11월 말 · 같은 별채 안' },
+        { sender: 'me', text: 'おい、水持ってきて', meta: '오후 3:12' },
+        { sender: 'other', name: '映', text: 'はい、今すぐお持ちいたします。', meta: '오후 3:12' },
+        { sender: 'me', text: '二回言わせんな', meta: '오후 3:13' },
+
+        { date: '인형 뽑기 날 이후' },
+        { sender: 'other', name: '映', text: '[무료 기본 스티커: 하얀 고양이가 꾸벅 인사하는 그림]', meta: '오후 8:40' },
+        { sender: 'system', text: '🎁 쿠제 아야토 님이 유료 스티커 샵에서 [고양이와 토끼 세트] 이모티콘을 선물했습니다.' },
+
+        { date: '12월 하순' },
+        { sender: 'me', text: 'どこだ', meta: '오후 4:05' },
+        { sender: 'me', text: '寒いから中に入れ', meta: '오후 4:06' },
+        { sender: 'other', name: '映', text: 'うん、今戻るところ。', meta: '오후 4:07' },
+        { sender: 'me', text: 'イチゴ買ってきた、今すぐ帰る', meta: '오후 6:22' },
+
+        { date: '12월 24일 (크리스마스이브) 오후' },
+        { sender: 'me', text: '手首、なんかスースーするんだけど。お前が切った紐のせいで寒いじゃん', meta: '오후 5:18' },
+        { sender: 'other', name: '映', text: 'もうすぐ帰る？ 渡したいものがあるの', meta: '오후 5:19' },
+
+        { date: '12월 24일 밤 · 검은 가죽 팔찌 선물 직후' },
+        {
+          sender: 'me',
+          text: 'サイズぴったりじゃん。一生外さないでやるから感謝しろよ',
+          media: '📷 첨부사진: 아야토의 왼쪽 손목에 딱 맞게 채워진 검은 가죽 팔찌 클로즈업',
+          meta: '오후 11:04'
+        }
+      ]
+    },
+    ritsu: {
+      title: '律 (미나세 리츠)',
+      messages: [
+        { date: '12월 23일 · 혼인신고서 제출 직후' },
+        { sender: 'other', name: '律', text: 'お前、本当に婚姻届出したってマジ？ うちの親父まで騒いでんだけど', meta: '오후 4:10' },
+        { sender: 'me', text: 'うるさい、黙ってろ', meta: '오후 4:12' }
+      ]
+    },
+    reika: {
+      title: '近衛 (코노에 레이카) · 안 읽음',
+      messages: [
+        { date: '일주일째 읽음 표시 없이 방치됨' },
+        { sender: 'other', name: '近衛', text: '久世様、一度お電話いただけますでしょうか。両家の手前、私も困っております', meta: '12/24' }
+      ]
+    },
+    office: {
+      title: '쿠제 비서실·관리인 보고방 (알림 꺼짐)',
+      messages: [
+        { date: '안 읽은 메시지 48개 · 구두 요약 보고로 대체' },
+        { sender: 'other', name: '비서실장 다카하시', text: '가주님, 연말 정재계 인사 및 본가 원로 측 문의 건은 비서실에서 일괄 보류 처리해 두었습니다.', meta: '오늘 오전 10:50' }
+      ]
+    }
+  };
+
+  let screenStack = ['screen-lock'];
+  let homePage = 1;
+  let currentPhotoTab = 'recent';
+  let hiddenUnlocked = false;
+  let alarmList = [
+    { time: '오전 07:00', label: '알람', active: false },
+    { time: '오전 07:05', label: '알람', active: false },
+    { time: '오전 07:10', label: '알람', active: false },
+    { time: '오전 07:15', label: '알람', active: false },
+    { time: '오전 07:20', label: '알람', active: false },
+    { time: '오전 07:25', label: '알람', active: false },
+    { time: '오전 07:30', label: '알람', active: false },
+    { time: '오전 11:00', label: '약 먹이고 밥 먹이기 (오늘 단발성 사용 후 꺼짐)', active: false }
+  ];
+
+  const toastEl = document.getElementById('toast-banner');
+  let toastTimer = null;
+
+  function showToast(text) {
+    if (!toastEl) return;
+    toastEl.textContent = text;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
+
+  function syncClock() {
+    try {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const str = `${hh}:${mm}`;
+      const s1 = document.getElementById('status-time');
+      const s2 = document.getElementById('lock-clock');
+      const s3 = document.getElementById('widget-clock');
+      if (s1) s1.textContent = str;
+      if (s2) s2.textContent = str;
+      if (s3) s3.textContent = str;
+    } catch (e) {
+      // 시계 오류 격리
+    }
+  }
+  syncClock();
+  setInterval(syncClock, 15000);
+
+  function openScreen(id, options = {}) {
+    const targetId = id.startsWith('screen-') ? id : `screen-${id}`;
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+
+    closeFolder();
+
+    if (targetId === 'screen-app-chat-room') {
+      renderChatRoom(options.chat || 'ei');
+    } else if (targetId === 'screen-app-calls') {
+      renderCalls();
+    } else if (targetId === 'screen-app-photos') {
+      renderPhotosTab(currentPhotoTab);
+    } else if (targetId === 'screen-app-safari') {
+      renderSafari(options.param || 'history');
+    } else if (targetId === 'screen-app-notes') {
+      renderNotes();
+    } else if (targetId === 'screen-app-calendar') {
+      renderCalendar();
+    } else if (targetId === 'screen-app-clock') {
+      renderClock();
+    } else if (targetId === 'screen-app-commerce') {
+      renderCommerce(options.param || 'amazon');
+    }
+
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    targetEl.classList.add('active');
+
+    if (screenStack[screenStack.length - 1] !== targetId) {
+      screenStack.push(targetId);
+    }
+  }
+
+  function goBack() {
+    const folderOverlay = document.getElementById('folder-overlay');
+    if (folderOverlay && folderOverlay.classList.contains('active')) {
+      closeFolder();
+      return;
+    }
+    if (screenStack.length > 1) {
+      screenStack.pop();
+      const prevId = screenStack[screenStack.length - 1];
+      document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+      const prevEl = document.getElementById(prevId);
+      if (prevEl) prevEl.classList.add('active');
+    } else {
+      showToast('잠금화면입니다');
+    }
+  }
+
+  function goHome() {
+    closeFolder();
+    const cur = screenStack[screenStack.length - 1];
+    if (cur === 'screen-lock') {
+      showToast('먼저 잠금을 해제해 주세요');
+      return;
+    }
+    screenStack = ['screen-home'];
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    document.getElementById('screen-home').classList.add('active');
+  }
+
+  function openFolder(key) {
+    const folder = FOLDERS[key];
+    if (!folder) return;
+    document.getElementById('folder-sheet-title').textContent = folder.title;
+    const grid = document.getElementById('folder-items-grid');
+    grid.innerHTML = folder.items.map(item => `
+      <button type="button" class="folder-item-btn" data-nav="${item.screen}" data-param="${item.param || ''}">
+        ${item.badge ? `<span class="red-badge">${item.badge}</span>` : ''}
+        <span style="font-size:24px;">${item.emoji}</span>
+        <span style="font-size:11px; font-weight:600; line-height:1.25;">${item.label}</span>
+      </button>
+    `).join('');
+    document.getElementById('folder-overlay').classList.add('active');
+  }
+
+  function closeFolder() {
+    const overlay = document.getElementById('folder-overlay');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  function renderChatRoom(chatKey) {
+    const chat = CHATS[chatKey] || CHATS.ei;
+    document.getElementById('chat-room-title').textContent = chat.title;
+    const feed = document.getElementById('chat-room-feed');
+    feed.innerHTML = chat.messages.map(m => {
+      if (m.date) return `<div class="date-chip">${m.date}</div>`;
+      if (m.system) return `<div class="date-chip" style="color:#fda4af; border:1px solid rgba(225,29,72,0.35);">${m.system}</div>`;
+      return `
+        <div class="bubble-wrap ${m.sender}">
+          ${m.sender === 'other' ? `<div class="bubble-sender">${m.name}</div>` : ''}
+          <div class="bubble-box">
+            <div>${m.text}</div>
+            ${m.media ? `<div class="bubble-media">${m.media}</div>` : ''}
+          </div>
+          <div class="bubble-meta">${m.meta}</div>
+        </div>
+      `;
+    }).join('');
+    feed.scrollTop = feed.scrollHeight;
+  }
+
+  function renderCalls() {
+    const body = document.getElementById('calls-body');
+    const logs = [
+      { name: '다카하시 (비서실장)', status: '수신 · 42초', time: '오늘 오전 11:02', color: '#e4e4e7', note: '연말 본가 문안 인사를 어떻게 처리할지 묻는 말에 모레까지 후쿠오카에 가 있으니 전부 돌려보내라고 지시하고 일방적으로 끊음.' },
+      { name: '律 (미나세 리츠)', status: '수신 · 3분 15초', time: '어제 저녁', color: '#e4e4e7', note: '고양이 귀와 꼬리 저주가 완전히 풀렸는지 확인하는 전화. 영정의 목 상태를 묻자 신경 끄라며 툭 끊음.' },
+      { name: '본가 큰어머니', status: '부재중 전화 (3)', time: '12/23 직후', color: '#ff453a', note: '독단적 혼인신고서 제출 직후 걸려 온 전화. 단 한 통도 받지 않고 무시함.' },
+      { name: '近衛 (코노에 레이카)', status: '부재중 전화 (2)', time: '12/23 직후', color: '#ff453a', note: '양가 어른들의 성화에 못 이겨 사실 확인차 걸려 온 전화. 받지 않고 방치함.' },
+      { name: '映 (영정)', status: '발신 · 다수 (10초~20초 / 입원 시 하루 5~6회)', time: '11월 중순 ~ 최근', color: '#30d158', note: '리츠네 병원 사흘 입원 당시 하루 대여섯 번씩 발신. 같은 별채에 지낸 후에도 서재·본채에서 용건 없이 목소리만 확인하고 10~20초 만에 끊은 기록 수두룩.' },
+      { name: '椿（雑用）(츠바키/잡일)', status: '발신 · 10초 미만', time: '수시', color: '#a1a1aa', note: '심부름을 시키거나 정원에서 알짱거리지 말라고 경고할 때만 걸었던 짧은 발신 기록.' }
+    ];
+
+    body.innerHTML = `
+      <div class="sec-heading">최근 통화 기록</div>
+      ${logs.map(l => `
+        <div class="card-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-size:13.5px; font-weight:700; color:#ffffff;">${l.name}</span>
+            <span style="font-size:11px; font-weight:700; color:${l.color};">${l.status}</span>
+          </div>
+          <div style="font-size:11.5px; color:#d4d4d8; line-height:1.42;">${l.note}</div>
+          <div style="font-size:10px; color:#71717a; margin-top:4px;">${l.time}</div>
+        </div>
+      `).join('')}
+
+      <div class="sec-heading">수신 거절 목록 (차단됨)</div>
+      <div class="card-box">
+        <div style="font-size:12px; color:#fda4af; font-weight:700;">🚫 본가 친척 어른들 번호 7개 등록됨</div>
+        <div style="font-size:11px; color:#a1a1aa; margin-top:3px;">가문 원로 및 친척 측 연락 일괄 차단 상태</div>
+      </div>
+    `;
+  }
+
+  function renderPhotosTab(tab) {
+    currentPhotoTab = tab;
+    document.querySelectorAll('.seg-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.photoTab === tab);
+    });
+    const box = document.getElementById('photos-tab-content');
+
+    if (tab === 'recent') {
+      box.innerHTML = `
+        <div class="card-box">
+          <div style="font-size:11.5px; color:#a1a1aa;">올해 10월 중순 이전 사진 0장. 영정을 별채에 들인 이후 촬영된 1,400여 장 중 9할 이상이 영정의 일상이다.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#27272a,#18181b);">📜 혼인신고서 사본 (12월 23일 서재 책상 위)</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">구청 제출 직전 반듯하게 찍어 둔 원본 기록. 쿠제 아야토의 유려하고 힘 있는 붓글씨체 서명 옆에 영정이 조심스럽게 적어 넣은 『久世 映』 한자가 선명하다.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#3f3f46,#27272a);">🪪 새 신분증 발급용 증명사진 원본 (12월 20일)</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">단정하게 촬영된 영정의 신분증용 원본 파일.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#1e3a5f,#0f172a);">🧸 인형 뽑기 기계 앞 『시로』 &amp; 『아야토 이호짱』</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">하얀 고양이 인형 시로와 정체불명의 리본 달린 인형 아야토 이호짱을 나란히 세워 두고 찍은 기념사진.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#0c4a6e,#7f1d1d);">🐠 별채 어항 속 금붕어 『요이』 &amp; 정원 동백나무 묘목</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">헤엄치는 금붕어 요이의 짧은 영상과 정원 구석에 새로 심게 한 아직 꽃피지 않은 동백나무 묘목.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#292524,#1c1917);">🤍 도촬 아카이브 (창가 차 마시는 옆모습 · 새벽 잠든 얼굴 · 손가락 클로즈업)</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">아무렇게나 품에 갇혀 지쳐 잠든 무방비한 얼굴과 긴장해서 연갈색 머리카락 끝을 만지작거리는 손가락 클로즈업이 대부분을 차지한다.</div>
+        </div>
+      `;
+    } else if (tab === 'fav') {
+      box.innerHTML = `
+        <div class="card-box wine-accent">
+          <div style="font-size:12px; font-weight:700; color:#fda4af;">♥ 유일하게 하트를 눌러 보관한 12장의 사진</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#18181b,#3f3f46);">#01 · 10월 28일 첫 스마트폰 개통일</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">처음 스마트폰을 사 주던 날 배경화면용으로 대충 찍었던 아야토의 셀카 옆에 몰래 찍힌 영정의 당황한 손끝.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#4c0519,#1c1917);">#02 ~ #11 · 축제 밤 유카타 &amp; 별채의 사소한 찰나들</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">붉게 달아오른 귓바퀴와 유리알 같은 하얀 눈동자가 담긴 열 장의 연사 컷.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-preview-frame" style="background:linear-gradient(135deg,#78350f,#27272a);">#12 · 어제 낮 화과자를 받아먹던 평온한 얼굴</div>
+          <div style="font-size:12px; color:#e4e4e7; line-height:1.45;">가장 마지막 즐겨찾기 사진. 화과자를 받아먹으며 입가에 가루를 묻힌 채 배시시 눈을 휘던 영정의 평온한 얼굴.</div>
+        </div>
+      `;
+    } else {
+      if (!hiddenUnlocked) {
+        box.innerHTML = `
+          <div class="card-box wine-accent" style="text-align:center; padding:26px 16px;">
+            <div style="font-size:28px; margin-bottom:8px;">🔒</div>
+            <div style="font-size:14px; font-weight:700; color:#ffffff;">가려진 항목 (이중 생체 인식 잠금)</div>
+            <div style="font-size:11.5px; color:#d4d4d8; margin:6px 0 14px;">가주 본인 Face ID 및 지문 이중 인증이 필요합니다.</div>
+            <button type="button" class="unlock-pill-btn" data-action="unlock-hidden-photos" style="border-color:#e11d48; background:rgba(159,18,57,0.3);">
+              <span>👁️</span>
+              <span>Face ID 이중 잠금 해제</span>
+            </button>
+          </div>
+        `;
+      } else {
+        box.innerHTML = `
+          <div class="card-box wine-accent">
+            <div style="font-size:12px; font-weight:700; color:#fda4af;">가려진 항목 · 고화질 사진 및 영상 수백 개 (날짜별 정렬)</div>
+            <div style="font-size:12px; color:#f4f4f5; line-height:1.65; margin-top:8px;">
+              • 붉은 와인색 실크 리본에 묶인 가느다란 손목<br>
+              • 아야토의 손아귀 모양대로 붉게 손자국이 남은 하얀 목덜미<br>
+              • 쇄골과 가슴팍 위에 먹물과 치아로 새겨 넣었던 『綾人』이라는 글자의 흔적<br>
+              • 단정한 원피스 자락만 걷어 올린 채 허벅지 안쪽이 질척하게 엉망이 되어 있는 모습<br>
+              • 열기에 들떠 유리알 같은 하얀 눈동자에 눈물이 그렁그렁 맺힌 채 숨을 헐떡이는 짧은 영상들
+            </div>
+          </div>
+        `;
+      }
+    }
+  }
+
+  function renderSafari(param) {
+    const body = document.getElementById('safari-body');
+    const searches = [
+      { q: '성대 부었을 때 좋은 차', time: '오늘 오전 08:00경' },
+      { q: '목 쉰 데 배 꿀절임 효과', time: '오늘 오전 08:02경' },
+      { q: '후쿠오카 프라이빗 료칸 객실 내 노천탕 온도 조절', time: '오늘 오전 08:05경' },
+      { q: '고양이 귀 환각 원인', time: '지난주 새벽 (저주받은 향로 사건)' },
+      { q: '오래된 향로 환각 성분', time: '지난주 새벽' },
+      { q: '쿠제 가문 창고 고문서 괴담', time: '지난주 새벽' },
+      { q: '외국인 배우자 일본 귀화 절차 기간 단축', time: '12월 중순~하순' },
+      { q: '무성씨 외국인 혼인신고 특례 법무성 판례', time: '12월 중순~하순' },
+      { q: '후쿠오카 미슐랭 일식당 개인실 표고버섯 제외 요청', time: '12월 하순' },
+      { q: '동백나무 겨울철 냉해 방지 관리법', time: '12월 하순' },
+      { q: '금붕어 겨울 수온 유지 히터 소음 없는 제품', time: '12월 하순' }
+    ];
+
+    body.innerHTML = `
+      <div class="sec-heading">열려 있는 탭 9개 중 주요 6개 (시크릿 모드 미사용)</div>
+      <div class="card-box wine-accent">
+        <div style="font-size:12px; color:#f4f4f5; line-height:1.6;">
+          • [탭 1~2] 후쿠오카 나카스 강변 야경 코스 안내<br>
+          • [탭 3~4] 다자이후 근처 조용한 전통 찻집<br>
+          • [탭 5~6] 고급 여성 의류 브랜드 겨울 신상 캐시미어 원피스 카탈로그
+        </div>
+      </div>
+
+      <div class="sec-heading">북마크 (최근 두 달간 미접속)</div>
+      <div class="card-box">
+        <div style="font-size:11.5px; color:#a1a1aa;">• 쿠제 그룹 지주회사 주가 현황 · 해외 명품 시계 경매 사이트</div>
+      </div>
+
+      <div class="sec-heading">최근 검색 기록 (삭제 이력 없음)</div>
+      ${searches.map(s => `
+        <div class="card-box" style="padding:10px 12px;">
+          <div style="font-size:12.5px; font-weight:600; color:#ffffff;">🔍 ${s.q}</div>
+          <div style="font-size:10.5px; color:#a1a1aa; margin-top:2px;">${s.time}</div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  function renderNotes() {
+    const body = document.getElementById('notes-body');
+    body.innerHTML = `
+      <div class="sec-heading">기본 메모장 (저장된 메모 3개)</div>
+
+      <div class="card-box">
+        <div style="font-size:13.5px; font-weight:700; color:#ffffff; margin-bottom:6px;">1. [무제] 영정 인적 사항 및 복약 리스트</div>
+        <div style="font-size:12px; color:#d4d4d8; line-height:1.55;">
+          • 생일 및 쿠제 가문 관리 호적 명칭 기재<br>
+          • 먹여야 할 약의 종류 및 복용 시간대 투박하게 정리됨
+        </div>
+      </div>
+
+      <div class="card-box wine-accent">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:13.5px; font-weight:700; color:#ffffff;">2. 遺影（いえい） / 影幀 → 映（えい）</span>
+          <span class="pill-tag wine">11월 18일 밤 작성</span>
+        </div>
+        <div style="font-size:12px; color:#f4f4f5; line-height:1.65;">
+          ☑ 담배 냄새 안 풍기기 (완료)<br>
+          ☐ 이름 제대로 불러주기<br>
+          ☐ 다정하게 대하기 (?) <span style="color:#fda4af;">→ 추가 메모: 화과자 먹여주면 좋아함 / 머리 쓰다듬으면 조용해짐</span><br>
+          ☐ 다른 인간들이랑 적당히 어울리는 척하기 (귀찮음)
+        </div>
+      </div>
+
+      <div class="card-box">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:13.5px; font-weight:700; color:#ffffff;">3. 후쿠오카</span>
+          <span class="pill-tag">어제 작성</span>
+        </div>
+        <div style="font-size:12px; color:#e4e4e7; line-height:1.6;">
+          • <strong>12/31:</strong> 오후 신칸센 그린샤 프라이빗 룸 → 나카스 근처 호텔 체크인 → 저녁 복어 코스 (표고버섯 뺄 것, 폰즈 소스 따로)<br>
+          • <strong>1/1:</strong> 아침 열 시 식사 → 다자이후 산책 (추우면 바로 차로 복귀) → 료칸 이동<br>
+          <span style="color:#fda4af; font-weight:600;">• 비고: 속옷 압수 상태 유지. 여벌 코트 안감 방수 확인해 둘 것</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCalendar() {
+    const body = document.getElementById('calendar-body');
+    body.innerHTML = `
+      <div class="sec-heading">직접 입력한 붉은색 개인 일정</div>
+      <div class="card-box wine-accent">
+        <div style="font-size:12px; color:#f4f4f5; line-height:1.7;">
+          • <strong style="color:#fda4af;">10월 28일:</strong> 스마트폰 개통<br>
+          • <strong style="color:#fda4af;">11월 15일:</strong> 축제<br>
+          • <strong style="color:#fda4af;">12월 23일:</strong> 혼인신고서 제출<br>
+          • <strong style="color:#fda4af;">매달 말일 (반복):</strong> 요이 수조 물갈이 (츠바키 시킬 것)<br>
+          • <strong style="color:#fda4af;">내년 6월 중순 (종일):</strong> 귀화 허가 예정일 (성씨 변경 완료)<br>
+          • <strong style="color:#fda4af;">내년 11월 중순 주간:</strong> 동백 개화 확인 — 머리에 꽂아볼 것<br>
+          • <span style="color:#71717a;">(4월 30일 본인 생일 칸: 표시 없음)</span>
+        </div>
+      </div>
+
+      <div class="sec-heading">비서실 자동 동기화 일정 (회색)</div>
+      <div class="card-box">
+        <div style="font-size:12px; color:#71717a; line-height:1.6;">
+          • 쿠제 물산 이사회<br>
+          • 신년 정재계 하례회<br>
+          • 법무팀 정관 개정 보고
+        </div>
+      </div>
+    `;
+  }
+
+  function renderClock() {
+    const body = document.getElementById('clock-body');
+    body.innerHTML = `
+      <div class="card-box">
+        <div style="font-size:11.5px; color:#a1a1aa;">영정을 침실에 들인 뒤로는 품 안의 기척과 온기로 눈을 떠 기상 알람 7개는 모두 비활성화 상태다.</div>
+      </div>
+      ${alarmList.map((a, i) => `
+        <div class="action-row-btn" data-toggle-alarm="${i}">
+          <div>
+            <div style="font-size:18px; font-weight:300; color:${a.active ? '#ffffff' : '#71717a'};">${a.time}</div>
+            <div style="font-size:11.5px; color:${i === 7 ? '#fda4af' : '#71717a'}; margin-top:2px;">${a.label}</div>
+          </div>
+          <div class="ios-switch ${a.active ? '' : 'off'}"><div class="ios-switch-knob"></div></div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  function renderCommerce(param) {
+    const titles = {
+      amazon: 'Amazon.co.jp · 구매 및 장바구니',
+      amex: 'Amex 센츄리온 · 백화점 VIP 위시리스트',
+      jr: 'JR 큐슈 · 스마트 EX 특실 예약',
+      ikyu: '이큐 닷컴 플래티넘 (료칸 예약)',
+      mizuho: '미즈호 은행 프라이빗 뱅킹',
+      spotify: 'Spotify 최근 재생 목록',
+      netflix: 'Netflix',
+      parking: '시내 코인 파킹 정산 앱',
+      gmail: 'Gmail (읽지 않음 4,812)',
+      cloud: '쿠제 가문 비서실 보안 클라우드'
+    };
+    document.getElementById('commerce-title').textContent = titles[param] || '상세 정보';
+    const body = document.getElementById('commerce-body');
+
+    if (param === 'amazon') {
+      body.innerHTML = `
+        <div class="sec-heading">최근 한 달간 주문 내역</div>
+        <div class="card-box">
+          <div style="font-size:12.5px; color:#e4e4e7; line-height:1.65;">
+            • 관상용 금붕어 고급 사료<br>
+            • 수질 정화제<br>
+            • 실크 리본 와인색 3미터<br>
+            • 여성용 수면 양말 세트
+          </div>
+        </div>
+        <div class="sec-heading">아직 결제하지 않은 장바구니</div>
+        <div class="card-box wine-accent">
+          <div style="font-size:12.5px; color:#fda4af; line-height:1.65;">
+            • 초소형 무선 진동 로터 저소음 모델<br>
+            • 실크 안대
+          </div>
+        </div>
+      `;
+    } else if (param === 'amex') {
+      body.innerHTML = `
+        <div class="sec-heading">백화점 VIP 전용 앱 위시리스트</div>
+        <div class="card-box wine-accent">
+          <div style="font-size:12.5px; color:#f4f4f5; line-height:1.65;">
+            • 영정의 가녀린 손가락 치수에 맞춘 플래티넘 가드링<br>
+            • 발목까지 길게 내려오는 아이보리색 겨울 원피스 세 벌<br>
+            • 한국 전통차 유자차 &amp; 배숙 병조림 세트
+          </div>
+        </div>
+      `;
+    } else if (param === 'jr') {
+      body.innerHTML = `
+        <div class="card-box wine-accent">
+          <div style="font-size:13.5px; font-weight:700; color:#ffffff;">🚅 하카타행 신칸센 특실 (그린샤 프라이빗 룸)</div>
+          <div style="font-size:12px; color:#e4e4e7; margin-top:6px; line-height:1.5;">
+            • 상태: 탑승 시간 50분 전<br>
+            • 역 플랫폼 의전 차량 대기 완료 (비서실장 보고)
+          </div>
+        </div>
+      `;
+    } else if (param === 'spotify') {
+      body.innerHTML = `
+        <div class="sec-heading">최근 재생 목록 (시끄러운 대중가요 0곡)</div>
+        <div class="card-box">
+          <div style="font-size:12.5px; color:#f4f4f5; line-height:1.7;">
+            • 에릭 사티 - 짐노페디 1번 (Gymnopédie No.1)<br>
+            • 드뷔시 - 느릿하고 서늘한 피아노 연주곡 모음<br>
+            • 가사 없는 모던 재즈 플레이리스트<br>
+            • [최근 추가] 장작 타는 소리 ASMR (비 오는 날 거실 스피커용)<br>
+            • [최근 추가] 차분한 첼로 소품집
+          </div>
+        </div>
+      `;
+    } else if (param === 'gmail') {
+      body.innerHTML = `
+        <div class="card-box">
+          <div style="font-size:14px; font-weight:700; color:#ff453a;">읽지 않은 메일 4,812통 방치 중</div>
+          <div style="font-size:12px; color:#d4d4d8; margin-top:6px; line-height:1.5;">
+            정재계 인사들의 연말 인사와 사업 보고서는 비서실장 다카하시가 요약해 구두로 보고하므로 직접 열람하지 않음.
+          </div>
+        </div>
+      `;
+    } else if (param === 'parking') {
+      body.innerHTML = `
+        <div class="card-box">
+          <div style="font-size:13px; font-weight:700; color:#ffffff;">🅿️ 시내 코인 파킹 정산</div>
+          <div style="font-size:12px; color:#d4d4d8; margin-top:5px;">영정과 인형 뽑기를 하러 시내에 나갔던 날 주차 정산 때문에 어쩔 수 없이 설치한 앱.</div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="card-box">
+          <div style="font-size:12.5px; color:#e4e4e7; line-height:1.55;">
+            쿠제 가문 가주 전용 프라이빗 계정으로 정상 인증되어 있습니다. (사용 용량 93GB / 1TB)
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  document.body.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-action], [data-nav], [data-folder], [data-photo-tab], [data-toggle-alarm], [data-toast]');
+    if (!target) {
+      if (e.target.id === 'folder-overlay') closeFolder();
+      return;
+    }
+
+    if (target.dataset.toast) {
+      showToast(target.dataset.toast);
+    }
+
+    const action = target.dataset.action;
+    if (action) {
+      if (action === 'unlock') {
+        screenStack = ['screen-home'];
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById('screen-home').classList.add('active');
+        return;
+      }
+      if (action === 'lock') {
+        closeFolder();
+        screenStack = ['screen-lock'];
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById('screen-lock').classList.add('active');
+        return;
+      }
+      if (action === 'back') {
+        goBack();
+        return;
+      }
+      if (action === 'home') {
+        goHome();
+        return;
+      }
+      if (action === 'close-folder') {
+        closeFolder();
+        return;
+      }
+      if (action === 'toggle-home-page') {
+        homePage = homePage === 1 ? 2 : 1;
+        document.getElementById('home-page-1').classList.toggle('active', homePage === 1);
+        document.getElementById('home-page-2').classList.toggle('active', homePage === 2);
+        document.getElementById('dot-p1').classList.toggle('active', homePage === 1);
+        document.getElementById('dot-p2').classList.toggle('active', homePage === 2);
+        document.getElementById('page-switch-label').textContent = homePage === 1
+          ? '1 / 2 페이지 (폴더 보기)'
+          : '2 / 2 페이지 (위젯 보기)';
+        return;
+      }
+      if (action === 'unlock-hidden-photos') {
+        hiddenUnlocked = true;
+        renderPhotosTab('hidden');
+        showToast('Face ID 이중 잠금 해제 완료');
+        return;
+      }
+    }
+
+    if (target.dataset.folder) {
+      openFolder(target.dataset.folder);
+      return;
+    }
+
+    if (target.dataset.nav) {
+      openScreen(target.dataset.nav, {
+        chat: target.dataset.chat,
+        param: target.dataset.param
+      });
+      return;
+    }
+
+    if (target.dataset.photoTab) {
+      renderPhotosTab(target.dataset.photoTab);
+      return;
+    }
+
+    if (target.dataset.toggleAlarm !== undefined) {
+      const idx = Number(target.dataset.toggleAlarm);
+      alarmList[idx].active = !alarmList[idx].active;
+      renderClock();
+      showToast(alarmList[idx].active ? '알람 켜짐' : '알람 꺼짐');
+    }
+  });
+});
+</script>
+</body>
+</html>
