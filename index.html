@@ -1,0 +1,2774 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>A-Link Pro Titanium :: VIBE (홍지원)</title>
+<style>
+  :root {
+    --bg-deep: #060b10;
+    --bg-surface: #0d161f;
+    --bg-card: #121f2b;
+    --bg-card-hover: #182938;
+    --accent-cyan: #38bdf8;
+    --accent-cyan-dim: rgba(56, 189, 248, 0.16);
+    --accent-ice: #bae6fd;
+    --accent-aurora: #34d399;
+    --accent-pink: #f472b6;
+    --accent-warn: #fb7185;
+    --text-main: #f1f5f9;
+    --text-sub: #94a3b8;
+    --text-muted: #64748b;
+    --border-subtle: rgba(148, 163, 184, 0.15);
+    --border-cyan: rgba(56, 189, 248, 0.35);
+    --glass: rgba(13, 22, 31, 0.82);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  body {
+    background: radial-gradient(circle at 50% 20%, #0f202e 0%, #030609 100%);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  /* 단말기 외형 (A-Link Pro Titanium - Deep Cyan Black + 무광 카본 범퍼 + 눈사람 비즈 키링) */
+  .device-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 410px;
+    height: 835px;
+    max-height: 94dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phone-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #161b22 0%, #080b0f 100%);
+    border-radius: 44px;
+    padding: 10px;
+    box-shadow:
+      0 25px 60px rgba(0, 0, 0, 0.85),
+      0 0 0 2px #26313d,
+      inset 0 0 6px rgba(56, 189, 248, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* 카본 텍스처 장식 (터치 방해 금지) */
+  .carbon-bezel {
+    position: absolute;
+    inset: 0;
+    border-radius: 44px;
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0);
+    background-size: 6px 6px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* 상단 하늘색 LED 점멸등 (신혼여행 방해금지 모드) */
+  .notification-led {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 4px;
+    border-radius: 99px;
+    background: #38bdf8;
+    box-shadow: 0 0 10px #38bdf8, 0 0 20px #7dd3fc;
+    animation: ledPulse 3.2s infinite ease-in-out;
+    pointer-events: none;
+    z-index: 60;
+  }
+
+  @keyframes ledPulse {
+    0%, 100% { opacity: 0.25; box-shadow: 0 0 4px #38bdf8; }
+    50% { opacity: 1; box-shadow: 0 0 14px #38bdf8, 0 0 24px #bae6fd; }
+  }
+
+  .screen-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-deep);
+    border-radius: 35px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+  }
+
+  /* 상단 상태 표시줄 */
+  .status-bar {
+    position: relative;
+    height: 36px;
+    padding: 8px 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+    z-index: 50;
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, rgba(6, 11, 16, 0.85), transparent);
+  }
+
+  .status-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 99px;
+    background: rgba(56, 189, 248, 0.18);
+    color: var(--accent-ice);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    letter-spacing: 0.3px;
+  }
+
+  .status-right {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+
+  .mute-icon {
+    color: var(--accent-cyan);
+    font-size: 11px;
+  }
+
+  .battery-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--accent-aurora);
+    font-weight: 700;
+  }
+
+  .battery-box {
+    width: 20px;
+    height: 10px;
+    border: 1.5px solid var(--accent-aurora);
+    border-radius: 3px;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+  }
+
+  .battery-fill {
+    width: 94%;
+    height: 100%;
+    background: var(--accent-aurora);
+    border-radius: 1px;
+  }
+
+  /* 화면 스택 영역 */
+  .screens-viewport {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-deep);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(24px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  .screen.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    z-index: 20;
+  }
+
+  /* 잠금화면 */
+  #screen-lock {
+    background:
+      radial-gradient(ellipse at 50% 18%, rgba(52, 211, 153, 0.28) 0%, rgba(56, 189, 248, 0.16) 35%, transparent 70%),
+      linear-gradient(180deg, #071921 0%, #0b2532 52%, #050c12 100%);
+    justify-content: space-between;
+    padding: 16px 20px 16px;
+    transform: scale(1.02);
+  }
+
+  #screen-lock.active {
+    transform: scale(1);
+  }
+
+  .aurora-waves {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(115deg, rgba(52, 211, 153, 0.08) 0px, rgba(56, 189, 248, 0.12) 40px, transparent 90px);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+
+  .lock-top {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  .lock-date {
+    font-size: 12px;
+    color: var(--accent-ice);
+    letter-spacing: 0.4px;
+    margin-bottom: 2px;
+  }
+
+  .lock-clock {
+    font-size: 46px;
+    font-weight: 200;
+    letter-spacing: -1px;
+    color: #ffffff;
+    text-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+    line-height: 1.05;
+  }
+
+  .lock-photo-caption {
+    position: relative;
+    z-index: 2;
+    margin: 8px auto 0;
+    background: rgba(6, 14, 22, 0.65);
+    border: 1px solid rgba(186, 230, 253, 0.25);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 10px 12px;
+    text-align: left;
+  }
+
+  .lock-photo-illustration {
+    height: 92px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #0b2e38 0%, #134e4a 45%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+
+  .aurora-ribbon {
+    position: absolute;
+    top: 8px;
+    left: -10%;
+    width: 120%;
+    height: 44px;
+    background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.65), rgba(56, 189, 248, 0.55), transparent);
+    filter: blur(8px);
+    transform: rotate(-6deg);
+    pointer-events: none;
+  }
+
+  .glacier-ice {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(186, 230, 253, 0.22), rgba(15, 23, 42, 0.9));
+    pointer-events: none;
+  }
+
+  .alice-silhouette {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 11.5px;
+    color: #f8fafc;
+    background: rgba(15, 23, 42, 0.58);
+    padding: 4px 10px;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .lock-noti-stack {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  /* 방금 막 도착한 실시간 예약 알림 (잠금화면 속 앨리스 얼굴 위로 겹쳐 떠오르는 팝업) */
+  .lock-alert-arch {
+    position: relative;
+    z-index: 4;
+    background: rgba(9, 24, 38, 0.94);
+    border: 1px solid #38bdf8;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.35);
+    border-radius: 16px;
+    padding: 10px 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .lock-alert-arch:active {
+    transform: scale(0.98);
+    background: rgba(16, 38, 58, 0.98);
+  }
+
+  .lock-alert-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    color: #7dd3fc;
+    margin-bottom: 4px;
+  }
+
+  .lock-alert-badge {
+    background: rgba(56, 189, 248, 0.22);
+    color: #e0f2fe;
+    padding: 1px 6px;
+    border-radius: 99px;
+    font-size: 10px;
+  }
+
+  .lock-alert-body {
+    font-size: 11.5px;
+    color: #f1f5f9;
+    line-height: 1.42;
+    word-break: keep-all;
+  }
+
+  .lock-noti-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(13, 24, 36, 0.85);
+    border: 1px solid var(--border-cyan);
+    border-radius: 15px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+    min-height: 52px;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .lock-noti-card:active {
+    transform: scale(0.98);
+    background: rgba(24, 42, 60, 0.95);
+  }
+
+  .lock-noti-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .lock-bottom {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    margin-top: 8px;
+  }
+
+  .lock-action-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+
+  .unlock-btn {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 99px;
+    border: 1px solid var(--border-cyan);
+    background: rgba(56, 189, 248, 0.16);
+    color: #e0f2fe;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .unlock-btn:active {
+    transform: scale(0.97);
+    background: rgba(56, 189, 248, 0.3);
+  }
+
+  .dim-btn {
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 99px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    background: rgba(15, 23, 42, 0.85);
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .dim-btn:active {
+    transform: scale(0.96);
+    background: rgba(30, 41, 59, 0.95);
+  }
+
+  .keyring-tag {
+    font-size: 11px;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* 부드러운 화면 암전 오버레이 */
+  .screen-dim-overlay {
+    position: absolute;
+    inset: 0;
+    background: #020508;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.55s ease, visibility 0.55s ease;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .screen-dim-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .wake-btn {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 99px;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    background: rgba(15, 28, 42, 0.9);
+    color: var(--accent-ice);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .wake-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* 홈 화면 */
+  #screen-home {
+    background:
+      radial-gradient(circle at 50% 56%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #071018 0%, #0b1722 58%, #060b10 100%);
+    padding: 10px 16px 12px;
+    justify-content: space-between;
+  }
+
+  .widgets-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    z-index: 5;
+  }
+
+  .widget-card {
+    background: rgba(15, 26, 38, 0.84);
+    border: 1px solid var(--border-cyan);
+    border-radius: 18px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 106px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, border-color 0.15s ease;
+  }
+
+  .widget-card:active {
+    transform: scale(0.97);
+    border-color: var(--accent-cyan);
+  }
+
+  .widget-label {
+    font-size: 11px;
+    color: var(--accent-cyan);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .widget-main-val {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin: 4px 0 2px;
+    letter-spacing: -0.5px;
+  }
+
+  .widget-sub {
+    font-size: 11px;
+    color: var(--text-sub);
+    line-height: 1.3;
+  }
+
+  .home-wallpaper-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 8px 0;
+    border-radius: 22px;
+    background: radial-gradient(ellipse at center, rgba(22, 38, 54, 0.65) 0%, rgba(8, 15, 22, 0.2) 75%);
+    border: 1px dashed rgba(148, 163, 184, 0.14);
+    pointer-events: none;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .cats-sleeping-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .cat-badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cat-seori {
+    background: rgba(248, 250, 252, 0.92);
+    color: #0f172a;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+  }
+
+  .cat-eve {
+    background: #1e293b;
+    color: #f8fafc;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  }
+
+  .wallpaper-caption {
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+
+  .quick-tools-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .quick-app-btn {
+    background: rgba(18, 31, 43, 0.78);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    min-height: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: var(--text-main);
+    font-size: 11px;
+    cursor: pointer;
+    touch-action: manipulation;
+    position: relative;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .quick-app-btn:active {
+    transform: scale(0.95);
+    background: var(--bg-card-hover);
+  }
+
+  .folders-dock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: rgba(12, 21, 31, 0.9);
+    border: 1px solid var(--border-cyan);
+    border-radius: 22px;
+    padding: 10px 8px;
+  }
+
+  .folder-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    cursor: pointer;
+    touch-action: manipulation;
+    min-height: 68px;
+    border-radius: 14px;
+    padding: 4px 2px;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .folder-btn:active {
+    transform: scale(0.94);
+    background: rgba(56, 189, 248, 0.12);
+  }
+
+  .folder-grid-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(24, 39, 54, 0.95);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    padding: 6px;
+    place-items: center;
+    font-size: 12px;
+  }
+
+  .folder-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #e2e8f0;
+    white-space: nowrap;
+  }
+
+  .badge-99 {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 99px;
+    border: 1.5px solid #060b10;
+    pointer-events: none;
+  }
+
+  /* 폴더 팝업 모달 */
+  .folder-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 9, 14, 0.78);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 40;
+  }
+
+  .folder-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .folder-modal {
+    width: 100%;
+    background: #0f1b27;
+    border: 1px solid var(--border-cyan);
+    border-radius: 24px;
+    padding: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  }
+
+  .folder-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .folder-modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-ice);
+  }
+
+  .folder-close-btn {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-sub);
+    font-size: 16px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .folder-apps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .folder-app-item {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 12px 6px;
+    min-height: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    color: var(--text-main);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, border-color 0.15s ease;
+  }
+
+  .folder-app-item:active {
+    transform: scale(0.95);
+    border-color: var(--accent-cyan);
+  }
+
+  .folder-app-emoji {
+    font-size: 24px;
+  }
+
+  .folder-app-label {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+    word-break: keep-all;
+  }
+
+  /* 공통 앱 헤더 및 본문 */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(10, 18, 26, 0.95);
+    border-bottom: 1px solid var(--border-subtle);
+    min-height: 52px;
+    flex-shrink: 0;
+  }
+
+  .header-back-btn {
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--accent-cyan);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    touch-action: manipulation;
+    border-radius: 10px;
+    padding: 0 8px;
+  }
+
+  .header-back-btn:active {
+    background: var(--accent-cyan-dim);
+  }
+
+  .app-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 4px;
+  }
+
+  .header-action-spacer {
+    min-width: 44px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .app-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-body::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .app-body::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.25);
+    border-radius: 99px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin: 12px 0 8px;
+  }
+
+  .section-label:first-child {
+    margin-top: 0;
+  }
+
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+
+  .info-card.highlight {
+    border-color: var(--border-cyan);
+    background: linear-gradient(145deg, rgba(18, 34, 48, 0.95), rgba(12, 22, 32, 0.95));
+  }
+
+  .list-item-btn {
+    width: 100%;
+    text-align: left;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    min-height: 54px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .list-item-btn:active {
+    transform: scale(0.98);
+    background: var(--bg-card-hover);
+  }
+
+  .tag-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 99px;
+    background: var(--accent-cyan-dim);
+    color: var(--accent-ice);
+  }
+
+  .tag-pill.pink {
+    background: rgba(244, 114, 182, 0.18);
+    color: #fbcfe8;
+  }
+
+  .tag-pill.green {
+    background: rgba(52, 211, 153, 0.18);
+    color: #a7f3d0;
+  }
+
+  /* 메신저 (A-Talk) */
+  .profile-banner {
+    background: linear-gradient(135deg, rgba(14, 38, 56, 0.9), rgba(11, 22, 34, 0.95));
+    border: 1px solid var(--border-cyan);
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .profile-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0284c7, #1e3a8a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid rgba(186, 230, 253, 0.4);
+  }
+
+  .chat-row {
+    width: 100%;
+    text-align: left;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 11px 12px;
+    margin-bottom: 8px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--text-main);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+
+  .chat-row.pinned {
+    border-color: var(--border-cyan);
+    background: rgba(56, 189, 248, 0.08);
+  }
+
+  .chat-row:active {
+    transform: scale(0.98);
+    background: var(--bg-card-hover);
+  }
+
+  .chat-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .chat-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .chat-top-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+
+  .chat-name {
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .chat-preview {
+    font-size: 12px;
+    color: var(--text-sub);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .unread-count {
+    background: #ef4444;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  /* 채팅방 내부 말풍선 UI */
+  .chat-messages-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .chat-date-divider {
+    align-self: center;
+    font-size: 11px;
+    color: var(--text-sub);
+    background: rgba(30, 41, 59, 0.75);
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin: 4px 0;
+  }
+
+  .msg-group {
+    display: flex;
+    flex-direction: column;
+    max-width: 82%;
+  }
+
+  .msg-group.other {
+    align-self: flex-start;
+  }
+
+  .msg-group.me {
+    align-self: flex-end;
+    align-items: flex-end;
+  }
+
+  .msg-sender {
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-bottom: 3px;
+    padding-left: 4px;
+  }
+
+  .msg-bubble {
+    padding: 10px 13px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
+
+  .msg-group.other .msg-bubble {
+    background: #172534;
+    border: 1px solid var(--border-subtle);
+    color: #f1f5f9;
+    border-top-left-radius: 4px;
+  }
+
+  .msg-group.me .msg-bubble {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: #ffffff;
+    border-top-right-radius: 4px;
+  }
+
+  .msg-attachment {
+    margin-top: 6px;
+    background: rgba(6, 11, 16, 0.55);
+    border: 1px solid rgba(186, 230, 253, 0.25);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 11.5px;
+    color: var(--accent-ice);
+  }
+
+  .msg-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  /* 키보드 최근 이모티콘 & 학습된 자동완성 바 */
+  .keyboard-bar {
+    background: #0b131c;
+    border-top: 1px solid var(--border-subtle);
+    padding: 8px 10px;
+    flex-shrink: 0;
+  }
+
+  .autocomplete-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .auto-word-chip {
+    background: #162433;
+    border: 1px solid var(--border-subtle);
+    color: var(--accent-ice);
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+    min-height: 30px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .sticker-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-top: 4px;
+  }
+
+  .sticker-btn {
+    background: #13202e;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    min-height: 36px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .sticker-btn:active, .auto-word-chip:active {
+    transform: scale(0.95);
+    border-color: var(--accent-cyan);
+  }
+
+  /* 갤러리 */
+  .album-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .album-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 12px;
+    min-height: 110px;
+    text-align: left;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease, border-color 0.15s ease;
+  }
+
+  .album-card:active {
+    transform: scale(0.97);
+    border-color: var(--accent-cyan);
+  }
+
+  .photo-list-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease;
+  }
+
+  .photo-list-card:active {
+    transform: scale(0.98);
+  }
+
+  .photo-visual-box {
+    height: 92px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f8fafc;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* 보안 키패드 */
+  .pin-pad-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .pin-dots {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .pin-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-cyan);
+    background: transparent;
+  }
+
+  .pin-dot.filled {
+    background: var(--accent-cyan);
+    box-shadow: 0 0 8px var(--accent-cyan);
+  }
+
+  .pin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 260px;
+    margin-top: 8px;
+  }
+
+  .pin-key {
+    min-height: 52px;
+    border-radius: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .pin-key:active {
+    transform: scale(0.93);
+    background: var(--accent-cyan-dim);
+  }
+
+  /* 음악 플레이어 */
+  .player-box {
+    background: linear-gradient(145deg, #102436, #0a1520);
+    border: 1px solid var(--border-cyan);
+    border-radius: 18px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+
+  .progress-bar-bg {
+    width: 100%;
+    height: 5px;
+    background: rgba(148, 163, 184, 0.2);
+    border-radius: 99px;
+    margin: 10px 0 6px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    width: 62%;
+    height: 100%;
+    background: var(--accent-cyan);
+  }
+
+  .play-toggle-btn {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 99px;
+    border: 1px solid var(--accent-cyan);
+    background: var(--accent-cyan-dim);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .play-toggle-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* 알람 토글 스위치 */
+  .toggle-switch {
+    width: 44px;
+    height: 26px;
+    border-radius: 99px;
+    background: var(--accent-cyan);
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .toggle-switch.off {
+    background: #334155;
+  }
+
+  .toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 21px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    transition: left 0.2s ease;
+  }
+
+  .toggle-switch.off .toggle-knob {
+    left: 3px;
+  }
+
+  /* 하단 내비게이션 바 */
+  .nav-bar {
+    height: 48px;
+    background: rgba(6, 11, 16, 0.96);
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: 0 16px;
+    z-index: 50;
+    flex-shrink: 0;
+  }
+
+  .nav-btn {
+    min-height: 44px;
+    min-width: 44px;
+    background: transparent;
+    border: none;
+    color: var(--text-sub);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    touch-action: manipulation;
+    border-radius: 12px;
+    transition: color 0.15s ease, transform 0.1s ease;
+  }
+
+  .nav-btn:active {
+    color: var(--accent-cyan);
+    transform: scale(0.9);
+    background: rgba(56, 189, 248, 0.1);
+  }
+
+  /* 하단 눈사람 비즈 키링 스트랩 */
+  .snowman-charm {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(186, 230, 253, 0.25);
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 11px;
+    color: #e0f2fe;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+    animation: charmSwing 4s infinite ease-in-out;
+    pointer-events: none;
+  }
+
+  @keyframes charmSwing {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(1.5deg); }
+  }
+
+  /* 토스트 알림 */
+  .toast-msg {
+    position: absolute;
+    bottom: 62px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(15, 28, 42, 0.96);
+    border: 1px solid var(--accent-cyan);
+    color: #f0f9ff;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 99px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 80;
+    white-space: nowrap;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toast-msg.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="device-wrapper">
+  <div class="phone-frame">
+    <div class="carbon-bezel"></div>
+    <div class="notification-led" title="신혼여행 방해금지 모드: 내 마누라 & ARCH 예약/최고위 경보만 허용"></div>
+
+    <div class="screen-container">
+      <!-- 상단 상태 표시줄 -->
+      <div class="status-bar">
+        <div class="status-left">
+          <span id="status-time">10:14</span>
+          <span class="status-badge">A-Link S-Class</span>
+        </div>
+        <div class="status-right">
+          <span class="mute-icon" title="10년째 영구 무음 / 방해금지">🔕 DND</span>
+          <span>640GB/2TB</span>
+          <div class="battery-pill">
+            <span>94%</span>
+            <div class="battery-box"><div class="battery-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 화면 뷰포트 -->
+      <div class="screens-viewport" id="viewport">
+
+        <!-- 0. 잠금화면 -->
+        <section class="screen active" id="screen-lock">
+          <div class="aurora-waves"></div>
+          <div class="lock-top">
+            <div class="lock-date" id="lock-date">아이슬란드 현지 · 신혼여행 중 ❄️</div>
+            <div class="lock-clock" id="lock-clock">10:14</div>
+          </div>
+
+          <div class="lock-photo-caption">
+            <div class="lock-photo-illustration">
+              <div class="aurora-ribbon"></div>
+              <div class="glacier-ice"></div>
+              <div class="alice-silhouette">🤍 흰 방울 털모자 쓴 신서리 (아이슬란드 빙하 호수)</div>
+            </div>
+            <div style="font-size:11px; color:#bae6fd; line-height:1.35;">
+              초록빛 오로라가 쏟아지던 밤, 고개를 들고 환하게 웃는 앨리스를 몰래 찍은 초고화질 원본.
+            </div>
+          </div>
+
+          <div class="lock-noti-stack">
+            <!-- 방금 막 도착한 실시간 예약 알림 (잠금화면 속 앨리스 얼굴 위로 겹쳐 떠오른 팝업) -->
+            <div class="lock-alert-arch" data-nav="app-arch-ops" data-param="welfare-notice">
+              <div class="lock-alert-header">
+                <span>⚡ ARCH 복지지원팀 자동 안내</span>
+                <span class="lock-alert-badge">방금 도착 · 예약 알림</span>
+              </div>
+              <div class="lock-alert-body">
+                [예약 알림] 요원 코드네임 ‘바이브(홍지원)’ 님이 신청하신 ‘배우자 출산 전후 특별 보호 휴가 및 내근직 한시 전환 신청서’ 가접수가 완료되었습니다. 귀국 후 센트럴 코어 인사과 방문 요망.
+              </div>
+            </div>
+
+            <div class="lock-noti-card" data-nav="app-chat-detail" data-chat="wife">
+              <div class="lock-noti-icon">🤍</div>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#fff;">
+                  <span>내 마누라 🤍</span>
+                  <span style="font-size:10px; color:#7dd3fc;">핀 고정 · 어젯밤</span>
+                </div>
+                <div style="font-size:11.5px; color:#cbd5e1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px;">
+                  서방님, 내일 시내 나가면 아주버님 선물 꼭 사야 해요! (๑•̀ㅂ•́)و✧
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lock-bottom">
+            <div class="lock-action-row">
+              <button type="button" class="unlock-btn" data-action="unlock">
+                <span>🔓</span>
+                <span>잠금 해제</span>
+              </button>
+              <button type="button" class="dim-btn" data-action="dim-screen" title="화면 암전">
+                🌑 화면 암전
+              </button>
+            </div>
+            <div class="keyring-tag">
+              <span>⛄</span>
+              <span>공방에서 함께 만든 하얀 눈사람 비즈 키링 장착됨</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1. 홈 화면 -->
+        <section class="screen" id="screen-home">
+          <div class="widgets-row">
+            <div class="widget-card" data-nav="app-weather">
+              <div class="widget-label">
+                <span>🇮🇸 레이캬비크</span>
+                <span>풍속 4.2m/s</span>
+              </div>
+              <div class="widget-main-val">-2°C</div>
+              <div class="widget-sub">기류 안정 · 맑음<br>시내 벼룩시장 이동 적합</div>
+            </div>
+
+            <div class="widget-card" data-nav="app-calendar">
+              <div class="widget-label">
+                <span>출산 예정일</span>
+                <span>D-Day</span>
+              </div>
+              <div class="widget-main-val" style="color:#bae6fd;">D-225 👶</div>
+              <div class="widget-sub">우리 바라미 만나는 날<br>홍주아 (확정) · 8주차</div>
+            </div>
+          </div>
+
+          <div class="home-wallpaper-center">
+            <div class="cats-sleeping-art">
+              <span class="cat-badge cat-seori">🤍 서리 (식빵 숙면)</span>
+              <span class="cat-badge cat-eve">🐈‍⬛ 이브 (엉켜 잠듦)</span>
+            </div>
+            <div class="wallpaper-caption">
+              영도 펜트하우스 거실 흔들의자 발치 · 지문 한 톨 없는 강화유리
+            </div>
+          </div>
+
+          <div class="quick-tools-strip">
+            <button type="button" class="quick-app-btn" data-nav="app-calls">
+              <span style="font-size:18px;">📞</span>
+              <span>통화기록</span>
+            </button>
+            <button type="button" class="quick-app-btn" data-nav="app-gallery">
+              <span style="font-size:18px;">🖼️</span>
+              <span>사진첩</span>
+            </button>
+            <button type="button" class="quick-app-btn" data-nav="app-notes">
+              <span style="font-size:18px;">🔐</span>
+              <span>메모장</span>
+            </button>
+            <button type="button" class="quick-app-btn" data-nav="app-browser">
+              <span style="font-size:18px;">🌐</span>
+              <span>보안검색</span>
+            </button>
+          </div>
+
+          <div class="folders-dock">
+            <button type="button" class="folder-btn" data-folder="arch">
+              <span class="badge-99">99+</span>
+              <div class="folder-grid-icon">
+                <span>🗺️</span><span>〰️</span><span>💬</span><span>🛡️</span>
+              </div>
+              <span class="folder-name">ARCH</span>
+            </button>
+
+            <button type="button" class="folder-btn" data-folder="daily">
+              <div class="folder-grid-icon">
+                <span>🏠</span><span>🌪️</span><span>💳</span><span>📅</span>
+              </div>
+              <span class="folder-name">일상</span>
+            </button>
+
+            <button type="button" class="folder-btn" data-folder="family">
+              <div class="folder-grid-icon">
+                <span>🤰</span><span>📘</span><span>🎧</span><span>⏰</span>
+              </div>
+              <span class="folder-name">서리&amp;주아</span>
+            </button>
+
+            <button type="button" class="folder-btn" data-folder="shop">
+              <div class="folder-grid-icon">
+                <span>🐾</span><span>🍓</span><span>🏦</span><span>🎵</span>
+              </div>
+              <span class="folder-name">쇼핑·금융</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 폴더 팝업 오버레이 -->
+        <div class="folder-overlay" id="folder-overlay">
+          <div class="folder-modal">
+            <div class="folder-modal-header">
+              <span class="folder-modal-title" id="folder-modal-title">폴더</span>
+              <button type="button" class="folder-close-btn" data-action="close-folder">✕</button>
+            </div>
+            <div class="folder-apps-grid" id="folder-apps-grid"></div>
+          </div>
+        </div>
+
+        <!-- 2. A-Talk 메신저 목록 -->
+        <section class="screen" id="screen-app-atalk">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title">A-Talk (안 읽음 101)</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body">
+            <div class="profile-banner">
+              <div class="profile-avatar">🌊🤍</div>
+              <div style="min-width:0; flex:1;">
+                <div style="font-size:14px; font-weight:700; color:#fff;">VIBE (홍지원)</div>
+                <div style="font-size:11.5px; color:#7dd3fc; margin-top:2px;">신혼여행 중. 급한 용무도 연락 사절.</div>
+                <div style="font-size:10.5px; color:#94a3b8; margin-top:2px;">프사: 아쿠아리움 수조 앞 앨리스와 손 맞잡은 실루엣</div>
+              </div>
+            </div>
+
+            <div class="section-label">상단 고정 (유일한 허용 알림)</div>
+            <button type="button" class="chat-row pinned" data-nav="app-chat-detail" data-chat="wife">
+              <div class="chat-avatar" style="background:linear-gradient(135deg,#38bdf8,#0284c7);">🤍</div>
+              <div class="chat-info">
+                <div class="chat-top-line">
+                  <span class="chat-name">📌 내 마누라 🤍</span>
+                  <span style="font-size:10px; color:#7dd3fc;">어젯밤</span>
+                </div>
+                <div class="chat-preview">📍 레이캬비크 시내 쇼핑몰 위치 공유됨</div>
+              </div>
+            </button>
+
+            <div class="section-label">방치된 대화방 (알림 꺼짐 / 읽씹 중)</div>
+            <button type="button" class="chat-row" data-nav="app-chat-detail" data-chat="brother">
+              <div class="chat-avatar">💢</div>
+              <div class="chat-info">
+                <div class="chat-top-line">
+                  <span class="chat-name">부스터 (형) <span style="font-size:11px; color:#64748b;">🔕</span></span>
+                  <span class="unread-count">14</span>
+                </div>
+                <div class="chat-preview">야 홍지원!! 이 하얀 털 뭉치가 내 가죽 자켓 위에 토해놨는데...</div>
+              </div>
+            </button>
+
+            <button type="button" class="chat-row" data-nav="app-chat-detail" data-chat="vanguard">
+              <div class="chat-avatar">⚔️</div>
+              <div class="chat-info">
+                <div class="chat-top-line">
+                  <span class="chat-name">뱅가드 2팀 작전방 (4) <span style="font-size:11px; color:#64748b;">🔕</span></span>
+                  <span class="unread-count">87</span>
+                </div>
+                <div class="chat-preview">리암: 지원, 귀국할 때 아이슬란드 마그넷 부탁합니다. 아기 건강...</div>
+              </div>
+            </button>
+
+            <button type="button" class="chat-row" data-nav="app-chat-detail" data-chat="father">
+              <div class="chat-avatar">⛰️</div>
+              <div class="chat-info">
+                <div class="chat-top-line">
+                  <span class="chat-name">아부지</span>
+                  <span style="font-size:10px; color:#94a3b8;">사흘 전</span>
+                </div>
+                <div class="chat-preview">예. 아부지도 약 챙겨 드시소.</div>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- 2-1. 채팅 상세 화면 -->
+        <section class="screen" id="screen-app-chat-detail">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 목록</button>
+            <div class="app-title" id="chat-detail-title">대화방</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="chat-messages-area" id="chat-messages-area"></div>
+          <div class="keyboard-bar">
+            <div style="font-size:10px; color:#64748b; margin-bottom:4px;">학습된 자동완성 추천 (아내 전용)</div>
+            <div class="autocomplete-strip" id="autocomplete-strip">
+              <button type="button" class="auto-word-chip" data-toast="입력창에 '사랑한다 🤍' 입력됨">사랑한다</button>
+              <button type="button" class="auto-word-chip" data-toast="입력창에 '보고 싶다' 입력됨">보고 싶다</button>
+              <button type="button" class="auto-word-chip" data-toast="입력창에 '밥 묵었나' 입력됨">밥 묵었나</button>
+              <button type="button" class="auto-word-chip" data-toast="입력창에 '내 마누라 🤍' 입력됨">내 마누라</button>
+              <button type="button" class="auto-word-chip" data-toast="입력창에 '따뜻하게 입고 있어라' 입력됨">따뜻하게 입고 있어라</button>
+            </div>
+            <div class="sticker-strip">
+              <button type="button" class="sticker-btn" data-toast="아기 물범 스티커 전송 (아내 방 전용)">🦭 말랑물범</button>
+              <button type="button" class="sticker-btn" data-toast="이모티콘 🤍 전송됨">🤍</button>
+              <button type="button" class="sticker-btn" data-toast="이모티콘 ❄️ 전송됨">❄️</button>
+              <button type="button" class="sticker-btn" data-toast="이모티콘 👶 전송됨">👶</button>
+              <button type="button" class="sticker-btn" data-toast="이모티콘 🐱 전송됨">🐱</button>
+              <button type="button" class="sticker-btn" data-toast="(๑•̀ㅂ•́)و✧ 전송됨">(๑•̀ㅂ•́)و✧</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. 통화 기록 -->
+        <section class="screen" id="screen-app-calls">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title">최근 통화 기록</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="calls-list-body"></div>
+        </section>
+
+        <!-- 4. 사진첩 -->
+        <section class="screen" id="screen-app-gallery">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title">갤러리 · 640GB 점유</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body">
+            <div class="info-card highlight">
+              <div style="font-size:12px; font-weight:700; color:#bae6fd;">📷 무음 개조 카메라 · 최근 8개월 아카이브</div>
+              <div style="font-size:11px; color:#94a3b8; margin-top:4px;">2TB 중 640GB가 아내와 고양이 사진·영상. 최근 삭제된 항목: 0개 (눈 감은 사진도 차마 못 지워 복원함).</div>
+            </div>
+            <div class="album-grid" id="album-grid"></div>
+          </div>
+        </section>
+
+        <!-- 4-1. 앨범 상세 -->
+        <section class="screen" id="screen-app-album-detail">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 앨범</button>
+            <div class="app-title" id="album-detail-title">앨범</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="album-detail-body"></div>
+        </section>
+
+        <!-- 5. 보안 메모장 -->
+        <section class="screen" id="screen-app-notes">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title">보안 메모장</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="notes-body"></div>
+        </section>
+
+        <!-- 6. 아크 보안 브라우저 -->
+        <section class="screen" id="screen-app-browser">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title">ARCH 보안 브라우저</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="browser-body"></div>
+        </section>
+
+        <!-- 7. ARCH 전술 & 파장 & 복지지원 알림 -->
+        <section class="screen" id="screen-app-arch-ops">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title" id="arch-ops-title">ARCH 시스템</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="arch-ops-body"></div>
+        </section>
+
+        <!-- 8. 일상 앱 -->
+        <section class="screen" id="screen-app-daily">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title" id="daily-title">일상 관리</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="daily-body"></div>
+        </section>
+
+        <!-- 9. 서리&주아 육아/알람 앱 -->
+        <section class="screen" id="screen-app-family">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title" id="family-title">서리 &amp; 주아</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="family-body"></div>
+        </section>
+
+        <!-- 10. 쇼핑·금융·음악 -->
+        <section class="screen" id="screen-app-commerce">
+          <div class="app-header">
+            <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+            <div class="app-title" id="commerce-title">쇼핑 · 금융 · 음악</div>
+            <div class="header-action-spacer"></div>
+          </div>
+          <div class="app-body" id="commerce-body"></div>
+        </section>
+
+      </div>
+
+      <!-- 부드러운 화면 암전 레이어 (단말기 마지막 흔적 후 암전) -->
+      <div class="screen-dim-overlay" id="screen-dim-overlay">
+        <div style="font-size:11px; color:#38bdf8; letter-spacing:1px;">A-LINK PRO TITANIUM · STANDBY</div>
+        <div style="font-size:13px; color:#cbd5e1; line-height:1.6; max-width:290px;">
+          코트 주머니 속 차가운 화면 위로 무음의 푸른빛 LED가 한 번 깜빡인 뒤, 화면이 조용히 암전되었습니다.
+        </div>
+        <div style="font-size:11.5px; color:#94a3b8; line-height:1.5; max-width:290px;">
+          최전선이 아닌 아내와 태어날 아이의 평온한 바람으로 남겠다는 스물두 살 가장의 마지막 흔적.
+        </div>
+        <button type="button" class="wake-btn" data-action="wake-screen">⚡ 화면 다시 켜기</button>
+      </div>
+
+      <!-- 토스트 알림 -->
+      <div class="toast-msg" id="toast-msg"></div>
+
+      <!-- 하단 내비게이션 바 -->
+      <div class="nav-bar">
+        <button type="button" class="nav-btn" data-action="back" title="뒤로 가기">◁</button>
+        <button type="button" class="nav-btn" data-action="home" title="홈 화면">○</button>
+        <button type="button" class="nav-btn" data-action="dim-screen" title="화면 암전">□</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 하단 스트랩 홀 눈사람 비즈 키링 -->
+  <div class="snowman-charm">
+    <span>⛄</span>
+    <span>A-Link Pro Titanium · 하얀 눈사람 비즈 키링</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const FOLDERS_DATA = {
+    arch: {
+      title: '📁 ARCH (요원 필수)',
+      apps: [
+        { id: 'atactical', emoji: '🗺️', label: 'A-Tactical', screen: 'app-arch-ops', param: 'tactical' },
+        { id: 'wavemon', emoji: '〰️', label: 'Wave-Monitor', screen: 'app-arch-ops', param: 'wave' },
+        { id: 'atalk', emoji: '💬', label: 'A-Talk', screen: 'app-atalk', badge: '99+' },
+        { id: 'welfare', emoji: '📋', label: '복지지원 안내', screen: 'app-arch-ops', param: 'welfare-notice' }
+      ]
+    },
+    daily: {
+      title: '📁 일상',
+      apps: [
+        { id: 'smarthome', emoji: '🏠', label: '영도 스마트홈', screen: 'app-daily', param: 'smarthome' },
+        { id: 'weather', emoji: '🌪️', label: '초정밀 풍향레이더', screen: 'app-daily', param: 'weather' },
+        { id: 'ledger', emoji: '💳', label: '부부 가계부', screen: 'app-daily', param: 'ledger' },
+        { id: 'calendar', emoji: '📅', label: '캘린더', screen: 'app-daily', param: 'calendar' }
+      ]
+    },
+    family: {
+      title: '📁 서리&주아 (사용시간 1위)',
+      apps: [
+        { id: 'moms', emoji: '🤰', label: '맘스다이어리', screen: 'app-family', param: 'moms' },
+        { id: 'dadbook', emoji: '📘', label: '초보아빠 대백과', screen: 'app-family', param: 'dadbook' },
+        { id: 'audiobook', emoji: '🎧', label: '태교 오디오북', screen: 'app-family', param: 'audiobook' },
+        { id: 'alarm', emoji: '⏰', label: '서리 케어 알람', screen: 'app-family', param: 'alarm' }
+      ]
+    },
+    shop: {
+      title: '📁 쇼핑·금융',
+      apps: [
+        { id: 'meowmart', emoji: '🐾', label: '미야오마트', screen: 'app-commerce', param: 'meowmart' },
+        { id: 'freshcart', emoji: '🍓', label: '새벽배송 장바구니', screen: 'app-commerce', param: 'cart' },
+        { id: 'bank', emoji: '🏦', label: '주거래 은행', screen: 'app-commerce', param: 'bank' },
+        { id: 'amusic', emoji: '🎵', label: 'A-Music', screen: 'app-commerce', param: 'music' }
+      ]
+    }
+  };
+
+  const CHATS_DATA = {
+    wife: {
+      title: '내 마누라 🤍 (핀 고정)',
+      messages: [
+        { date: '어젯밤 · 침대 위 나란히 누워서' },
+        {
+          sender: 'other',
+          name: '내 마누라 🤍',
+          text: '[스티커: 아기 북극곰 폴짝] 서방님, 내일 시내 나가면 아주버님 선물 꼭 사야 해요! 까먹으시면 안 돼요 (๑•̀ㅂ•́)و✧',
+          time: '23:41'
+        },
+        {
+          sender: 'me',
+          text: '……생각해 보고.',
+          time: '23:42'
+        },
+        {
+          sender: 'me',
+          text: '발 시려우니까 수면양말 벗지 말고 자라.',
+          attachment: '📍 지도 위치 공유: 레이캬비크 시내 쇼핑몰 (도보 12분 · 선물 코너 경로 저장 완료)',
+          time: '23:42'
+        },
+        {
+          sender: 'other',
+          name: '내 마누라 🤍',
+          text: '헤헤 벌써 위치 다 찾아놓으셨으면서 🤍',
+          time: '23:43'
+        }
+      ]
+    },
+    brother: {
+      title: '부스터 (형) · 알림 꺼짐',
+      messages: [
+        { date: '어제 · 안 읽은 메시지 14개' },
+        {
+          sender: 'other',
+          name: '부스터 (형)',
+          text: '야 홍지원!! 이 하얀 털 뭉치가 내 가죽 자켓 위에 토해놨는데 이거 세탁비 청구한다?!',
+          attachment: '🖼️ 첨부사진: 가죽 자켓 옆에서 시치미를 뚝 떼고 식빵을 굽고 있는 하얀 고양이 서리.jpg',
+          time: '18:12'
+        },
+        {
+          sender: 'other',
+          name: '부스터 (형)',
+          text: '야!! 읽씹하지 마라!! 너 홈캠으로 다 보고 있는 거 안다!!',
+          time: '18:15'
+        },
+        {
+          sender: 'other',
+          name: '부스터 (형)',
+          text: '모래 어딨냐고 전화했더니 42초 만에 끊는 게 동생이냐?!',
+          time: '19:03'
+        }
+      ]
+    },
+    vanguard: {
+      title: '뱅가드 2팀 작전방 (4) · 안 읽음 87',
+      messages: [
+        { date: '사흘 전' },
+        {
+          sender: 'me',
+          text: '건드리면 죽인다. 연락하지 마라.',
+          attachment: '🖼️ 사진: 웨딩드레스를 입은 앨리스의 뒷모습 (단 한 장 투척 후 방 미열람)',
+          time: '14:00'
+        },
+        { date: '그 이후 쌓인 87개의 메시지 중 일부' },
+        {
+          sender: 'other',
+          name: '신드롬',
+          text: '야 중2병 새X 결혼하더니 아예 잠수 탔네ㅋㅋ 아이슬란드 얼어 죽기 딱 좋다던데 살아있냐?',
+          time: '14:05'
+        },
+        {
+          sender: 'other',
+          name: '카이날루',
+          text: 'Aloha~ 우리 little bird 신혼 재미에 푹 빠져서 바람 소리도 안 들리나 봐, 냅둬라~🤙',
+          time: '14:12'
+        },
+        {
+          sender: 'other',
+          name: '리암 (번역기)',
+          text: '지원, 귀국할 때 아이슬란드 마그넷 부탁합니다. 아기 건강 기원합니다.',
+          time: '어제 09:30'
+        }
+      ]
+    },
+    father: {
+      title: '아부지',
+      messages: [
+        { date: '사흘 전 · 10년 만의 첫 연락' },
+        {
+          sender: 'other',
+          name: '아부지',
+          text: '[등산복 차림의 꽃 그림 이모티콘] 몸조심하고 서리 맛있는 거 많이 사 먹여라',
+          time: '19:20'
+        },
+        {
+          sender: 'me',
+          text: '예. 아부지도 약 챙겨 드시소.',
+          time: '19:21'
+        }
+      ]
+    }
+  };
+
+  const CALLS_DATA = [
+    { name: '시그룬 (아이슬란드 빌라)', type: '발신 ↗', duration: '1분 20초', time: '오늘 10:02', note: '프라이빗 온천수 온도 조절 및 시내 벼룩시장 위치 확인', color: '#38bdf8' },
+    { name: '부스터 (형)', type: '수신 ↙', duration: '42초', time: '어제 19:01', note: '고양이 화장실 모래 어딨냐길래 팬트리 세 번째 칸이라 쏘아붙이고 끊음', color: '#94a3b8' },
+    { name: '부스터 (형)', type: '부재중 ✕ (4)', duration: '연속 4통', time: '어제 18:55', note: '귀찮아서 무시함', color: '#fb7185' },
+    { name: '아부지', type: '발신 ↗', duration: '8분 15초', time: '사흘 전', note: '10년 만에 먼저 건 전화. 아이슬란드 무사 도착 및 며느리 컨디션 안부 보고', color: '#34d399' },
+    { name: '부산 영도 제일산부인과', type: '발신 ↗', duration: '4분 00초', time: '출국 전', note: '귀국 직후 정기검진 예약 완료', color: '#38bdf8' },
+    { name: '리암 (뱅가드 2팀)', type: '수신 ↙', duration: '30초', time: '4일 전', note: '용건만 짧게 확인 후 종료', color: '#94a3b8' },
+    { name: '신드롬 (시끄러운 인간)', type: '부재중 ✕ (2)', duration: '차단 직전', time: '5일 전', note: '차단 직전에 들어온 흔적', color: '#fb7185' },
+    { name: '내 마누라 🤍', type: '발신/수신 🔁', duration: '기본 30분 ~ 2시간', time: '신혼여행 전 다수', note: '임무로 떨어져 있을 때마다 하루 대여섯 번씩 잠들 때까지 켜둔 통화 기록 도배', color: '#f472b6' }
+  ];
+
+  const ALBUMS_DATA = {
+    all: {
+      title: '내 세상의 전부 (4,812)',
+      count: '4,812장',
+      desc: 'S급 동체 시력으로 찍은 초고화질 연사 아카이브',
+      photos: [
+        { title: '부산항 첫 만남의 여름날', bg: 'linear-gradient(135deg,#0369a1,#1e3a8a)', detail: '어색하게 서 있던 첫 몰카. 바람결에 흩날리던 은빛 머리카락 한 올까지 선명하다.' },
+        { title: '아침에 잠 덜 깬 부스스한 얼굴', bg: 'linear-gradient(135deg,#334155,#1e293b)', detail: '이불 속에서 눈을 비비는 모습. 흔들린 컷조차 머리카락 결이 살아 있다.' },
+        { title: '시나몬 롤 크림 입가에 묻힌 순간', bg: 'linear-gradient(135deg,#78350f,#451a03)', detail: '달달한 빵을 오물거리며 행복해하던 0.2초의 연사 기록.' },
+        { title: '홋카이도 비에이 설원의 첫눈', bg: 'linear-gradient(135deg,#0f172a,#38bdf8)', detail: '첫눈을 맞으며 울컥하던 표정. 셔터음 무음 개조 덕분에 눈치채지 못했다.' }
+      ]
+    },
+    baby: {
+      title: '우리 바라미 (38)',
+      count: '38장',
+      desc: '홍주아 성장 기록 아카이브',
+      photos: [
+        { title: '초기 정밀 초음파 스캔본', bg: 'linear-gradient(135deg,#090d16,#1e293b)', detail: '콩알만 한 크기의 우리 바라미 첫 초음파 고해상도 스캔.' },
+        { title: '임신 테스트기 두 줄 인증샷', bg: 'linear-gradient(135deg,#831843,#4c0519)', detail: '손이 떨려서 세 번이나 다시 확인했던 날의 기록.' },
+        { title: '주차별 주아 성장 기록 (8주차)', bg: 'linear-gradient(135deg,#1e3a8a,#312e81)', detail: '아직 나오지도 않은 앨리스의 납작한 배를 옆 각도에서 매일 같은 조도로 촬영 중.' }
+      ]
+    },
+    cats: {
+      title: '털바퀴 두 마리 (940)',
+      count: '940장',
+      desc: '입으로는 돼지라 부르지만 발바닥 젤리 접사만 100장 넘음',
+      photos: [
+        { title: '핑크 & 블랙 젤리 초근접 접사 #104', bg: 'linear-gradient(135deg,#4c1d95,#1e1b4b)', detail: '서리의 분홍 젤리와 이브의 까만 젤리 모공까지 보이는 초정밀 접사.' },
+        { title: '캣타워에서 굴러떨어지는 엽기 순간', bg: 'linear-gradient(135deg,#134e4a,#0f172a)', detail: '동체 시력으로 포착한 허공 발버둥 연사.' },
+        { title: '하품하는 돼지 같은 놈들', bg: 'linear-gradient(135deg,#1f2937,#111827)', detail: '송곳니가 다 드러난 하품 정면 샷.' }
+      ]
+    },
+    fav: {
+      title: '즐겨찾기 (♥)',
+      count: '핵심 보관함',
+      desc: '휴지통 최근 삭제 항목: 0개 (전부 복원)',
+      photos: [
+        { title: '🎥 영상: 잠결에 내 손가락 꼭 쥐고 자는 앨리스', bg: 'linear-gradient(135deg,#0c4a6e,#082f49)', detail: '🔊 최대 볼륨 녹음: 앨리스의 새근거리는 숨소리와 바이브가 낮게 웃으며 "내 멍청이…" 하고 중얼거리는 목소리가 담겨 있다.' },
+        { title: '🖼️ 아쿠아리움 기념사진 원본', bg: 'linear-gradient(135deg,#0284c7,#1d4ed8)', detail: '푸른 수조 앞에서 손을 맞잡고 찍은 프로필 사진 원본.' }
+      ]
+    }
+  };
+
+  let screenStack = ['screen-lock'];
+  let noteUnlocked = false;
+  let secretNoteUnlocked = false;
+  let pinBuffer = '';
+  let pinTarget = 'main';
+  let isPlayingMusic = true;
+  let alarmStates = [true, true, true];
+
+  const toastEl = document.getElementById('toast-msg');
+  const dimOverlayEl = document.getElementById('screen-dim-overlay');
+  let toastTimer = null;
+
+  function showToast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove('show');
+    }, 2200);
+  }
+
+  function setDimmed(state) {
+    if (!dimOverlayEl) return;
+    if (state) {
+      dimOverlayEl.classList.add('active');
+    } else {
+      dimOverlayEl.classList.remove('active');
+    }
+  }
+
+  function updateClock() {
+    try {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const timeStr = `${hh}:${mm}`;
+      const st = document.getElementById('status-time');
+      const lc = document.getElementById('lock-clock');
+      if (st) st.textContent = timeStr;
+      if (lc) lc.textContent = timeStr;
+    } catch (e) {
+      // 시계 오류 격리
+    }
+  }
+  updateClock();
+  setInterval(updateClock, 15000);
+
+  function openScreen(targetId, options = {}) {
+    setDimmed(false);
+    const fullId = targetId.startsWith('screen-') ? targetId : `screen-${targetId}`;
+    const targetEl = document.getElementById(fullId);
+    if (!targetEl) return;
+
+    closeFolder();
+
+    if (fullId === 'screen-app-chat-detail' && options.chat) {
+      renderChatDetail(options.chat);
+    } else if (fullId === 'screen-app-calls') {
+      renderCalls();
+    } else if (fullId === 'screen-app-gallery') {
+      renderGallery();
+    } else if (fullId === 'screen-app-album-detail' && options.album) {
+      renderAlbumDetail(options.album);
+    } else if (fullId === 'screen-app-notes') {
+      renderNotes();
+    } else if (fullId === 'screen-app-browser') {
+      renderBrowser();
+    } else if (fullId === 'screen-app-arch-ops') {
+      renderArchOps(options.param || 'tactical');
+    } else if (fullId === 'screen-app-daily') {
+      renderDaily(options.param || 'smarthome');
+    } else if (fullId === 'screen-app-family') {
+      renderFamily(options.param || 'moms');
+    } else if (fullId === 'screen-app-commerce') {
+      renderCommerce(options.param || 'cart');
+    } else if (fullId === 'screen-app-weather') {
+      renderDaily('weather');
+      return openScreen('screen-app-daily', { param: 'weather' });
+    } else if (fullId === 'screen-app-calendar') {
+      return openScreen('screen-app-daily', { param: 'calendar' });
+    }
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    targetEl.classList.add('active');
+
+    if (screenStack[screenStack.length - 1] !== fullId) {
+      screenStack.push(fullId);
+    }
+  }
+
+  function goBack() {
+    if (dimOverlayEl && dimOverlayEl.classList.contains('active')) {
+      setDimmed(false);
+      return;
+    }
+    const folderOverlay = document.getElementById('folder-overlay');
+    if (folderOverlay && folderOverlay.classList.contains('active')) {
+      closeFolder();
+      return;
+    }
+    if (screenStack.length > 1) {
+      screenStack.pop();
+      const prevId = screenStack[screenStack.length - 1];
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const prevEl = document.getElementById(prevId);
+      if (prevEl) prevEl.classList.add('active');
+    } else {
+      showToast('최상위 화면입니다');
+    }
+  }
+
+  function goHome() {
+    setDimmed(false);
+    closeFolder();
+    const current = screenStack[screenStack.length - 1];
+    if (current === 'screen-lock') {
+      showToast('먼저 잠금을 해제해 주세요');
+      return;
+    }
+    screenStack = ['screen-home'];
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-home').classList.add('active');
+  }
+
+  function openFolder(folderKey) {
+    const data = FOLDERS_DATA[folderKey];
+    if (!data) return;
+    document.getElementById('folder-modal-title').textContent = data.title;
+    const grid = document.getElementById('folder-apps-grid');
+    grid.innerHTML = data.apps.map(app => `
+      <button type="button" class="folder-app-item" data-nav="${app.screen}" data-param="${app.param || ''}">
+        ${app.badge ? `<span class="badge-99">${app.badge}</span>` : ''}
+        <span class="folder-app-emoji">${app.emoji}</span>
+        <span class="folder-app-label">${app.label}</span>
+      </button>
+    `).join('');
+    document.getElementById('folder-overlay').classList.add('active');
+  }
+
+  function closeFolder() {
+    const overlay = document.getElementById('folder-overlay');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  function renderChatDetail(chatKey) {
+    const chat = CHATS_DATA[chatKey] || CHATS_DATA.wife;
+    document.getElementById('chat-detail-title').textContent = chat.title;
+    const area = document.getElementById('chat-messages-area');
+    area.innerHTML = chat.messages.map(m => {
+      if (m.date) {
+        return `<div class="chat-date-divider">${m.date}</div>`;
+      }
+      return `
+        <div class="msg-group ${m.sender}">
+          ${m.sender === 'other' ? `<div class="msg-sender">${m.name}</div>` : ''}
+          <div class="msg-bubble">
+            <div>${m.text}</div>
+            ${m.attachment ? `<div class="msg-attachment">${m.attachment}</div>` : ''}
+          </div>
+          <div class="msg-time">${m.time}</div>
+        </div>
+      `;
+    }).join('');
+    area.scrollTop = area.scrollHeight;
+  }
+
+  function renderCalls() {
+    const body = document.getElementById('calls-list-body');
+    body.innerHTML = `
+      <div class="info-card highlight">
+        <div style="font-size:12px; font-weight:700; color:#bae6fd;">📞 극단적 편애가 드러나는 통화 기록</div>
+        <div style="font-size:11px; color:#94a3b8; margin-top:3px;">최근 통화 내역의 8할이 오직 한 사람 [내 마누라 🤍]으로 도배되어 있다.</div>
+      </div>
+      ${CALLS_DATA.map(c => `
+        <div class="info-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-size:13.5px; font-weight:700; color:#fff;">${c.name}</span>
+            <span style="font-size:11px; font-weight:700; color:${c.color};">${c.type} · ${c.duration}</span>
+          </div>
+          <div style="font-size:11.5px; color:#cbd5e1; line-height:1.4;">${c.note}</div>
+          <div style="font-size:10px; color:#64748b; margin-top:4px;">${c.time}</div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  function renderGallery() {
+    const grid = document.getElementById('album-grid');
+    grid.innerHTML = Object.entries(ALBUMS_DATA).map(([key, alb]) => `
+      <button type="button" class="album-card" data-nav="app-album-detail" data-album="${key}">
+        <div>
+          <span class="tag-pill">${alb.count}</span>
+          <div style="font-size:13.5px; font-weight:700; color:#fff; margin-top:8px;">${alb.title}</div>
+        </div>
+        <div style="font-size:11px; color:#94a3b8; line-height:1.35; margin-top:6px;">${alb.desc}</div>
+      </button>
+    `).join('');
+  }
+
+  function renderAlbumDetail(albumKey) {
+    const alb = ALBUMS_DATA[albumKey] || ALBUMS_DATA.all;
+    document.getElementById('album-detail-title').textContent = alb.title;
+    const body = document.getElementById('album-detail-body');
+    body.innerHTML = `
+      <div style="font-size:11.5px; color:#94a3b8; margin-bottom:10px;">${alb.desc}</div>
+      ${alb.photos.map(p => `
+        <div class="photo-list-card" data-toast="초고화질 원본 메타데이터 확인됨">
+          <div class="photo-visual-box" style="background:${p.bg};">${p.title}</div>
+          <div style="font-size:12px; color:#e2e8f0; line-height:1.45;">${p.detail}</div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  function renderNotes() {
+    const body = document.getElementById('notes-body');
+    if (!noteUnlocked) {
+      pinTarget = 'main';
+      body.innerHTML = renderPinPadHTML('1차 보안 암호 입력', '힌트: 앨리스의 생일이자 두 사람의 첫 만남일 (0618)');
+      return;
+    }
+
+    body.innerHTML = `
+      <div class="section-label">📌 상단 고정 메모</div>
+      <div class="info-card highlight">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:14px; font-weight:700; color:#fff;">신서리 주의사항 &amp; 취향 리스트 (1~47번)</span>
+          <span class="tag-pill">수시 업데이트</span>
+        </div>
+        <div style="font-size:12px; color:#e2e8f0; line-height:1.6;">
+          <strong>1.</strong> 화났을 때 ‘홍지원 씨’라고 정색함 → 무조건 먼저 안아주고 싹싹 빌 것(자존심 세우지 마라, 어차피 내가 짐).<br>
+          <strong>2.</strong> 찬 바람 쐬면 손발 금방 얼음장 됨 → 외출 시 핫팩 두 개 필수, 수면양말 신기기.<br>
+          <strong>3.</strong> 매운 거 못 먹음, 딸기랑 달달한 빵 환장함.<br>
+          <strong>4.</strong> 악몽 꾸고 우는 날엔 등 토닥이면서 자장가 오르골 틀어주기.<br>
+          <span style="color:#7dd3fc;">... (이하 47번 항목까지 꼼꼼히 기록됨)</span>
+        </div>
+      </div>
+
+      <div class="section-label">새 메모</div>
+      <div class="info-card">
+        <div style="font-size:13.5px; font-weight:700; color:#bae6fd; margin-bottom:6px;">우리 딸 이름 후보: 홍주아(확정)</div>
+        <div style="font-size:12.5px; color:#f1f5f9; line-height:1.55;">
+          세상의 아름다움과 평온함을 다 가져라. 절대 내 바람처럼 외롭지 않게 키울 것.
+        </div>
+      </div>
+
+      <div class="section-label">🔒 이중 암호 보안 폴더</div>
+      ${secretNoteUnlocked ? `
+        <div class="info-card" style="border-color:#f472b6; background:rgba(244,114,182,0.08);">
+          <div style="font-size:13px; font-weight:700; color:#fbcfe8; margin-bottom:6px;">비밀 다짐 (열람 엄금)</div>
+          <div style="font-size:12.5px; color:#fff; line-height:1.55;">
+            임신 초기 안정기 지날 때까지 절대 무리하게 안지 말 것. 참아라 홍지원. 짐승 새끼도 아니고 마누라 몸 생각해야지. (뽀뽀만 할 것. 진짜 뽀뽀만.)
+          </div>
+          <div style="font-size:11px; color:#f9a8d4; margin-top:6px;">* 오늘 아침 식당에서 서른 번의 키스를 퍼부어 다짐이 위태로움.</div>
+        </div>
+      ` : `
+        <button type="button" class="list-item-btn" data-action="open-secret-pin" style="border-color:#f472b6;">
+          <div>
+            <div style="font-size:13px; font-weight:700; color:#fbcfe8;">🔐 2차 잠금 메모 (절대 열람 금지)</div>
+            <div style="font-size:11px; color:#94a3b8;">암호(0618) 한 번 더 입력하여 잠금 해제</div>
+          </div>
+          <span>›</span>
+        </button>
+      `}
+    `;
+  }
+
+  function renderPinPadHTML(title, hint) {
+    const dots = [0, 1, 2, 3].map(i => `<div class="pin-dot ${i < pinBuffer.length ? 'filled' : ''}"></div>`).join('');
+    return `
+      <div class="pin-pad-wrap">
+        <div style="font-size:28px; margin-bottom:8px;">🔐</div>
+        <div style="font-size:15px; font-weight:700; color:#fff;">${title}</div>
+        <div style="font-size:11.5px; color:#7dd3fc; margin-top:4px;">${hint}</div>
+        <div class="pin-dots">${dots}</div>
+        <div class="pin-grid">
+          ${[1,2,3,4,5,6,7,8,9].map(n => `<button type="button" class="pin-key" data-pin="${n}">${n}</button>`).join('')}
+          <button type="button" class="pin-key" data-pin="clear" style="font-size:13px; color:#94a3b8;">초기화</button>
+          <button type="button" class="pin-key" data-pin="0">0</button>
+          <button type="button" class="pin-key" data-pin="auto" style="font-size:12px; color:#38bdf8;">0618</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function handlePinInput(val) {
+    if (val === 'clear') {
+      pinBuffer = '';
+      renderNotes();
+      return;
+    }
+    if (val === 'auto') {
+      pinBuffer = '0618';
+    } else {
+      if (pinBuffer.length >= 4) return;
+      pinBuffer += val;
+    }
+
+    if (pinBuffer.length === 4) {
+      if (pinBuffer === '0618') {
+        pinBuffer = '';
+        if (pinTarget === 'main') {
+          noteUnlocked = true;
+          showToast('보안 메모장 잠금 해제 (0618)');
+        } else {
+          secretNoteUnlocked = true;
+          showToast('2차 보안 폴더 잠금 해제 완료');
+        }
+        renderNotes();
+      } else {
+        showToast('암호가 일치하지 않습니다 (힌트: 0618)');
+        pinBuffer = '';
+        renderNotes();
+      }
+    } else {
+      renderNotes();
+    }
+  }
+
+  function renderBrowser() {
+    const body = document.getElementById('browser-body');
+    const searches = [
+      { q: '아이슬란드 빈부딘 도수 제일 높은 술', note: '방금 전 검색' },
+      { q: '고양이 대구 껍질 간식 하루 급여량', note: '방금 전 검색' },
+      { q: '임신 초기 남편이 해줄 수 있는 것', note: '정독 완료' },
+      { q: '임산부 발 마사지 혈자리 주의사항', note: '정독 완료' },
+      { q: '아내 눈물 많을 때 달래는 법', note: '정독 완료' },
+      { q: '비행기 기압 변화 태아 영향', note: '출국 전 검색' },
+      { q: '신생아 딸꾹질 멈추는 법 미리 공부', note: '출산 7개월 전 예습' },
+      { q: '연상 아내한테 오빠 소리 듣는 법', note: '⚠️ 검색 직후 스스로 어이없었는지 3초 만에 창 닫은 기록' }
+    ];
+
+    body.innerHTML = `
+      <div class="section-label">🕵️ 열려 있는 시크릿 탭 (6월 생일 &amp; 출산 선물)</div>
+      <div class="info-card highlight">
+        <div style="font-size:12.5px; font-weight:700; color:#bae6fd;">1. 최고급 디럭스 유모차 브랜드 스펙·서스펜션 비교</div>
+        <div style="font-size:12.5px; font-weight:700; color:#fbcfe8; margin-top:5px;">2. 6월 아기 탄생석(진주/문스톤) 목걸이 주문제작 공방</div>
+      </div>
+
+      <div class="section-label">⭐ 북마크 (즐겨찾기)</div>
+      <div class="info-card">
+        <div style="font-size:12px; color:#e2e8f0; line-height:1.7;">
+          • [ARCH 중앙 전술 데이터베이스]<br>
+          • [국민행복카드 바우처 신청 안내]<br>
+          • [영도구 출산장려금 지원 혜택]<br>
+          • [초보 엄마 아빠를 위한 백일해 예방접종 시기]
+        </div>
+      </div>
+
+      <div class="section-label">🔍 최근 검색어 기록</div>
+      ${searches.map(s => `
+        <div class="info-card" style="padding:10px 12px;">
+          <div style="font-size:12.5px; font-weight:600; color:#fff;">🔎 ${s.q}</div>
+          <div style="font-size:10.5px; color:#7dd3fc; margin-top:2px;">${s.note}</div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  function renderArchOps(param) {
+    const titles = {
+      tactical: 'A-Tactical (전술 지도)',
+      wave: 'Wave-Monitor (파장 측정기)',
+      'welfare-notice': 'ARCH 복지지원팀 자동 안내'
+    };
+    document.getElementById('arch-ops-title').textContent = titles[param] || 'ARCH 시스템';
+    const body = document.getElementById('arch-ops-body');
+
+    if (param === 'welfare-notice') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="tag-pill">방금 도착 · 필터링 통과</span>
+            <span style="font-size:10.5px; color:#7dd3fc;">무음 푸른빛 LED 점멸</span>
+          </div>
+          <div style="font-size:13px; font-weight:700; color:#fff; line-height:1.55; margin-bottom:10px;">
+            [예약 알림] 요원 코드네임 ‘바이브(홍지원)’ 님이 신청하신 ‘배우자 출산 전후 특별 보호 휴가 및 내근직 한시 전환 신청서’ 가접수가 완료되었습니다. 귀국 후 센트럴 코어 인사과 방문 요망.
+          </div>
+          <div style="font-size:11.5px; color:#cbd5e1; line-height:1.55; border-top:1px solid var(--border-subtle); padding-top:8px;">
+            출국 전날 밤, 앨리스가 미안해할까 봐 아내에게조차 비밀로 한 채 혼자 결재를 올려둔 기록. 최전선이 아닌 아내와 태어날 아이의 평온한 바람으로 남겠다는 스물두 살 가장의 마지막 흔적.
+          </div>
+        </div>
+        <button type="button" class="list-item-btn" data-action="dim-screen" style="justify-content:center; border-color:#38bdf8;">
+          <span style="font-size:13px; font-weight:700; color:#bae6fd;">🌑 단말기 화면 부드럽게 암전하기</span>
+        </button>
+      `;
+    } else if (param === 'wave') {
+      body.innerHTML = `
+        <div class="info-card highlight" style="text-align:center; padding:20px;">
+          <div style="font-size:11px; color:#38bdf8; font-weight:700;">실시간 파장 및 가이딩 수치</div>
+          <div style="font-size:40px; font-weight:800; color:#34d399; margin:8px 0;">2.4%</div>
+          <div class="tag-pill green">극도로 안정 (0~5%대 유지 중)</div>
+          <div style="font-size:11.5px; color:#cbd5e1; margin-top:10px;">가이딩 대상과 밀착 동행 중. 폭주 위험률 0.00%.</div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="font-size:13px; font-weight:700; color:#38bdf8;">내근직 한시 전환 및 휴가 가접수 완료</div>
+          <div style="font-size:12px; color:#e2e8f0; margin-top:6px; line-height:1.5;">
+            • 신청 내역: 배우자 출산 전후 특별 보호 휴가 및 내근직 한시 전환<br>
+            • 귀국 후 센트럴 코어 인사과 방문 예정<br>
+            • SNS / 커뮤니티 / 게임 앱: 미설치
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function renderDaily(param) {
+    const titles = {
+      smarthome: '영도 스마트홈 IoT',
+      weather: '기상청 초정밀 대기질·풍향',
+      ledger: '부부 가계부 (연동됨)',
+      calendar: '캘린더'
+    };
+    document.getElementById('daily-title').textContent = titles[param] || '일상';
+    const body = document.getElementById('daily-body');
+
+    if (param === 'smarthome') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; font-weight:700; color:#fff;">📹 거실 홈캠 실시간 감시 중</span>
+            <span class="tag-pill green">LIVE</span>
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; margin-top:6px; line-height:1.45;">
+            • 실내 온도: 23.5°C / 습도 48% (서리·이브 최적 유지)<br>
+            • 자동 급식기: 정량 배식 완료<br>
+            • 감시 메모: 형(부스터)이 고양이 시중 제대로 드는지 수시 체크 중
+          </div>
+        </div>
+      `;
+    } else if (param === 'weather') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="font-size:14px; font-weight:700; color:#bae6fd;">🇮🇸 레이캬비크 초정밀 풍향 레이더</div>
+          <div style="font-size:12px; color:#e2e8f0; margin-top:6px; line-height:1.5;">
+            • 기온: -2°C (체감 -5°C → 아내 외출 시 핫팩 2개 필수)<br>
+            • 상층 기류: 북서풍 4.2m/s · 돌풍 없음<br>
+            • 대기질: 최상 (PM2.5 3㎍/㎥)
+          </div>
+        </div>
+      `;
+    } else if (param === 'ledger') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="font-size:13px; font-weight:700; color:#fff;">🤍 앨리스 연동 부부 공동 가계부</div>
+          <div style="font-size:12px; color:#cbd5e1; margin-top:6px; line-height:1.5;">
+            • 영도 제일산부인과 예약 및 비타민/엽산 구매<br>
+            • 아이슬란드 시내 디저트 카페 (시나몬 롤 &amp; 핫초코)<br>
+            • 형 선물 구매 예산 별도 책정 완료
+          </div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="section-label">파스텔 톤 특별 강조 일정</div>
+        <div class="info-card" style="border-color:#f472b6; background:rgba(244,114,182,0.1);">
+          <div style="font-size:13px; font-weight:700; color:#fbcfe8;">🌸 귀국 직후 · 부산 영도 제일산부인과 정기검진</div>
+          <div style="font-size:11px; color:#e2e8f0; margin-top:3px;">우리 바라미(홍주아) 초음파 확인일</div>
+        </div>
+        <div class="info-card" style="border-color:#38bdf8; background:rgba(56,189,248,0.1);">
+          <div style="font-size:13px; font-weight:700; color:#bae6fd;">💎 06월 18일 · 앨리스 생일 &amp; 첫 만남 기념일</div>
+          <div style="font-size:11px; color:#e2e8f0; margin-top:3px;">탄생석 목걸이 선물 증정 예정</div>
+        </div>
+        <div class="info-card" style="border-color:#34d399; background:rgba(52,211,153,0.1);">
+          <div style="font-size:13px; font-weight:700; color:#a7f3d0;">🐾 매월 15일 · 서리 &amp; 이브 심장사상충 약 바르는 날</div>
+        </div>
+        <div class="section-label">기타 일정</div>
+        <div class="info-card">
+          <div style="font-size:12px; color:#64748b;">⚫ ARCH 정기 훈련 및 작전 복귀 (검은 점으로 대충 찍혀 있음)</div>
+        </div>
+      `;
+    }
+  }
+
+  function renderFamily(param) {
+    const titles = {
+      moms: '맘스다이어리 (사용 1위)',
+      dadbook: '삐뽀삐뽀 초보아빠 대백과',
+      audiobook: '태교 동화 오디오북',
+      alarm: '서리 전용 케어 알람'
+    };
+    document.getElementById('family-title').textContent = titles[param] || '서리&주아';
+    const body = document.getElementById('family-body');
+
+    if (param === 'alarm') {
+      const alarms = [
+        { time: '오전 09:00', label: '서리 엽산 & 비타민D 챙겨 먹이기' },
+        { time: '오후 02:00', label: '마누라 따뜻한 물 한 잔 마실 시간' },
+        { time: '오후 10:30', label: '튼살 크림 발라주기 & 바라미 태담' }
+      ];
+      body.innerHTML = `
+        <div class="info-card">
+          <div style="font-size:11.5px; color:#94a3b8;">기상 알람은 없음(공기 흐름만으로 기상). 알람음 없이 화면만 조용히 점등되도록 설정됨.</div>
+        </div>
+        ${alarms.map((a, idx) => `
+          <div class="list-item-btn" data-toggle-alarm="${idx}">
+            <div>
+              <div style="font-size:17px; font-weight:700; color:#fff;">${a.time}</div>
+              <div style="font-size:12px; color:#bae6fd; margin-top:2px;">${a.label}</div>
+            </div>
+            <div class="toggle-switch ${alarmStates[idx] ? '' : 'off'}"><div class="toggle-knob"></div></div>
+          </div>
+        `).join('')}
+      `;
+    } else if (param === 'dadbook') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="font-size:13.5px; font-weight:700; color:#fff;">📘 삐뽀삐뽀 초보아빠 임신출산 대백과</div>
+          <div style="font-size:12px; color:#cbd5e1; margin-top:6px; line-height:1.5;">
+            • 임신 8주차 태아 크기 변화 알림: 100% 정독 완료<br>
+            • 북마크: 입덧 시기 남편의 태도, 신생아 트림시키기, 수유 자세 보조
+          </div>
+        </div>
+      `;
+    } else if (param === 'audiobook') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="font-size:13.5px; font-weight:700; color:#fff;">🎧 태교 동화 오디오북</div>
+          <div style="font-size:12px; color:#cbd5e1; margin-top:6px; line-height:1.5;">
+            • 최근 청취: 「작은 별과 북극곰의 자장가」<br>
+            • 취침 전 낮은 목소리로 직접 읽어주기 연습 기록 있음
+          </div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:14px; font-weight:700; color:#fff;">우리 바라미 (홍주아) · D-225</span>
+            <span class="tag-pill pink">알림 모두 읽음</span>
+          </div>
+          <div style="font-size:12px; color:#e2e8f0; margin-top:8px; line-height:1.5;">
+            임신 주차별 태아 크기 변화 알림 단 한 번도 놓치지 않고 정독 완료. 매주 성장 기록 사진 연동 중.
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function renderCommerce(param) {
+    const titles = {
+      meowmart: '미야오마트 (고양이 용품)',
+      cart: '새벽배송 & 쇼핑 장바구니',
+      bank: '주거래 은행',
+      music: 'A-Music 플레이어'
+    };
+    document.getElementById('commerce-title').textContent = titles[param] || '쇼핑·금융';
+    const body = document.getElementById('commerce-body');
+
+    if (param === 'music') {
+      body.innerHTML = `
+        <div class="player-box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="tag-pill pink">비공개 플레이리스트 [0618]</span>
+            <span style="font-size:11px; color:#7dd3fc;">재생 횟수: 418회</span>
+          </div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-top:8px;">홋카이도 오르골 공방 녹음본.m4a</div>
+          <div style="font-size:11.5px; color:#94a3b8; margin-top:3px;">둘이 함께 만든 오르골 소리 초고감도 마이크 녹음 (01:32)</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <span style="font-size:11px; color:#7dd3fc;">${isPlayingMusic ? '▶ 재생 중...' : '⏸ 일시정지'}</span>
+            <button type="button" class="play-toggle-btn" data-action="toggle-music">${isPlayingMusic ? '일시정지' : '재생하기'}</button>
+          </div>
+        </div>
+
+        <div class="section-label">최근 재생 목록 1~20위 (태교 도배)</div>
+        <div class="info-card highlight">
+          <div style="font-size:13px; font-weight:700; color:#fff;">❤️ 1위. 모차르트 - 작은 별 변주곡 (하트 표시)</div>
+          <div style="font-size:11.5px; color:#cbd5e1; margin-top:4px;">앨리스가 잠들기 전 흥얼거리던 멜로디와 가장 비슷한 곡을 찾으려 새벽 내내 클래식 수백 곡을 들어보고 골라낸 트랙.</div>
+        </div>
+        <div class="info-card">
+          <div style="font-size:12.5px; color:#e2e8f0;">2~20위. 태교에 좋은 모차르트 피아노 소나타 &amp; 포근한 오르골 자장가 모음</div>
+        </div>
+      `;
+    } else if (param === 'meowmart') {
+      body.innerHTML = `
+        <div class="section-label">⭐ 즐겨찾기 고정 품목</div>
+        <div class="info-card highlight">
+          <div style="font-size:13px; font-weight:700; color:#fff;">1. 동결건조 무염 북어 트릿 (대용량)</div>
+          <div style="font-size:13px; font-weight:700; color:#fff; margin-top:6px;">2. 최상급 무향 벤토나이트 모래 (팬트리 3번째 칸 비축용)</div>
+        </div>
+      `;
+    } else if (param === 'bank') {
+      body.innerHTML = `
+        <div class="info-card highlight">
+          <div style="font-size:11px; color:#38bdf8;">S급 센티넬 급여 및 수당 계좌</div>
+          <div style="font-size:20px; font-weight:700; color:#fff; margin:6px 0;">잔액 보안 표시 (자동이체 정상)</div>
+          <div style="font-size:11.5px; color:#cbd5e1;">• 앨리스 생활비 및 영도 펜트하우스 관리비 자동이체 설정됨<br>• 홍주아 미래 적금 개설 대기</div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="section-label">🍓 신선식품 새벽 배송 단골 장바구니</div>
+        <div class="info-card">
+          <div style="font-size:12.5px; color:#fff;">• 설향 딸기 (특상) · 신선 우유 · 임산부용 순한 바디워시</div>
+        </div>
+        <div class="section-label">🛒 아직 결제 전인 출산·육아 장바구니 (출산 7개월 전)</div>
+        <div class="info-card highlight">
+          <div style="font-size:12.5px; color:#e2e8f0; line-height:1.6;">
+            • 임산부용 U자형 바디필로우 (최고급 구스다운 충전재)<br>
+            • 층간소음 방지용 두꺼운 유아 거실 매트 (영도 거실 평수 계산 완료)<br>
+            • 아빠랑 딸 커플 수면양말 세트<br>
+            • 고양이 자동 레이저 장난감 (주아 태어나면 고양이들 심심할까 봐 미리 담음)
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  document.body.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-action], [data-nav], [data-folder], [data-pin], [data-toggle-alarm], [data-toast]');
+    if (!target) {
+      if (e.target.id === 'folder-overlay') {
+        closeFolder();
+      }
+      return;
+    }
+
+    if (target.dataset.toast) {
+      showToast(target.dataset.toast);
+    }
+
+    const action = target.dataset.action;
+    if (action) {
+      if (action === 'unlock') {
+        setDimmed(false);
+        screenStack = ['screen-home'];
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen-home').classList.add('active');
+        return;
+      }
+      if (action === 'dim-screen') {
+        closeFolder();
+        setDimmed(true);
+        return;
+      }
+      if (action === 'wake-screen') {
+        setDimmed(false);
+        showToast('A-Link Pro Titanium 화면 점등');
+        return;
+      }
+      if (action === 'back') {
+        goBack();
+        return;
+      }
+      if (action === 'home') {
+        goHome();
+        return;
+      }
+      if (action === 'close-folder') {
+        closeFolder();
+        return;
+      }
+      if (action === 'open-secret-pin') {
+        pinTarget = 'secret';
+        pinBuffer = '';
+        document.getElementById('notes-body').innerHTML = renderPinPadHTML('2차 보안 폴더 암호 입력', '암호(0618)를 한 번 더 입력하세요');
+        return;
+      }
+      if (action === 'toggle-music') {
+        isPlayingMusic = !isPlayingMusic;
+        renderCommerce('music');
+        showToast(isPlayingMusic ? '오르골 녹음본 재생 중' : '재생 일시정지');
+        return;
+      }
+    }
+
+    if (target.dataset.folder) {
+      openFolder(target.dataset.folder);
+      return;
+    }
+
+    if (target.dataset.nav) {
+      openScreen(target.dataset.nav, {
+        chat: target.dataset.chat,
+        album: target.dataset.album,
+        param: target.dataset.param
+      });
+      return;
+    }
+
+    if (target.dataset.pin !== undefined) {
+      handlePinInput(target.dataset.pin);
+      return;
+    }
+
+    if (target.dataset.toggleAlarm !== undefined) {
+      const idx = Number(target.dataset.toggleAlarm);
+      alarmStates[idx] = !alarmStates[idx];
+      renderFamily('alarm');
+      showToast(alarmStates[idx] ? '무음 화면 점등 알람 켜짐' : '알람 꺼짐');
+    }
+  });
+});
+</script>
+</body>
+</html>
