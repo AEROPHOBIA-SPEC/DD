@@ -1,0 +1,2907 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ARCH-Link Pro S — 박요한 (Feather)</title>
+  <style>
+    :root {
+      --frost-white: #f7fafd;
+      --frost-card: rgba(255, 255, 255, 0.78);
+      --frost-solid: #ffffff;
+      --ice-blue: #6fa8dc;
+      --ice-blue-deep: #3d76b3;
+      --ice-pale: #e8f1fa;
+      --forget-me-not: #4a89dc;
+      --night-sky: #0b1628;
+      --night-mid: #162844;
+      --text-main: #182638;
+      --text-sub: #5c7089;
+      --text-muted: #8fa2b8;
+      --border-soft: rgba(111, 168, 220, 0.24);
+      --shadow-soft: 0 12px 32px rgba(15, 34, 62, 0.14);
+      --accent-green: #2fa37c;
+      --accent-red: #d95c68;
+      --radius-device: 44px;
+      --radius-card: 18px;
+      --safe-top: 38px;
+      --safe-bottom: 34px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: radial-gradient(circle at 30% 20%, #dce7f2 0%, #c6d5e4 55%, #b1c3d6 100%);
+      color: var(--text-main);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    button, [role="button"], .clickable {
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+      background: none;
+      font-family: inherit;
+      color: inherit;
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    button:active, [role="button"]:active, .clickable:active {
+      transform: scale(0.96);
+      opacity: 0.85;
+    }
+
+    /* Device Frame - Frost White Edition */
+    .device-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 412px;
+      max-height: 860px;
+      background: linear-gradient(145deg, #ffffff 0%, #eef3f8 50%, #dfe7f0 100%);
+      border-radius: var(--radius-device);
+      padding: 10px;
+      box-shadow:
+        0 28px 65px rgba(14, 30, 54, 0.26),
+        inset 0 2px 3px rgba(255, 255, 255, 0.95),
+        inset 0 -2px 4px rgba(140, 165, 195, 0.45);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 450px) {
+      body {
+        background: #0b1628;
+      }
+      .device-shell {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* Snowflake Charm on Bottom Strap Hole */
+    .snowflake-charm {
+      position: absolute;
+      bottom: -24px;
+      right: 46px;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      animation: charmSway 4.8s ease-in-out infinite;
+      transform-origin: top center;
+    }
+
+    @media (max-width: 450px) {
+      .snowflake-charm {
+        display: none;
+      }
+    }
+
+    .charm-ring {
+      width: 6px;
+      height: 10px;
+      border: 1.5px solid #c5d4e6;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .charm-pendant {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), rgba(190, 222, 252, 0.55));
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 10px rgba(32, 68, 112, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #5b9bd5;
+      margin-top: -2px;
+    }
+
+    @keyframes charmSway {
+      0%, 100% { transform: rotate(-4deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    /* Screen Container */
+    .screen-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 35px;
+      overflow: hidden;
+      background: #0d1a2f;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 450px) {
+      .screen-viewport {
+        border-radius: 0;
+      }
+    }
+
+    /* Decorative Water-repellent & Vapor Overlay */
+    .glass-sheen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 38%, rgba(160, 205, 255, 0.06) 100%);
+      pointer-events: none;
+      z-index: 45;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      position: relative;
+      z-index: 50;
+      height: var(--safe-top);
+      padding: 8px 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #ffffff;
+      transition: color 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .status-bar.light-mode {
+      color: var(--text-main);
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-pill {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 99px;
+      background: rgba(111, 168, 220, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      letter-spacing: 0.4px;
+    }
+
+    .status-bar.light-mode .status-pill {
+      background: rgba(111, 168, 220, 0.15);
+      border-color: rgba(111, 168, 220, 0.3);
+      color: var(--ice-blue-deep);
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .battery-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .battery-icon {
+      width: 22px;
+      height: 11px;
+      border: 1.4px solid currentColor;
+      border-radius: 3px;
+      padding: 1.5px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .battery-icon::after {
+      content: "";
+      position: absolute;
+      right: -3.5px;
+      top: 2.5px;
+      width: 2px;
+      height: 4px;
+      background: currentColor;
+      border-radius: 0 1px 1px 0;
+    }
+
+    .battery-fill {
+      width: 92%;
+      height: 100%;
+      background: #4cd995;
+      border-radius: 1px;
+    }
+
+    /* Wallpaper (Blue Haven Greenhouse Night Sky & Forget-me-nots) */
+    .wallpaper-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 50% 18%, rgba(72, 134, 214, 0.36) 0%, transparent 58%),
+        radial-gradient(circle at 20% 82%, rgba(92, 168, 245, 0.34) 0%, transparent 45%),
+        radial-gradient(circle at 78% 85%, rgba(118, 186, 255, 0.32) 0%, transparent 48%),
+        linear-gradient(180deg, #081224 0%, #102442 46%, #143258 76%, #0e2542 100%);
+    }
+
+    .wallpaper-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image:
+        linear-gradient(to right, rgba(190, 224, 255, 0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(190, 224, 255, 0.35) 1px, transparent 1px);
+      background-size: 68px 84px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 62%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 62%);
+    }
+
+    .stars-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(1.5px 1.5px at 18% 14%, #ffffff, transparent),
+        radial-gradient(1px 1px at 34% 22%, #cfe8ff, transparent),
+        radial-gradient(2px 2px at 66% 12%, #ffffff, transparent),
+        radial-gradient(1.2px 1.2px at 82% 26%, #d9eeff, transparent),
+        radial-gradient(1.5px 1.5px at 48% 30%, #ffffff, transparent),
+        radial-gradient(1px 1px at 26% 36%, #b8dcff, transparent),
+        radial-gradient(1.4px 1.4px at 74% 38%, #ffffff, transparent);
+    }
+
+    .forget-me-not-cluster {
+      position: absolute;
+      bottom: 68px;
+      left: 0;
+      right: 0;
+      height: 150px;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      padding: 0 24px;
+      opacity: 0.72;
+      filter: blur(0.4px);
+    }
+
+    .blossom {
+      position: relative;
+      width: 24px;
+      height: 24px;
+    }
+
+    .blossom::before {
+      content: "✿";
+      font-size: 22px;
+      color: #8cc5ff;
+      text-shadow: 0 0 12px rgba(120, 190, 255, 0.85);
+    }
+
+    /* Screens Layering */
+    .screen {
+      position: absolute;
+      inset: 0;
+      padding-top: var(--safe-top);
+      padding-bottom: var(--safe-bottom);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(14px) scale(0.985);
+      transition: opacity 0.22s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.22s;
+    }
+
+    .screen.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+      z-index: 20;
+    }
+
+    /* Lock Screen */
+    .lock-screen {
+      justify-content: space-between;
+      padding-left: 22px;
+      padding-right: 22px;
+      color: #ffffff;
+    }
+
+    .lock-clock-area {
+      margin-top: 26px;
+      text-align: center;
+    }
+
+    .lock-date {
+      font-size: 13px;
+      color: rgba(226, 241, 255, 0.86);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .lock-time {
+      font-size: 62px;
+      font-weight: 200;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      text-shadow: 0 4px 20px rgba(6, 18, 36, 0.45);
+    }
+
+    .lock-sub {
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(186, 220, 255, 0.8);
+      letter-spacing: 1px;
+    }
+
+    .lock-notif-card {
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 18px;
+      padding: 13px 15px;
+      margin-top: 18px;
+      box-shadow: 0 10px 26px rgba(5, 15, 32, 0.28);
+      text-align: left;
+    }
+
+    .lock-notif-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #bfe0ff;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .lock-notif-body {
+      font-size: 12.5px;
+      line-height: 1.48;
+      color: #f4f9ff;
+    }
+
+    .unlock-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 10px;
+    }
+
+    .unlock-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #ffffff;
+    }
+
+    .wave-ring {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(164, 214, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 18px rgba(111, 168, 220, 0.45);
+    }
+
+    .unlock-label {
+      font-size: 12px;
+      color: rgba(235, 246, 255, 0.92);
+      letter-spacing: 0.3px;
+    }
+
+    /* Home Screen */
+    .home-screen {
+      justify-content: space-between;
+      padding-left: 18px;
+      padding-right: 18px;
+      color: #ffffff;
+    }
+
+    .harmony-widget {
+      margin-top: 10px;
+      background: rgba(16, 34, 62, 0.56);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(168, 214, 255, 0.26);
+      border-radius: 22px;
+      padding: 14px 16px;
+      box-shadow: 0 12px 28px rgba(5, 14, 28, 0.32);
+      text-align: left;
+      width: 100%;
+    }
+
+    .widget-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .widget-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #a9d6ff;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #5be3a6;
+      box-shadow: 0 0 8px #5be3a6;
+    }
+
+    .widget-env {
+      font-size: 11px;
+      color: rgba(224, 239, 255, 0.85);
+    }
+
+    .widget-main {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .widget-partner {
+      font-size: 13px;
+      color: rgba(235, 246, 255, 0.92);
+    }
+
+    .widget-value {
+      font-size: 22px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .widget-value span {
+      font-size: 12px;
+      font-weight: 500;
+      color: #7ee8b7;
+      margin-left: 4px;
+    }
+
+    .widget-wave-line {
+      margin-top: 10px;
+      height: 22px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .home-center-space {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 18px;
+    }
+
+    .home-caption {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(210, 233, 255, 0.68);
+      margin-bottom: 14px;
+      letter-spacing: 0.4px;
+    }
+
+    /* Three Minimal Folders */
+    .folder-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .folder-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 6px;
+      border-radius: 18px;
+    }
+
+    .folder-glass {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 9px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+      box-shadow: 0 8px 20px rgba(7, 17, 34, 0.26);
+    }
+
+    .mini-app-dot {
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .folder-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #f4f9ff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Bottom Dock */
+    .home-dock {
+      background: rgba(255, 255, 255, 0.17);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 26px;
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .dock-app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 4px 2px;
+      border-radius: 14px;
+    }
+
+    .app-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      box-shadow: 0 6px 14px rgba(10, 22, 42, 0.24);
+      position: relative;
+    }
+
+    .dock-app-name {
+      font-size: 10.5px;
+      color: #f2f8ff;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Icon Gradients */
+    .ic-talk { background: linear-gradient(135deg, #4b8fe2, #2b63ab); color: #fff; }
+    .ic-call { background: linear-gradient(135deg, #43b58c, #278563); color: #fff; }
+    .ic-gallery { background: linear-gradient(135deg, #74b2f0, #4a83c7); color: #fff; }
+    .ic-memo { background: linear-gradient(135deg, #f3f7fc, #d8e5f3); color: #2b4c73; }
+    .ic-harmony { background: linear-gradient(135deg, #3c7ec9, #1f4d87); color: #fff; }
+    .ic-aegis { background: linear-gradient(135deg, #314763, #1a2738); color: #9fd0ff; }
+    .ic-aero { background: linear-gradient(135deg, #64b5f6, #2979b8); color: #fff; }
+    .ic-recipe { background: linear-gradient(135deg, #f5b971, #d9863b); color: #fff; }
+    .ic-timer { background: linear-gradient(135deg, #6c8eb5, #446285); color: #fff; }
+    .ic-cat { background: linear-gradient(135deg, #98a9bd, #66788f); color: #fff; }
+    .ic-noise { background: linear-gradient(135deg, #495d7a, #28364a); color: #cfe6ff; }
+    .ic-browser { background: linear-gradient(135deg, #5c9ce6, #356eb5); color: #fff; }
+    .ic-calendar { background: linear-gradient(135deg, #ffffff, #e4eef8); color: #2c5b94; }
+    .ic-alarm { background: linear-gradient(135deg, #3b5270, #1f2e42); color: #a7d2ff; }
+    .ic-shop { background: linear-gradient(135deg, #6ba4dc, #3f76b3); color: #fff; }
+
+    /* Folder Modal Overlay */
+    .folder-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 35;
+      background: rgba(9, 20, 38, 0.56);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .folder-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .folder-modal-box {
+      width: 100%;
+      max-width: 320px;
+      background: rgba(247, 251, 255, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      padding: 22px 18px 20px;
+      box-shadow: 0 24px 48px rgba(6, 16, 32, 0.35);
+      color: var(--text-main);
+    }
+
+    .folder-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .folder-modal-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .folder-close-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--ice-pale);
+      color: var(--ice-blue-deep);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .folder-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px 8px;
+    }
+
+    .folder-app-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 2px;
+      border-radius: 14px;
+    }
+
+    .folder-app-item .app-icon-box {
+      width: 52px;
+      height: 52px;
+      font-size: 22px;
+    }
+
+    .folder-app-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-align: center;
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    /* App Screen Shell */
+    .app-screen {
+      background: var(--frost-white);
+      color: var(--text-main);
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px 10px;
+      background: rgba(247, 250, 253, 0.92);
+      border-bottom: 1px solid var(--border-soft);
+      flex-shrink: 0;
+    }
+
+    .header-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 10px;
+      height: 44px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ice-blue-deep);
+    }
+
+    .header-title-wrap {
+      text-align: center;
+      flex: 1;
+      padding: 0 4px;
+      overflow: hidden;
+    }
+
+    .header-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .header-spacer {
+      width: 56px;
+      flex-shrink: 0;
+    }
+
+    .app-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px 24px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .app-body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .app-body::-webkit-scrollbar-thumb {
+      background: rgba(111, 168, 220, 0.35);
+      border-radius: 99px;
+    }
+
+    /* Common Cards & Lists */
+    .card {
+      background: var(--frost-solid);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-card);
+      padding: 14px 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(24, 52, 92, 0.04);
+    }
+
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.4px;
+      margin: 6px 2px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pill-tag {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: var(--ice-pale);
+      color: var(--ice-blue-deep);
+    }
+
+    .pill-tag.green {
+      background: #e4f6ef;
+      color: #1f7a5b;
+    }
+
+    .pill-tag.red {
+      background: #fcebec;
+      color: #b83b47;
+    }
+
+    /* A-Talk Messenger */
+    .profile-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #eef2f6;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      border: 1px solid #dde5ee;
+    }
+
+    .avatar-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: #cfd7e0;
+      color: #4f6075;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .avatar-circle.alice {
+      background: linear-gradient(135deg, #d7e4f2, #9db6d1);
+      color: #243b56;
+      font-size: 20px;
+    }
+
+    .chat-list-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      margin-bottom: 9px;
+      text-align: left;
+    }
+
+    .chat-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .chat-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chat-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .chat-preview {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Chat Room Bubbles */
+    .chat-room-body {
+      background: #edf3f9;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-date-divider {
+      align-self: center;
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin: 4px 0;
+    }
+
+    .msg-row {
+      display: flex;
+      flex-direction: column;
+      max-width: 82%;
+    }
+
+    .msg-row.other {
+      align-self: flex-start;
+    }
+
+    .msg-row.me {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .msg-sender {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 3px;
+      padding-left: 4px;
+    }
+
+    .msg-bubble {
+      padding: 10px 13px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.48;
+      word-break: keep-all;
+      box-shadow: 0 2px 6px rgba(18, 40, 72, 0.06);
+    }
+
+    .msg-row.other .msg-bubble {
+      background: #ffffff;
+      color: var(--text-main);
+      border-top-left-radius: 4px;
+    }
+
+    .msg-row.me .msg-bubble {
+      background: #4b8fe2;
+      color: #ffffff;
+      border-top-right-radius: 4px;
+    }
+
+    .msg-photo-card {
+      background: #f8fbff;
+      border: 1px solid #d5e4f5;
+      border-radius: 14px;
+      padding: 10px;
+      margin-top: 4px;
+      color: var(--text-main);
+    }
+
+    .potato-sketch {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #e9dfd1;
+      border-radius: 10px;
+      padding: 14px 8px;
+      margin-bottom: 6px;
+      font-size: 24px;
+    }
+
+    .sticker-bubble {
+      font-size: 28px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 14px;
+      border-radius: 16px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .sticker-caption {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .msg-time {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      padding: 0 4px;
+    }
+
+    .emoji-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: #ffffff;
+      border-top: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--text-sub);
+      flex-shrink: 0;
+    }
+
+    .emoji-chips {
+      display: flex;
+      gap: 8px;
+      font-size: 16px;
+    }
+
+    /* Call Logs */
+    .call-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 15px;
+      margin-bottom: 8px;
+    }
+
+    .call-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .call-name {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .call-detail {
+      font-size: 11.5px;
+      color: var(--text-sub);
+    }
+
+    .call-right {
+      text-align: right;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Gallery */
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .album-card {
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 92px;
+    }
+
+    .album-card.active-album {
+      border-color: var(--ice-blue-deep);
+      background: #f0f6fd;
+    }
+
+    .album-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .album-count {
+      font-size: 11.5px;
+      color: var(--text-sub);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .photo-thumb {
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    .photo-art {
+      height: 104px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      position: relative;
+    }
+
+    .fav-heart {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 99px;
+      padding: 2px 6px;
+    }
+
+    .photo-caption {
+      padding: 9px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    /* Memo Lock & List */
+    .memo-lock-box {
+      text-align: center;
+      padding: 28px 18px;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      margin-top: 12px;
+    }
+
+    .pass-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .pass-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ice-blue-deep);
+    }
+
+    .pass-dot.filled {
+      background: var(--ice-blue-deep);
+    }
+
+    .unlock-memo-btn {
+      background: var(--ice-blue-deep);
+      color: #ffffff;
+      padding: 11px 22px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .memo-card {
+      width: 100%;
+      text-align: left;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 14px 15px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* Harmony Wave Graph */
+    .wave-card {
+      background: linear-gradient(145deg, #102542, #1b3b66);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 15px;
+      padding: 12px;
+    }
+
+    .stat-k {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .stat-v {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Timer Interactive */
+    .timer-display {
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .timer-clock {
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--ice-blue-deep);
+      letter-spacing: 1px;
+      margin: 6px 0 12px;
+    }
+
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--ice-blue-deep);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      background: var(--ice-pale);
+      color: var(--ice-blue-deep);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Bottom Home Gesture Bar */
+    .home-bar-wrap {
+      position: relative;
+      z-index: 50;
+      height: var(--safe-bottom);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      flex-shrink: 0;
+    }
+
+    .home-bar-btn {
+      width: 140px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .home-bar-pill {
+      width: 116px;
+      height: 4.5px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.72);
+      transition: background 0.25s ease;
+    }
+
+    .home-bar-btn.light-mode .home-bar-pill {
+      background: rgba(24, 38, 56, 0.34);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: absolute;
+      top: 46px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-16px);
+      background: rgba(18, 34, 58, 0.92);
+      color: #ffffff;
+      font-size: 12px;
+      padding: 9px 16px;
+      border-radius: 99px;
+      z-index: 70;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="device-shell">
+    <!-- Silver Snowflake Charm attached to bottom strap hole -->
+    <div class="snowflake-charm" aria-hidden="true">
+      <div class="charm-ring"></div>
+      <div class="charm-pendant">❄️</div>
+    </div>
+
+    <div class="screen-viewport" id="viewport">
+      <!-- Wallpaper Layers (Blue Haven Greenhouse Night Sky & Forget-me-nots) -->
+      <div class="wallpaper-bg" aria-hidden="true">
+        <div class="stars-layer"></div>
+        <div class="wallpaper-grid"></div>
+        <div class="forget-me-not-cluster">
+          <div class="blossom"></div>
+          <div class="blossom" style="transform: scale(0.8) translateY(-10px);"></div>
+          <div class="blossom" style="transform: scale(1.1);"></div>
+          <div class="blossom" style="transform: scale(0.85) translateY(-6px);"></div>
+          <div class="blossom"></div>
+        </div>
+      </div>
+
+      <!-- Subtle Water-Repellent Glass Sheen -->
+      <div class="glass-sheen" aria-hidden="true"></div>
+
+      <!-- Toast Feedback -->
+      <div class="toast" id="toast"></div>
+
+      <!-- Top Status Bar -->
+      <header class="status-bar" id="statusBar">
+        <div class="status-left">
+          <span id="statusTime">12:21</span>
+          <span class="status-pill">ARCH-LINK S</span>
+        </div>
+        <div class="status-right">
+          <span title="서리❄️ 예외 알림 허용 중">🔕❄️</span>
+          <span>5G</span>
+          <div class="battery-box">
+            <span>92%</span>
+            <div class="battery-icon"><div class="battery-fill"></div></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- SCREEN 1: LOCK SCREEN -->
+      <section class="screen lock-screen active" id="screen-lock">
+        <div class="lock-clock-area">
+          <div class="lock-date" id="lockDate">11월 27일 금요일 · 블루 헤이븐 온실</div>
+          <div class="lock-time" id="lockTime">12:21</div>
+          <div class="lock-sub">ARCH-Link Pro S · 저장공간 14% 사용 중 (1TB)</div>
+
+          <div class="lock-notif-card">
+            <div class="lock-notif-head">
+              <span>🏢 아이기스 복지팀 시설반</span>
+              <span>방금 전</span>
+            </div>
+            <div class="lock-notif-body">
+              요청하신 S급 숙소 거실 소파 패브릭 교체 요원이 오후 2시에 방문 예정입니다.
+            </div>
+          </div>
+        </div>
+
+        <div class="unlock-area">
+          <button type="button" class="unlock-btn" id="unlockBtn">
+            <div class="wave-ring">❄️</div>
+            <span class="unlock-label">파장 동조 및 생체 인식으로 잠금 해제</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: HOME SCREEN (Single Clean Page) -->
+      <section class="screen home-screen" id="screen-home">
+        <button type="button" class="harmony-widget" data-open-app="harmony">
+          <div class="widget-top">
+            <span class="widget-badge"><span class="pulse-dot"></span>HARMONY WAVE · 실시간 공명</span>
+            <span class="widget-env">아이기스 16°C · 2.4m/s</span>
+          </div>
+          <div class="widget-main">
+            <span class="widget-partner">파트너 파장 안정도</span>
+            <span class="widget-value">99.8%<span>(최상)</span></span>
+          </div>
+          <div class="widget-wave-line" aria-hidden="true">
+            <svg width="100%" height="22" viewBox="0 0 300 22" preserveAspectRatio="none">
+              <path d="M0,11 Q25,2 50,11 T100,11 T150,11 T200,11 T250,11 T300,11" fill="none" stroke="#89c8ff" stroke-width="2" />
+            </svg>
+          </div>
+        </button>
+
+        <div class="home-center-space">
+          <div class="home-caption">Blue Haven Greenhouse · 서리❄️ 전용 무음 예외 활성</div>
+
+          <!-- 3 Transparent Folders: [업무], [생활], [기록] -->
+          <div class="folder-row">
+            <button type="button" class="folder-item" data-open-folder="work">
+              <div class="folder-glass">
+                <div class="mini-app-dot">〰️</div>
+                <div class="mini-app-dot">🛡️</div>
+                <div class="mini-app-dot">🌬️</div>
+                <div class="mini-app-dot">🧭</div>
+              </div>
+              <span class="folder-label">업무</span>
+            </button>
+
+            <button type="button" class="folder-item" data-open-folder="life">
+              <div class="folder-glass">
+                <div class="mini-app-dot">🥔</div>
+                <div class="mini-app-dot">⏱️</div>
+                <div class="mini-app-dot">🐈</div>
+                <div class="mini-app-dot">🌙</div>
+              </div>
+              <span class="folder-label">생활</span>
+            </button>
+
+            <button type="button" class="folder-item" data-open-folder="record">
+              <div class="folder-glass">
+                <div class="mini-app-dot">🖼️</div>
+                <div class="mini-app-dot">🔍</div>
+                <div class="mini-app-dot">📅</div>
+                <div class="mini-app-dot">🛍️</div>
+              </div>
+              <span class="folder-label">기록</span>
+            </button>
+          </div>
+
+          <!-- Bottom Dock -->
+          <nav class="home-dock" aria-label="하단 독">
+            <button type="button" class="dock-app" data-open-app="call">
+              <div class="app-icon-box ic-call">📞</div>
+              <span class="dock-app-name">통화</span>
+            </button>
+            <button type="button" class="dock-app" data-open-app="talk">
+              <div class="app-icon-box ic-talk">💬</div>
+              <span class="dock-app-name">A-Talk</span>
+            </button>
+            <button type="button" class="dock-app" data-open-app="gallery">
+              <div class="app-icon-box ic-gallery">🖼️</div>
+              <span class="dock-app-name">사진첩</span>
+            </button>
+            <button type="button" class="dock-app" data-open-app="memo">
+              <div class="app-icon-box ic-memo">🔒</div>
+              <span class="dock-app-name">개인 메모</span>
+            </button>
+          </nav>
+        </div>
+      </section>
+
+      <!-- FOLDER MODAL -->
+      <div class="folder-overlay" id="folderOverlay">
+        <div class="folder-modal-box">
+          <div class="folder-modal-header">
+            <span class="folder-modal-title" id="folderModalTitle">폴더</span>
+            <button type="button" class="folder-close-btn" id="folderCloseBtn" aria-label="폴더 닫기">✕</button>
+          </div>
+          <div class="folder-apps-grid" id="folderAppsGrid"></div>
+        </div>
+      </div>
+
+      <!-- APP SCREEN: A-TALK MESSENGER -->
+      <section class="screen app-screen" id="screen-talk">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">A-Talk</div>
+            <div class="header-subtitle">사내 보안 메신저</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="talkListContainer"></div>
+      </section>
+
+      <!-- SUB-SCREEN: A-TALK CHAT ROOM -->
+      <section class="screen app-screen" id="screen-chatroom">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 목록</button>
+          <div class="header-title-wrap">
+            <div class="header-title" id="chatRoomTitle">대화방</div>
+            <div class="header-subtitle" id="chatRoomSub">보안 암호화 연결됨</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body chat-room-body" id="chatRoomBody"></div>
+        <div class="emoji-bar">
+          <span>최근 사용 이모티콘</span>
+          <div class="emoji-chips" id="recentEmojiChips">
+            <button type="button" class="clickable" data-emoji="☺️" style="min-width:36px;min-height:36px;">☺️</button>
+            <button type="button" class="clickable" data-emoji="❄️" style="min-width:36px;min-height:36px;">❄️</button>
+            <button type="button" class="clickable" data-emoji="🍃" style="min-width:36px;min-height:36px;">🍃</button>
+            <button type="button" class="clickable" data-emoji="😉" style="min-width:36px;min-height:36px;">😉</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- APP SCREEN: CALL LOGS -->
+      <section class="screen app-screen" id="screen-call">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">통화 기록</div>
+            <div class="header-subtitle">서리❄️ 단독 무음 예외 설정됨</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="callBody"></div>
+      </section>
+
+      <!-- APP SCREEN: GALLERY -->
+      <section class="screen app-screen" id="screen-gallery">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">사진첩</div>
+            <div class="header-subtitle">총 184개 항목 · 4개 앨범</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="galleryBody"></div>
+      </section>
+
+      <!-- SUB-SCREEN: PHOTO DETAIL -->
+      <section class="screen app-screen" id="screen-photodetail">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 앨범</button>
+          <div class="header-title-wrap">
+            <div class="header-title" id="photoDetailTitle">사진 상세</div>
+            <div class="header-subtitle" id="photoDetailDate">기록</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="photoDetailBody"></div>
+      </section>
+
+      <!-- APP SCREEN: PRIVATE MEMO -->
+      <section class="screen app-screen" id="screen-memo">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">개인 메모장</div>
+            <div class="header-subtitle">2차 보안 잠금 보호</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="memoBody"></div>
+      </section>
+
+      <!-- APP SCREEN: HARMONY WAVE -->
+      <section class="screen app-screen" id="screen-harmony">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">Harmony Wave</div>
+            <div class="header-subtitle">센티넬-가이드 공명 모니터</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="harmonyBody"></div>
+      </section>
+
+      <!-- APP SCREEN: WORK APPS (Aegis-Net / Aero-Map) -->
+      <section class="screen app-screen" id="screen-workapp">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title" id="workAppTitle">업무 시스템</div>
+            <div class="header-subtitle" id="workAppSub">ARCH 전술 네트워크</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="workAppBody"></div>
+      </section>
+
+      <!-- APP SCREEN: RECIPE (오늘의 식탁) -->
+      <section class="screen app-screen" id="screen-recipe">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">오늘의 식탁</div>
+            <div class="header-subtitle">초보자용 요리 레시피 · 북마크</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="recipeBody"></div>
+      </section>
+
+      <!-- APP SCREEN: TIMER & WHITE NOISE & CAT & SHOP -->
+      <section class="screen app-screen" id="screen-lifeutil">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title" id="lifeUtilTitle">생활 유틸리티</div>
+            <div class="header-subtitle" id="lifeUtilSub">개인 맞춤 프리셋</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="lifeUtilBody"></div>
+      </section>
+
+      <!-- APP SCREEN: BROWSER (보안 브라우저) -->
+      <section class="screen app-screen" id="screen-browser">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title">ARCH 보안 브라우저</div>
+            <div class="header-subtitle">인트라넷 및 북마크</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="browserBody"></div>
+      </section>
+
+      <!-- APP SCREEN: CALENDAR & ALARM -->
+      <section class="screen app-screen" id="screen-schedule">
+        <div class="app-header">
+          <button type="button" class="header-back-btn" data-action="back">‹ 뒤로</button>
+          <div class="header-title-wrap">
+            <div class="header-title" id="scheduleTitle">일정 및 알람</div>
+            <div class="header-subtitle" id="scheduleSub">데일리 루틴</div>
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div class="app-body" id="scheduleBody"></div>
+      </section>
+
+      <!-- Bottom Home Bar -->
+      <footer class="home-bar-wrap">
+        <button type="button" class="home-bar-btn" id="homeBarBtn" aria-label="홈 화면으로 이동">
+          <div class="home-bar-pill"></div>
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      /* =========================================================
+         1. DATA REPOSITORY (100% Faithful to Character Profile)
+      ========================================================= */
+      const FOLDER_DATA = {
+        work: {
+          title: "업무",
+          apps: [
+            { id: "harmony", label: "Harmony Wave", icon: "〰️", cls: "ic-harmony" },
+            { id: "aegis", label: "Aegis-Net", icon: "🛡️", cls: "ic-aegis" },
+            { id: "aero", label: "Aero-Map", icon: "🌬️", cls: "ic-aero" },
+            { id: "tactical", label: "풍향·지형 시뮬", icon: "🧭", cls: "ic-aegis" }
+          ]
+        },
+        life: {
+          title: "생활",
+          apps: [
+            { id: "recipe", label: "오늘의 식탁", icon: "🥔", cls: "ic-recipe" },
+            { id: "timer", label: "타이머", icon: "⏱️", cls: "ic-timer" },
+            { id: "cat", label: "고양이 백과사전", icon: "🐈", cls: "ic-cat" },
+            { id: "noise", label: "백색소음", icon: "🌙", cls: "ic-noise" },
+            { id: "archeats", label: "ARCH-Eats", icon: "🍽️", cls: "ic-recipe" },
+            { id: "interior", label: "가구 배치 스케치", icon: "📐", cls: "ic-memo" }
+          ]
+        },
+        record: {
+          title: "기록",
+          apps: [
+            { id: "gallery", label: "사진첩", icon: "🖼️", cls: "ic-gallery" },
+            { id: "browser", label: "검색 기록", icon: "🔍", cls: "ic-browser" },
+            { id: "calendar", label: "캘린더", icon: "📅", cls: "ic-calendar" },
+            { id: "alarm", label: "알람", icon: "⏰", cls: "ic-alarm" },
+            { id: "shop", label: "ARCH 쇼핑몰", icon: "🛍️", cls: "ic-shop" }
+          ]
+        }
+      };
+
+      const CHAT_ROOMS = [
+        {
+          id: "alice",
+          name: "서리❄️",
+          pinned: true,
+          avatar: "🐈",
+          avatarCls: "alice",
+          time: "어제 오후 7:42",
+          preview: "이모티콘을 보냈습니다.",
+          sub: "코드네임: 앨리스 (S급/Glacies) · 무음 예외 허용",
+          messages: [
+            { type: "date", text: "어제 저녁" },
+            {
+              sender: "other",
+              name: "서리❄️",
+              text: "요한, 오늘 훈련 조금 늦게 끝날 것 같아요. 먼저 저녁 드시지 마시고 조금만 기다려 주실 수 있나요?",
+              time: "오후 6:58"
+            },
+            {
+              sender: "me",
+              text: "당연하지. 우리 서리 올 때까지 감자 깎으면서 얌전히 기다리고 있을게. 다치지 말고 천천히 와요 :)",
+              time: "오후 6:59"
+            },
+            {
+              sender: "me",
+              photo: {
+                emojis: "🥔 🔷 🥔",
+                caption: "삐뚤빼뚤하게 깎아 모양이 엉망진창이 된 감자 세 알"
+              },
+              time: "오후 7:38"
+            },
+            {
+              sender: "other",
+              name: "서리❄️",
+              sticker: { emoji: "🐶💧", label: "눈물 글썽이는 강아지" },
+              time: "오후 7:41"
+            },
+            {
+              sender: "me",
+              sticker: { emoji: "🦊😉", label: "윙크하는 여우" },
+              time: "오후 7:42"
+            }
+          ]
+        },
+        {
+          id: "support_notice",
+          name: "하모니 서포터팀 공지방",
+          muted: true,
+          avatar: "📢",
+          avatarCls: "",
+          time: "어제 오후 9:15",
+          preview: "윈터: 사양합니다.",
+          sub: "알림 꺼짐 · 참여 인원 12명",
+          messages: [
+            { type: "date", text: "하모니 부서 공지 채널" },
+            {
+              sender: "other",
+              name: "하모니 행정반",
+              text: "[공지] 금주 금요일 오전 정기 파장 측정 및 의무실 서류 제출 안내입니다. S급 페어 팀은 08:00부터 순차 진행합니다.",
+              reaction: "✅ 박요한 확인",
+              time: "오후 4:10"
+            },
+            {
+              sender: "other",
+              name: "스트레이",
+              text: "오늘 야식 쏜다 선착순 3명",
+              time: "오후 9:14"
+            },
+            {
+              sender: "other",
+              name: "윈터",
+              text: "사양합니다.",
+              time: "오후 9:15"
+            }
+          ]
+        },
+        {
+          id: "zian",
+          name: "자이안 팀장님 (하모니)",
+          avatar: "자",
+          avatarCls: "",
+          time: "어제 오후 8:50",
+          preview: "귀는 절대 물 들어가지 않게 조심하고!",
+          sub: "하모니 부서 팀장",
+          messages: [
+            { type: "date", text: "어제 저녁" },
+            {
+              sender: "me",
+              text: "팀장님, 알려주신 대로 소금을 마지막에 넣었더니 그나마 사람 먹을 만한 모양이 나왔습니다. 내일 오전 8시 의무실 진료 끝나고 뵙겠습니다.",
+              time: "오후 8:46"
+            },
+            {
+              sender: "other",
+              name: "자이안 팀장님",
+              text: "😊 수석 가이드 박요한이 감자 깎는 날이 올 줄이야ㅋㅋ 내일 서류만 확인하고 푹 쉬게 해줄 테니까 앨리스 양 잘 챙겨서 천천히 와. 귀는 절대 물 들어가지 않게 조심하고!",
+              time: "오후 8:50"
+            }
+          ]
+        },
+        {
+          id: "code",
+          name: "코드 (서포터팀)",
+          avatar: "코",
+          avatarCls: "",
+          time: "그저께",
+          preview: "👍",
+          sub: "하모니 서포터팀 신입 가이드",
+          messages: [
+            { type: "date", text: "그저께 오후" },
+            {
+              sender: "other",
+              name: "코드",
+              text: "선배님 크루아상 진짜 맛있게 드셨나요?! 다행입니다ㅠㅠ!!",
+              time: "오후 3:24"
+            },
+            {
+              sender: "me",
+              sticker: { emoji: "👍", label: "엄지 척" },
+              time: "오후 3:29"
+            }
+          ]
+        }
+      ];
+
+      const CALL_LOGS = [
+        {
+          name: "복지팀 세탁/시설반",
+          type: "발신 통화 · 32초",
+          time: "방금 전",
+          note: "S급 숙소 거실 소파 패브릭 교체 예약 (오후 2시 방문 확정)",
+          tag: "발신",
+          tagCls: ""
+        },
+        {
+          name: "자이안 팀장님 (하모니)",
+          type: "발신/수신 · 4분 12초",
+          time: "어제 저녁",
+          note: "외래 진료 일정 조율 및 감자 요리 조언 감사 인사",
+          tag: "업무",
+          tagCls: ""
+        },
+        {
+          name: "서리❄️",
+          type: "수신 통화 · 12분 40초",
+          time: "어제 오후",
+          note: "귀가 시간 확인 · 무음 모드 예외 전용 차임벨",
+          tag: "예외 허용",
+          tagCls: "green"
+        },
+        {
+          name: "코드 (서포터팀)",
+          type: "수신 통화 · 1분 05초",
+          time: "그저께 오후",
+          note: "스트레이 선배가 카드를 주고 튀었는데 크루아상 사 가도 되냐는 다급한 문의",
+          tag: "수신",
+          tagCls: ""
+        },
+        {
+          name: "오아시스 (서포터팀)",
+          type: "수신 통화 · 48초",
+          time: "3일 전",
+          note: "짧은 업무 확인 통화",
+          tag: "업무",
+          tagCls: ""
+        },
+        {
+          name: "서리❄️",
+          type: "수신 통화 · 1초 만에 수신",
+          time: "10월 18일",
+          note: "숙소를 비웠던 일주일 중 걸려온 짧은 통화 즉시 응답",
+          tag: "1초 수신",
+          tagCls: "green"
+        },
+        {
+          name: "서리❄️",
+          type: "발신 취소 · 0초 (3건)",
+          time: "10월 12일 ~ 16일",
+          note: "발신 버튼을 눌렀다가 신호가 가기 직전 취소한 기록",
+          tag: "취소",
+          tagCls: ""
+        },
+        {
+          name: "발신번호 미저장 (외부 기관 7건)",
+          type: "수신 거부 및 자동 차단",
+          time: "누적 기록",
+          note: "외부 기관 스카우트 제의 전화 — 예외 없이 차단 목록 직행",
+          tag: "차단됨",
+          tagCls: "red"
+        }
+      ];
+
+      const GALLERY_ITEMS = [
+        {
+          id: "fav1",
+          album: "온실",
+          fav: true,
+          title: "블루 헤이븐 온실 캐모마일 화분 앞",
+          date: "즐겨찾기 #1 · 블루 헤이븐 온실",
+          bg: "linear-gradient(135deg, #27496d, #4c8c74)",
+          emoji: "🌼❄️",
+          desc: "블루 헤이븐 비밀 온실에서 캐모마일 화분 앞에 쪼그려 앉아 흙 묻은 볼을 한 채 올려다보며 웃는 앨리스의 사진."
+        },
+        {
+          id: "fav2",
+          album: "요리 연습",
+          fav: true,
+          title: "조리대 위 매끈한 감자 vs 각진 감자",
+          date: "즐겨찾기 #2 · 어제 저녁 부엌",
+          bg: "linear-gradient(135deg, #d6c5b3, #b59e84)",
+          emoji: "🥔✨",
+          desc: "어제 부엌 조리대 위에서 나란히 찍은, 앨리스가 매끈하게 깎은 동그란 감자와 페더가 각지게 깎아놓은 못생긴 감자의 비교 사진."
+        },
+        {
+          id: "fav3",
+          album: "서리",
+          fav: true,
+          title: "침실 스탠드 불빛 아래 자장가 허밍 (0:12)",
+          date: "즐겨찾기 #3 · 동영상 (12초)",
+          bg: "linear-gradient(135deg, #162238, #2f4366)",
+          emoji: "🎬🌙",
+          isVideo: true,
+          desc: "어두운 침실 스탠드 불빛 아래, 페더의 무릎을 베고 누운 앨리스가 잠결에 그의 손가락을 꼭 쥔 채 고른 숨을 내쉬는 소리와, 화면 밖에서 나지막하게 허밍으로 자장가를 흥얼거리는 페더 자신의 목소리가 잔잔한 파도 소리처럼 흘러나오는 12초 영상."
+        },
+        {
+          id: "s1",
+          album: "서리",
+          fav: false,
+          title: "소파 귀퉁이 은색 곱슬머리 정수리",
+          date: "앨범: 서리 · 무음 카메라",
+          bg: "linear-gradient(135deg, #9fb4cc, #dce6f2)",
+          emoji: "💤❄️",
+          desc: "소파 귀퉁이에 웅크려 잠든 은색 곱슬머리의 정수리를 위에서 아래로 내려다보며 찍은 사진. 초점이 다정하게 풀려 있다."
+        },
+        {
+          id: "s2",
+          album: "서리",
+          fav: false,
+          title: "산책길 아이스크림 옆모습",
+          date: "앨범: 서리 · 아이기스 산책로",
+          bg: "linear-gradient(135deg, #8ec5fc, #c2e9fb)",
+          emoji: "🍦👀",
+          desc: "산책길에 아이스크림을 한 입 베어 물고 눈을 동그랗게 뜬 옆모습."
+        },
+        {
+          id: "s3",
+          album: "서리",
+          fav: false,
+          title: "스노우볼을 흔드는 하얀 손끝",
+          date: "앨범: 서리 · 상점가 데이트",
+          bg: "linear-gradient(135deg, #3c5d87, #7da7d9)",
+          emoji: "🔮❄️",
+          desc: "스노우볼을 흔들며 은색 가루가 가라앉기를 기다리는 하얀 손끝."
+        },
+        {
+          id: "s4",
+          album: "서리",
+          fav: false,
+          title: "보들보들한 수면 양말을 신은 발목",
+          date: "앨범: 서리 · S급 숙소 거실",
+          bg: "linear-gradient(135deg, #cfd9df, #e2ebf0)",
+          emoji: "🧦🤍",
+          desc: "보들보들한 수면 양말을 신은 작은 발목. 구도는 전문가처럼 세련되었으나 피사체를 향한 다정한 시선이 담겨 있다."
+        },
+        {
+          id: "cap1",
+          album: "임시 캡처",
+          fav: false,
+          title: "요리 계량표 & 고양이 카페 약도",
+          date: "앨범: 임시 캡처 · 정리 대기",
+          bg: "linear-gradient(135deg, #e6ecf5, #cbd7e6)",
+          emoji: "📋🐾",
+          desc: "초보자용 레시피 계량표, 아이기스 상점가 내 고양이 카페 위치 약도, 겨울용 극세사 담요 사이즈 표 스크린샷."
+        }
+      ];
+
+      let memoUnlocked = false;
+      let timerSeconds = 240; // Default 4:00 (감자 볶기 중불 4분)
+      let timerLabel = "감자 볶기 (중불 4분)";
+      let timerInterval = null;
+      let selectedAlbum = "전체";
+
+      /* =========================================================
+         2. UNIFIED NAVIGATION STACK (openScreen / goBack / goHome)
+      ========================================================= */
+      let screenStack = ["screen-lock"];
+      let isTransitioning = false;
+
+      const statusBar = document.getElementById("statusBar");
+      const homeBarBtn = document.getElementById("homeBarBtn");
+      const folderOverlay = document.getElementById("folderOverlay");
+
+      function updateChromeTheme(screenId) {
+        const isDarkWallpaper = screenId === "screen-lock" || screenId === "screen-home";
+        if (isDarkWallpaper) {
+          statusBar.classList.remove("light-mode");
+          homeBarBtn.classList.remove("light-mode");
+        } else {
+          statusBar.classList.add("light-mode");
+          homeBarBtn.classList.add("light-mode");
+        }
+      }
+
+      function closeFolderModal() {
+        folderOverlay.classList.remove("open");
+      }
+
+      function showScreenElement(targetId) {
+        const allScreens = document.querySelectorAll(".screen");
+        allScreens.forEach(function (el) {
+          if (el.id === targetId) {
+            el.classList.add("active");
+          } else {
+            el.classList.remove("active");
+          }
+        });
+        updateChromeTheme(targetId);
+      }
+
+      function openScreen(targetId) {
+        if (!targetId) return;
+        const targetEl = document.getElementById(targetId);
+        if (!targetEl) return;
+
+        closeFolderModal();
+
+        const currentId = screenStack[screenStack.length - 1];
+        if (currentId === targetId) return;
+
+        if (isTransitioning) {
+          // Force immediate sync if rapid tapping occurs so UI never jams
+          isTransitioning = false;
+        }
+        isTransitioning = true;
+        screenStack.push(targetId);
+        showScreenElement(targetId);
+
+        setTimeout(function () {
+          isTransitioning = false;
+        }, 160);
+      }
+
+      function goBack() {
+        if (folderOverlay.classList.contains("open")) {
+          closeFolderModal();
+          return;
+        }
+        if (screenStack.length <= 1) return;
+        screenStack.pop();
+        const prevId = screenStack[screenStack.length - 1];
+        showScreenElement(prevId);
+      }
+
+      function goHome() {
+        closeFolderModal();
+        if (screenStack[screenStack.length - 1] === "screen-lock") {
+          openScreen("screen-home");
+          return;
+        }
+        screenStack = ["screen-lock", "screen-home"];
+        showScreenElement("screen-home");
+      }
+
+      /* =========================================================
+         3. TOAST & LIVE CLOCK
+      ========================================================= */
+      let toastTimer = null;
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2100);
+      }
+
+      function updateClocks() {
+        try {
+          const now = new Date();
+          const hh = String(now.getHours()).padStart(2, "0");
+          const mm = String(now.getMinutes()).padStart(2, "0");
+          const timeStr = hh + ":" + mm;
+          const st = document.getElementById("statusTime");
+          const lt = document.getElementById("lockTime");
+          if (st) st.textContent = timeStr;
+          if (lt) lt.textContent = timeStr;
+        } catch (err) {
+          // Ignore clock errors safely
+        }
+      }
+      updateClocks();
+      setInterval(updateClocks, 15000);
+
+      /* =========================================================
+         4. RENDER FUNCTIONS FOR APPS
+      ========================================================= */
+      function renderTalkList() {
+        const container = document.getElementById("talkListContainer");
+        let html = `
+          <div class="profile-banner">
+            <div class="avatar-circle">요한</div>
+            <div>
+              <div style="font-size:14.5px;font-weight:700;">박요한 (Feather)</div>
+              <div style="font-size:12px;color:var(--text-sub);margin-top:2px;">종착역.</div>
+            </div>
+          </div>
+          <div class="section-label">
+            <span>채팅 목록</span>
+            <span>알림 배지 0</span>
+          </div>
+        `;
+
+        CHAT_ROOMS.forEach(function (room) {
+          html += `
+            <button type="button" class="chat-list-item" data-chat-id="${room.id}">
+              <div class="avatar-circle ${room.avatarCls}">${room.avatar}</div>
+              <div class="chat-meta">
+                <div class="chat-name-row">
+                  <span class="chat-name">
+                    ${room.pinned ? "📌 " : ""}${room.name}${room.muted ? " 🔕" : ""}
+                  </span>
+                  <span class="chat-time">${room.time}</span>
+                </div>
+                <div class="chat-preview">${room.preview}</div>
+              </div>
+            </button>
+          `;
+        });
+        container.innerHTML = html;
+      }
+
+      function openChatRoom(roomId) {
+        const room = CHAT_ROOMS.find(function (r) { return r.id === roomId; });
+        if (!room) return;
+
+        document.getElementById("chatRoomTitle").textContent = room.name;
+        document.getElementById("chatRoomSub").textContent = room.sub;
+
+        const body = document.getElementById("chatRoomBody");
+        let html = "";
+        room.messages.forEach(function (m) {
+          if (m.type === "date") {
+            html += `<div class="chat-date-divider">${m.text}</div>`;
+            return;
+          }
+          const side = m.sender === "me" ? "me" : "other";
+          html += `<div class="msg-row ${side}">`;
+          if (side === "other" && m.name) {
+            html += `<div class="msg-sender">${m.name}</div>`;
+          }
+          if (m.text) {
+            html += `<div class="msg-bubble">${m.text}</div>`;
+          }
+          if (m.photo) {
+            html += `
+              <div class="msg-photo-card">
+                <div class="potato-sketch">${m.photo.emojis}</div>
+                <div style="font-size:11.5px;color:var(--text-sub);">${m.photo.caption}</div>
+              </div>
+            `;
+          }
+          if (m.sticker) {
+            html += `
+              <div class="sticker-bubble">
+                <span>${m.sticker.emoji}</span>
+                <span class="sticker-caption">${m.sticker.label}</span>
+              </div>
+            `;
+          }
+          if (m.reaction) {
+            html += `<div style="font-size:11px;color:var(--ice-blue-deep);font-weight:600;margin-top:3px;">${m.reaction}</div>`;
+          }
+          html += `<div class="msg-time">${m.time}</div></div>`;
+        });
+
+        body.innerHTML = html;
+        openScreen("screen-chatroom");
+        body.scrollTop = body.scrollHeight;
+      }
+
+      function renderCallLogs() {
+        const container = document.getElementById("callBody");
+        let html = `
+          <div class="card" style="background:var(--ice-pale);border-color:rgba(111,168,220,0.4);">
+            <div style="font-size:12.5px;font-weight:700;color:var(--ice-blue-deep);margin-bottom:3px;">❄️ 예외 수신 설정 활성</div>
+            <div style="font-size:12px;color:var(--text-main);line-height:1.45;">
+              무음 모드 중에도 <strong>서리❄️</strong>의 연락만 새벽 바람 소리 전용 차임벨로 울립니다. 전체 통화 목록의 80% 이상이 서리❄️와의 기록입니다.
+            </div>
+          </div>
+        `;
+
+        CALL_LOGS.forEach(function (c) {
+          html += `
+            <div class="call-item">
+              <div class="call-left">
+                <div class="call-name">${c.name} <span class="pill-tag ${c.tagCls}">${c.tag}</span></div>
+                <div class="call-detail">${c.type} · ${c.note}</div>
+              </div>
+              <div class="call-right">${c.time}</div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+
+      function renderGallery() {
+        const container = document.getElementById("galleryBody");
+        const albums = [
+          { name: "전체", count: "184장 (대표 8건)" },
+          { name: "즐겨찾기 ❤️", count: "3개 고정" },
+          { name: "서리", count: "최다 용량 앨범" },
+          { name: "온실", count: "블루 헤이븐" },
+          { name: "요리 연습", count: "감자 & 코코아" },
+          { name: "임시 캡처", count: "정리 대기" }
+        ];
+
+        let html = `<div class="section-label"><span>앨범 분류</span><span>저장공간 여유 86%</span></div><div class="album-grid">`;
+        albums.forEach(function (al) {
+          const isAct = selectedAlbum === al.name ? "active-album" : "";
+          html += `
+            <button type="button" class="album-card ${isAct}" data-album="${al.name}">
+              <div class="album-title">${al.name}</div>
+              <div class="album-count">${al.count}</div>
+            </button>
+          `;
+        });
+        html += `</div><div class="section-label"><span>미디어 목록 (${selectedAlbum})</span><span>무음 촬영 모드</span></div><div class="photo-grid">`;
+
+        const filtered = GALLERY_ITEMS.filter(function (item) {
+          if (selectedAlbum === "전체") return true;
+          if (selectedAlbum === "즐겨찾기 ❤️") return item.fav;
+          return item.album === selectedAlbum;
+        });
+
+        filtered.forEach(function (item) {
+          html += `
+            <button type="button" class="photo-thumb" data-photo-id="${item.id}">
+              <div class="photo-art" style="background:${item.bg};">
+                <span>${item.emoji}</span>
+                ${item.fav ? '<span class="fav-heart">❤️</span>' : ""}
+              </div>
+              <div class="photo-caption">${item.title}</div>
+            </button>
+          `;
+        });
+        html += `</div>`;
+        container.innerHTML = html;
+      }
+
+      function openPhotoDetail(photoId) {
+        const item = GALLERY_ITEMS.find(function (p) { return p.id === photoId; });
+        if (!item) return;
+
+        document.getElementById("photoDetailTitle").textContent = item.album;
+        document.getElementById("photoDetailDate").textContent = item.date;
+
+        const body = document.getElementById("photoDetailBody");
+        body.innerHTML = `
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="height:220px;background:${item.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:54px;color:#fff;position:relative;">
+              <div>${item.emoji}</div>
+              ${item.isVideo ? '<div style="font-size:12px;margin-top:10px;background:rgba(0,0,0,0.45);padding:5px 12px;border-radius:99px;">▶ 0:12 자장가 허밍 오디오 포함</div>' : ""}
+            </div>
+            <div style="padding:16px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <span style="font-size:15px;font-weight:700;">${item.title}</span>
+                ${item.fav ? '<span class="pill-tag red">❤️ 즐겨찾기</span>' : '<span class="pill-tag">앨범: ' + item.album + '</span>'}
+              </div>
+              <p style="font-size:13px;line-height:1.58;color:var(--text-main);word-break:keep-all;">${item.desc}</p>
+            </div>
+          </div>
+        `;
+        openScreen("screen-photodetail");
+      }
+
+      function renderMemo() {
+        const body = document.getElementById("memoBody");
+        if (!memoUnlocked) {
+          body.innerHTML = `
+            <div class="memo-lock-box">
+              <div style="font-size:32px;margin-bottom:8px;">🔐</div>
+              <div style="font-size:16px;font-weight:700;margin-bottom:4px;">개인 메모 암호 보호</div>
+              <div style="font-size:12.5px;color:var(--text-sub);">박요한 수석 가이드 전용 보안 영역입니다.</div>
+              <div class="pass-dots">
+                <div class="pass-dot filled"></div>
+                <div class="pass-dot filled"></div>
+                <div class="pass-dot filled"></div>
+                <div class="pass-dot filled"></div>
+              </div>
+              <button type="button" class="unlock-memo-btn" id="unlockMemoBtn">파장 인증으로 메모 열기</button>
+            </div>
+          `;
+          return;
+        }
+
+        body.innerHTML = `
+          <div class="section-label"><span>상단 고정 메모</span><span>암호 해제됨</span></div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <span style="font-size:15px;font-weight:700;color:var(--ice-blue-deep);">📌 서리 체크리스트</span>
+              <span class="pill-tag">상시 고정</span>
+            </div>
+            <ol style="padding-left:18px;font-size:13px;line-height:1.7;color:var(--text-main);word-break:keep-all;">
+              <li>코코아는 우유 거품 많이, 시나몬 가루는 빼고 생강청 반 스푼만.</li>
+              <li>천둥 치거나 비 오는 날엔 창문 차폐막 미리 내리기.</li>
+              <li>장갑 벗었을 때 손끝 온도 수시로 확인하기.</li>
+              <li>자책하려고 입술 깨무는 버릇 나오면 말로 달래지 말고 먼저 안아줄 것.</li>
+            </ol>
+          </div>
+
+          <div class="section-label"><span>개인 기록</span><span>10월 12일 새벽 3:00</span></div>
+          <div class="card" style="background:#f4f8fd;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">제목 없음 · 10월 12일 03:04</div>
+            <p style="font-size:13.5px;line-height:1.65;color:var(--text-main);font-weight:500;word-break:keep-all;">
+              “무거워진다는 건 생각보다 나쁘지 않다.<br/>적어도 바람에 휩쓸려 어디로든 날아가 버릴 일은 없으니까.”
+            </p>
+          </div>
+        `;
+      }
+
+      function renderHarmony() {
+        const body = document.getElementById("harmonyBody");
+        body.innerHTML = `
+          <div class="wave-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <span style="font-size:11px;color:#9fd0ff;font-weight:600;">★ 즐겨찾기 상단 고정</span>
+              <span style="font-size:11px;background:rgba(91,227,166,0.2);color:#7ee8b7;padding:3px 8px;border-radius:99px;">공명 최상</span>
+            </div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:2px;">코드네임: 앨리스 (S급 / Glacies)</div>
+            <div style="font-size:12px;color:#cfe6ff;margin-bottom:12px;">전담 수석 가이드: 박요한 (Feather)</div>
+            <svg width="100%" height="44" viewBox="0 0 300 44">
+              <path d="M0,22 Q20,6 40,22 T80,22 T120,22 T160,22 T200,22 T240,22 T280,22 T300,22" fill="none" stroke="#7ee8b7" stroke-width="2.5"/>
+              <path d="M0,22 Q25,36 50,22 T100,22 T150,22 T200,22 T250,22 T300,22" fill="none" stroke="#8cc5ff" stroke-width="1.6" opacity="0.8"/>
+            </svg>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="stat-k">파트너 파장 안정도</div>
+              <div class="stat-v" style="color:var(--accent-green);">99.8%</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-k">가이딩 필요 수치</div>
+              <div class="stat-v">12% (안정)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-k">미세 체온 변화</div>
+              <div class="stat-v">35.9°C (양호)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-k">최근 7일 열람 로그</div>
+              <div class="stat-v">시간대별 168건</div>
+            </div>
+          </div>
+
+          <div class="section-label"><span>최근 시간대별 모니터링 로그</span><span>자동 동기화</span></div>
+          <div class="card">
+            <div style="font-size:12.5px;line-height:1.6;">
+              <div>• <strong>오전 09:00</strong> — 고농도 가이딩 직후 심박 및 말초 체온 안정화 확인</div>
+              <div>• <strong>오전 06:30</strong> — 기상 직후 파장 동조율 99.6% 기록</div>
+              <div>• <strong>어제 23:40</strong> — 수면 진입 단계 냉기 파동 잔잔함 (이상 없음)</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderWorkApp(mode) {
+        const title = document.getElementById("workAppTitle");
+        const sub = document.getElementById("workAppSub");
+        const body = document.getElementById("workAppBody");
+
+        if (mode === "aegis") {
+          title.textContent = "Aegis-Net";
+          sub.textContent = "아크 통합 작전망 · S급 보안";
+          body.innerHTML = `
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                <span style="font-weight:700;font-size:14px;">요원 식별: 박요한 (Feather)</span>
+                <span class="pill-tag green">S급 수석 가이드</span>
+              </div>
+              <div style="font-size:12.5px;color:var(--text-sub);line-height:1.5;">
+                소속: 하모니 부서 · 전속 파트너: 앨리스 (S급)<br/>
+                SNS 및 외부 커뮤니티 연동: 비활성 (흔적 최소화 정책)
+              </div>
+            </div>
+            <div class="card">
+              <div style="font-weight:700;font-size:13.5px;margin-bottom:6px;">금일 작전 및 대기 현황</div>
+              <div style="font-size:12.5px;line-height:1.55;">
+                • 오전 08:00 의무실 정기 외래 진료 및 서류 확인 완료<br/>
+                • 현재 상태: 숙소 내 휴식 및 회복 대기 (긴급 호출 채널만 개방)
+              </div>
+            </div>
+          `;
+        } else {
+          title.textContent = mode === "aero" ? "Aero-Map" : "풍향·지형 시뮬레이터";
+          sub.textContent = "아이기스 인공섬 초단위 기류 관측";
+          body.innerHTML = `
+            <div class="stat-grid">
+              <div class="stat-box">
+                <div class="stat-k">현재 기온</div>
+                <div class="stat-v">16.0°C</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-k">풍속 / 풍향</div>
+                <div class="stat-v">2.4 m/s 남서풍</div>
+              </div>
+            </div>
+            <div class="card">
+              <div style="font-weight:700;font-size:13.5px;margin-bottom:6px;">기상 및 시계 예보</div>
+              <div style="font-size:12.5px;line-height:1.55;color:var(--text-main);">
+                • 대기 난류 지수 매우 낮음. 야간 구름량 10% 미만으로 천체 관측(별 보기) 적합.<br/>
+                • 강수 및 천둥 예보 없음 (창문 차폐막 해제 유지 가능).
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      function renderRecipe() {
+        const body = document.getElementById("recipeBody");
+        body.innerHTML = `
+          <div class="section-label"><span>저장된 북마크 레시피</span><span>총 3건</span></div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-weight:700;font-size:14px;">🥔 칼질 안 다치고 감자 깎는 법</span>
+              <span class="pill-tag">기초 입문</span>
+            </div>
+            <p style="font-size:12.5px;line-height:1.5;color:var(--text-sub);">
+              감자 양끝을 평평하게 먼저 잘라 도마에 고정한 뒤, 필러나 과도를 몸 바깥쪽 방향으로 천천히 밀어 껍질을 벗깁니다.
+            </p>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-weight:700;font-size:14px;">🍳 감자볶음 안 태우고 포슬포슬하게 만드는 불 조절 팁</span>
+              <span class="pill-tag green">성공 기록</span>
+            </div>
+            <p style="font-size:12.5px;line-height:1.5;color:var(--text-sub);">
+              찬물에 담가 전분기를 뺀 뒤 물기를 닦고, 중불에서 4분간 볶다가 수분이 빠지는 걸 막기 위해 <strong>소금은 가장 마지막에</strong> 넣습니다.
+            </p>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-weight:700;font-size:14px;">☕ 체온을 높여주는 생강 코코아 황금비율</span>
+              <span class="pill-tag">파트너 맞춤</span>
+            </div>
+            <p style="font-size:12.5px;line-height:1.5;color:var(--text-sub);">
+              따뜻하게 데운 우유(1분 30초)에 거품을 듬뿍 내고, 시나몬 가루는 생략한 채 생강청 반 스푼만 더해 은은하게 섞어줍니다.
+            </p>
+          </div>
+        `;
+      }
+
+      function formatTimer(sec) {
+        const m = String(Math.floor(sec / 60)).padStart(2, "0");
+        const s = String(sec % 60).padStart(2, "0");
+        return m + ":" + s;
+      }
+
+      function renderLifeUtil(mode) {
+        const title = document.getElementById("lifeUtilTitle");
+        const sub = document.getElementById("lifeUtilSub");
+        const body = document.getElementById("lifeUtilBody");
+
+        if (mode === "timer") {
+          title.textContent = "요리 타이머";
+          sub.textContent = "저장된 맞춤 프리셋";
+          body.innerHTML = `
+            <div class="timer-display">
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-sub);" id="timerPresetName">${timerLabel}</div>
+              <div class="timer-clock" id="timerClockText">${formatTimer(timerSeconds)}</div>
+              <div class="timer-controls">
+                <button type="button" class="btn-primary" id="timerToggleBtn">${timerInterval ? "일시정지" : "시작"}</button>
+                <button type="button" class="btn-secondary" id="timerResetBtn">초기화</button>
+              </div>
+            </div>
+            <div class="section-label"><span>저장된 프리셋</span><span>탭하여 선택</span></div>
+            <button type="button" class="memo-card" data-preset-sec="240" data-preset-name="감자 볶기 (중불 4분)">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-weight:700;font-size:14px;">🥔 감자 볶기 (중불 4분)</span>
+                <span class="pill-tag">04:00</span>
+              </div>
+            </button>
+            <button type="button" class="memo-card" data-preset-sec="90" data-preset-name="코코아 우유 데우기 (1분 30초)">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-weight:700;font-size:14px;">☕ 코코아 우유 데우기 (1분 30초)</span>
+                <span class="pill-tag">01:30</span>
+              </div>
+            </button>
+          `;
+        } else if (mode === "cat") {
+          title.textContent = "고양이 백과사전";
+          sub.textContent = "반려묘 케어 가이드";
+          body.innerHTML = `
+            <div class="card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:6px;">🐈 회색 고양이(스노우볼) 돌봄 메모</div>
+              <p style="font-size:12.5px;line-height:1.55;color:var(--text-main);">
+                • 은은한 실내 온도와 부드러운 극세사 담요 환경을 선호함.<br/>
+                • 앨리스가 외출하거나 훈련할 때 곁을 지키는 소중한 가족.
+              </p>
+            </div>
+          `;
+        } else if (mode === "noise") {
+          title.textContent = "백색소음";
+          sub.textContent = "수면 유도 사운드";
+          body.innerHTML = `
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:700;font-size:14px;">🌙 실행 기록 중단됨</span>
+                <span class="pill-tag">8월 중순 이후 미사용</span>
+              </div>
+              <p style="font-size:12.5px;line-height:1.55;color:var(--text-sub);">
+                12년간 홀로 유랑하며 잠들기 위해 사용하던 백색소음 앱. 앨리스와 숙소를 합친 8월 중순 이후로는 단 한 번도 실행되지 않았습니다.
+              </p>
+            </div>
+          `;
+        } else if (mode === "archeats") {
+          title.textContent = "ARCH-Eats";
+          sub.textContent = "아크 내부 배달 및 식당 예약";
+          body.innerHTML = `
+            <div class="card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:6px;">🍽️ 최근 이용 내역</div>
+              <p style="font-size:12.5px;line-height:1.55;color:var(--text-main);">
+                • 최근 직접 감자 요리와 코코아를 연습하면서 배달 주문 빈도가 크게 줄었습니다.
+              </p>
+            </div>
+          `;
+        } else if (mode === "interior") {
+          title.textContent = "가구 배치 스케치";
+          sub.textContent = "S급 숙소 미니멀 인테리어";
+          body.innerHTML = `
+            <div class="card">
+              <div style="font-weight:700;font-size:14px;margin-bottom:6px;">📐 거실 및 침실 동선 스케치</div>
+              <p style="font-size:12.5px;line-height:1.55;color:var(--text-main);">
+                • 거실 소파 패브릭 교체 반영 (오후 2시 복지팀 방문 예정)<br/>
+                • 창가 차폐막 개폐 반경 확보 및 스노우볼 휴식 공간 배치 완료.
+              </p>
+            </div>
+          `;
+        }
+      }
+
+      function renderBrowser() {
+        const body = document.getElementById("browserBody");
+        const searches = [
+          { q: "이명 완화 후 온수 목욕 주의사항", time: "방금 전 (아침)" },
+          { q: "고농도 가이딩 직후 센티넬 근육 이완 마사지 혈자리", time: "오늘 아침" },
+          { q: "얼음 속성 센티넬 수족냉증에 좋은 차", time: "어제" },
+          { q: "크리스마스 한정판 스노우볼 예약 구매", time: "2일 전" },
+          { q: "고양이 알레르기 검사 항목", time: "3일 전" },
+          { q: "감자 전분기 빼는 시간", time: "4일 전" },
+          { q: "악몽 꾼 사람 진정시키는 법", time: "지난주" }
+        ];
+
+        let html = `
+          <div class="section-label"><span>자주 가는 사이트 북마크</span><span>3개</span></div>
+          <div class="card">
+            <div style="font-size:13px;line-height:1.7;">
+              <div>🔖 <strong>아크 중앙 전술 자료실</strong> (사내 인트라넷)</div>
+              <div>🔖 <strong>기상청 초단위 위성 사진 페이지</strong></div>
+              <div>❄️ <strong>유럽 수제 오르골 및 스노우볼 공방 공식 홈페이지</strong> <span class="pill-tag">12월 25일 생일 선물 탐색 중</span></div>
+            </div>
+          </div>
+          <div class="section-label"><span>최근 검색 기록</span><span>최신순</span></div>
+        `;
+
+        searches.forEach(function (s) {
+          html += `
+            <div class="call-item">
+              <div class="call-left">
+                <div class="call-name" style="font-size:13px;">🔍 ${s.q}</div>
+              </div>
+              <div class="call-right">${s.time}</div>
+            </div>
+          `;
+        });
+        body.innerHTML = html;
+      }
+
+      function renderSchedule(mode) {
+        const title = document.getElementById("scheduleTitle");
+        const sub = document.getElementById("scheduleSub");
+        const body = document.getElementById("scheduleBody");
+
+        if (mode === "calendar") {
+          title.textContent = "캘린더";
+          sub.textContent = "공식 작전 및 개인 일정";
+          body.innerHTML = `
+            <div class="section-label"><span>등록된 일정 태그</span><span>색상 분류</span></div>
+            <div class="card">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <span class="pill-tag red">공식 · 비정기</span>
+                <strong style="font-size:13.5px;">비정기 출동 대기일</strong>
+              </div>
+              <div style="font-size:12px;color:var(--text-sub);">S급 긴급 파견 비상 대기 슬롯</div>
+            </div>
+            <div class="card">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <span class="pill-tag">공식 · 정기</span>
+                <strong style="font-size:13.5px;">하모니 정기 파장 측정 / 오전 8시 자이안 팀장님 외래 동행</strong>
+              </div>
+              <div style="font-size:12px;color:var(--text-sub);">의무실 서류 확인 및 앨리스 컨디션 체크</div>
+            </div>
+            <div class="card" style="background:#f0f8ff;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <span class="pill-tag green">사적 약속 · 하늘색</span>
+                <strong style="font-size:13.5px;">개인 루틴 일정</strong>
+              </div>
+              <div style="font-size:12.5px;line-height:1.65;color:var(--text-main);">
+                • 온실 물망초·허브 물 주기<br/>
+                • 서리 침구류 일광 소독<br/>
+                • 별 세러 가는 날 (구름 없는 날 확인)
+              </div>
+            </div>
+          `;
+        } else if (mode === "alarm") {
+          title.textContent = "알람";
+          sub.textContent = "진동 전용 무음 배려 모드";
+          body.innerHTML = `
+            <div class="card" style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:32px;font-weight:300;color:var(--text-main);">오전 06:30</div>
+                <div style="font-size:12px;color:var(--text-sub);margin-top:2px;">기상 알람 · <strong>진동 모드 전용 (벨소리 0%)</strong></div>
+              </div>
+              <span class="pill-tag green">활성</span>
+            </div>
+            <div class="card" style="background:var(--ice-pale);">
+              <div style="font-size:12.5px;line-height:1.5;color:var(--text-main);">
+                아침잠이 많은 파트너가 알람 소리에 놀라 깨지 않도록 벨소리를 완전히 죽여두고 단 하나의 진동 알람만 설정해 두었습니다.
+              </div>
+            </div>
+          `;
+        } else if (mode === "shop") {
+          title.textContent = "ARCH 내부 쇼핑몰";
+          sub.textContent = "장바구니 (2개 품목)";
+          body.innerHTML = `
+            <div class="section-label"><span>결제 대기 중인 장바구니</span><span>2건</span></div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <strong style="font-size:14px;">🧥 겨울용 수면 가운 커플 세트</strong>
+                <span class="pill-tag">미결제</span>
+              </div>
+              <div style="font-size:12.5px;color:var(--text-sub);">옵션: 화이트 &amp; 스카이블루 (2벌 세트)</div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <strong style="font-size:14px;">🐾 고양이 발바닥 모양 말랑한 머그컵 받침</strong>
+                <span class="pill-tag">미결제</span>
+              </div>
+              <div style="font-size:12.5px;color:var(--text-sub);">수량: 2개 (코코아 머그컵용)</div>
+            </div>
+            <button type="button" class="btn-primary" style="width:100%;margin-top:6px;" id="checkoutCartBtn">주문서 확인하기</button>
+          `;
+        }
+      }
+
+      /* =========================================================
+         5. APP LAUNCHER DISPATCHER
+      ========================================================= */
+      function launchApp(appId) {
+        switch (appId) {
+          case "talk":
+            renderTalkList();
+            openScreen("screen-talk");
+            break;
+          case "call":
+            renderCallLogs();
+            openScreen("screen-call");
+            break;
+          case "gallery":
+            renderGallery();
+            openScreen("screen-gallery");
+            break;
+          case "memo":
+            renderMemo();
+            openScreen("screen-memo");
+            break;
+          case "harmony":
+            renderHarmony();
+            openScreen("screen-harmony");
+            break;
+          case "aegis":
+          case "aero":
+          case "tactical":
+            renderWorkApp(appId);
+            openScreen("screen-workapp");
+            break;
+          case "recipe":
+            renderRecipe();
+            openScreen("screen-recipe");
+            break;
+          case "timer":
+          case "cat":
+          case "noise":
+          case "archeats":
+          case "interior":
+            renderLifeUtil(appId);
+            openScreen("screen-lifeutil");
+            break;
+          case "browser":
+            renderBrowser();
+            openScreen("screen-browser");
+            break;
+          case "calendar":
+          case "alarm":
+          case "shop":
+            renderSchedule(appId);
+            openScreen("screen-schedule");
+            break;
+          default:
+            showToast("시스템 앱 준비 중");
+        }
+      }
+
+      function openFolderModal(folderKey) {
+        const data = FOLDER_DATA[folderKey];
+        if (!data) return;
+
+        document.getElementById("folderModalTitle").textContent = data.title;
+        const grid = document.getElementById("folderAppsGrid");
+        grid.innerHTML = data.apps.map(function (app) {
+          return `
+            <button type="button" class="folder-app-item" data-open-app="${app.id}">
+              <div class="app-icon-box ${app.cls}">${app.icon}</div>
+              <span class="folder-app-label">${app.label}</span>
+            </button>
+          `;
+        }).join("");
+
+        folderOverlay.classList.add("open");
+      }
+
+      /* =========================================================
+         6. EVENT LISTENERS & DELEGATION
+      ========================================================= */
+      document.getElementById("unlockBtn").addEventListener("click", function () {
+        openScreen("screen-home");
+      });
+
+      document.getElementById("homeBarBtn").addEventListener("click", function () {
+        goHome();
+      });
+
+      document.getElementById("folderCloseBtn").addEventListener("click", function () {
+        closeFolderModal();
+      });
+
+      folderOverlay.addEventListener("click", function (e) {
+        if (e.target === folderOverlay) {
+          closeFolderModal();
+        }
+      });
+
+      // Global Event Delegation inside Viewport
+      document.getElementById("viewport").addEventListener("click", function (e) {
+        // 1. Back buttons
+        const backBtn = e.target.closest('[data-action="back"]');
+        if (backBtn) {
+          goBack();
+          return;
+        }
+
+        // 2. Open Folder
+        const folderBtn = e.target.closest("[data-open-folder]");
+        if (folderBtn) {
+          openFolderModal(folderBtn.getAttribute("data-open-folder"));
+          return;
+        }
+
+        // 3. Open App
+        const appBtn = e.target.closest("[data-open-app]");
+        if (appBtn) {
+          launchApp(appBtn.getAttribute("data-open-app"));
+          return;
+        }
+
+        // 4. Open Chat Room
+        const chatItem = e.target.closest("[data-chat-id]");
+        if (chatItem) {
+          openChatRoom(chatItem.getAttribute("data-chat-id"));
+          return;
+        }
+
+        // 5. Recent Emoji Click in Chat
+        const emojiBtn = e.target.closest("[data-emoji]");
+        if (emojiBtn) {
+          showToast("최근 사용 이모티콘: " + emojiBtn.getAttribute("data-emoji"));
+          return;
+        }
+
+        // 6. Gallery Album Filter
+        const albumBtn = e.target.closest("[data-album]");
+        if (albumBtn) {
+          selectedAlbum = albumBtn.getAttribute("data-album");
+          renderGallery();
+          return;
+        }
+
+        // 7. Gallery Photo Detail
+        const photoBtn = e.target.closest("[data-photo-id]");
+        if (photoBtn) {
+          openPhotoDetail(photoBtn.getAttribute("data-photo-id"));
+          return;
+        }
+
+        // 8. Memo Unlock Button
+        if (e.target.closest("#unlockMemoBtn")) {
+          memoUnlocked = true;
+          renderMemo();
+          showToast("파장 인증 완료 · 개인 메모장 잠금 해제");
+          return;
+        }
+
+        // 9. Timer Preset Select
+        const presetBtn = e.target.closest("[data-preset-sec]");
+        if (presetBtn) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerSeconds = parseInt(presetBtn.getAttribute("data-preset-sec"), 10) || 240;
+          timerLabel = presetBtn.getAttribute("data-preset-name") || "타이머";
+          renderLifeUtil("timer");
+          return;
+        }
+
+        // 10. Timer Start / Pause
+        if (e.target.closest("#timerToggleBtn")) {
+          if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            renderLifeUtil("timer");
+          } else {
+            timerInterval = setInterval(function () {
+              if (timerSeconds > 0) {
+                timerSeconds -= 1;
+                const clk = document.getElementById("timerClockText");
+                if (clk) clk.textContent = formatTimer(timerSeconds);
+              } else {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                showToast("⏰ 타이머 완료: " + timerLabel);
+                renderLifeUtil("timer");
+              }
+            }, 1000);
+            renderLifeUtil("timer");
+          }
+          return;
+        }
+
+        // 11. Timer Reset
+        if (e.target.closest("#timerResetBtn")) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerSeconds = timerLabel.indexOf("코코아") !== -1 ? 90 : 240;
+          renderLifeUtil("timer");
+          return;
+        }
+
+        // 12. Cart Checkout Button
+        if (e.target.closest("#checkoutCartBtn")) {
+          showToast("장바구니 2건 · 결제 대기 상태 유지 중");
+          return;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
